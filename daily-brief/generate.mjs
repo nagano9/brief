@@ -216,6 +216,36 @@ function injectTemplate(html) {
   return '<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">' + styleTag + '</head><body>' + html + '</body></html>';
 }
 
+function addChrome(html) {
+  const secTitles = [];
+  html = html.replace(/<h2 class="sec-kicker">([^<]*)<span class="spacer"><\/span><\/h2>/g, function (m, t) {
+    secTitles.push(t);
+    return '<h2 class="sec-kicker" id="sec-' + secTitles.length + '">' + t + '<span class="spacer"></span></h2>';
+  });
+  const itemTitles = [];
+  html = html.replace(/<article class="item">([\s\S]*?)<h3>([\s\S]*?)<\/h3>/g, function (m, head, title) {
+    const n = itemTitles.length + 1;
+    itemTitles.push(title.replace(/<[^>]+>/g, '').trim());
+    return '<article class="item" id="item-' + n + '">' + head + '<h3>' + title + '</h3>';
+  });
+  const links = [];
+  secTitles.forEach(function (t, i) {
+    const n = i + 1;
+    links.push('<a href="#sec-' + n + '">' + t + '</a>');
+    if (t === 'Perkembangan Kunci') {
+      itemTitles.forEach(function (it, j) {
+        const label = it.length > 50 ? it.slice(0, 50) + '…' : it;
+        links.push('<a class="indent" href="#item-' + (j + 1) + '">' + (j + 1) + '. ' + label + '</a>');
+      });
+    }
+  });
+  const toc = '<aside class="toc"><div class="k">On this page</div>' + links.join('') + '</aside>';
+  const aside = '<aside class="aside"><div class="box"><div class="k">Edisi</div><p>' + pretty + '</p><p>Terbit setiap hari kerja pukul 05:30 WIB.</p></div><div class="box"><div class="k">Navigasi</div><p><a href="../briefs/">Lihat arsip edisi</a></p><p><a href="../">Beranda Leader Brief</a></p></div></aside>';
+  html = html.replace(/<body[^>]*>/, '<body>\n<div class="layout">\n' + toc);
+  html = html.replace(/<\/body>/, aside + '\n</div>\n</body>');
+  return html;
+}
+
 async function main() {
   mkdirSync(BRIEFS, { recursive: true });
   const promptText = readFileSync(join(__dirname, 'prompt.md'), 'utf8');
@@ -223,7 +253,7 @@ async function main() {
   const items = await gather();
   const news = material(items);
   console.log('calling deepseek...');
-  const html = injectTemplate(await callDeepSeek(promptText, news));
+  const html = addChrome(injectTemplate(await callDeepSeek(promptText, news)));
   if (!html || html.length < 500) throw new Error('HTML output kosong/terlalu pendek');
   const file = dateStr + '.html';
   writeFileSync(join(BRIEFS, file), html + '\n', 'utf8');
