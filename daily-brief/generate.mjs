@@ -239,9 +239,11 @@ function addChrome(html) {
       });
     }
   });
-  const toc = '<aside class="toc"><div class="k">On this page</div>' + links.join('') + '</aside>';
+  const linksHtml = links.join('');
+  const toc = '<aside class="toc"><div class="k">On this page</div>' + linksHtml + '</aside>';
+  const tocMobile = '<details class="toc-mobile"><summary>Daftar isi</summary>' + linksHtml + '</details>';
   const aside = '<aside class="aside"><div class="box"><div class="k">Edisi</div><p>' + pretty + '</p><p>Terbit setiap hari kerja pukul 05:30 WIB.</p></div><div class="box"><div class="k">Navigasi</div><p><a href="../briefs/">Lihat arsip edisi</a></p><p><a href="../">Beranda Leader Brief</a></p></div></aside>';
-  html = html.replace(/<body[^>]*>/, '<body>\n<div class="layout">\n' + toc);
+  html = html.replace(/<body[^>]*>/, '<body>\n<div class="layout">\n' + toc + tocMobile);
   html = html.replace(/<\/body>/, aside + '\n</div>\n</body>');
   return html;
 }

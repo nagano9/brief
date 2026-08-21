@@ -27,6 +27,7 @@
 }
 
 *{box-sizing:border-box}
+img{max-width:100%;height:auto}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:16.5px;line-height:1.75;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 .wrap{max-width:720px;margin:0 auto;padding:40px 24px 96px}
@@ -89,10 +90,18 @@ td b,td strong{color:var(--fg);font-weight:600}
 .foot p{font-size:13px;color:var(--muted);line-height:1.7}
 
 @media(max-width:640px){
-  .wrap{padding:28px 16px 64px}
-  .masthead-name{font-size:23px}
-  .headline p{font-size:22px}
-  .item-head h3{font-size:20px}
+  .wrap{padding:20px 16px 56px}
+  .masthead-name{font-size:21px}
+  .masthead-date{font-size:13px}
+  .headline p{font-size:20px;line-height:1.35}
+  .lede{font-size:17px;line-height:1.6}
+  h3{font-size:19px}
+  .item-head{flex-wrap:wrap;row-gap:6px}
+  .item-head h3{font-size:19px}
+  .btl{font-size:15.5px}
+  .field p{font-size:15.5px}
+  table{font-size:12.5px}
+  th,td{padding:7px 8px}
 }
 /* --- layout 3 kolom: toc + konten + aside --- */
 .layout{display:grid;grid-template-columns:240px minmax(0,1fr) 260px;gap:40px;max-width:1400px;margin:0 auto;padding:0 28px;align-items:start}
@@ -106,4 +115,11 @@ td b,td strong{color:var(--fg);font-weight:600}
 .aside .k{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:8px}
 .aside p{font-size:13.5px;color:var(--muted);margin:0 0 8px;line-height:1.6}
 .aside a{color:var(--accent);text-decoration:none}
-@media(max-width:1120px){.layout{grid-template-columns:1fr;padding:0}.toc,.aside{display:none}}
+.toc-mobile{display:none;border:1px solid var(--line);border-radius:8px;margin:0 0 24px;overflow:hidden}
+.toc-mobile summary{padding:14px 16px;font-size:14px;font-weight:600;color:var(--accent);cursor:pointer;list-style:none;user-select:none}
+.toc-mobile summary::-webkit-details-marker{display:none}
+.toc-mobile[open] summary{border-bottom:1px solid var(--line)}
+.toc-mobile a{display:block;padding:9px 16px;font-size:14px;color:var(--muted);text-decoration:none;border-bottom:1px solid var(--line)}
+.toc-mobile a:last-child{border-bottom:none}
+.toc-mobile a.indent{padding-left:28px;font-size:13px;color:var(--faint)}
+@media(max-width:1120px){.layout{grid-template-columns:1fr;padding:0}.toc,.aside{display:none}.toc-mobile{display:block}}
