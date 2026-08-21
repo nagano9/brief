@@ -101,7 +101,19 @@ td b,td strong{color:var(--fg);font-weight:600}
   .headline p{font-size:22px}
   .item-head h3{font-size:20px}
 }
-
+/* --- layout 3 kolom: toc + konten + aside --- */
+.layout{display:grid;grid-template-columns:240px minmax(0,1fr) 260px;gap:40px;max-width:1400px;margin:0 auto;padding:0 28px;align-items:start}
+.toc{position:sticky;top:32px;padding-top:40px;max-height:calc(100vh - 64px);overflow-y:auto}
+.toc .k{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:12px}
+.toc a{display:block;font-size:13.5px;color:var(--muted);text-decoration:none;padding:5px 0;line-height:1.4}
+.toc a:hover{color:var(--accent)}
+.toc a.indent{padding-left:16px;font-size:12.5px;color:var(--faint);border-left:1px solid var(--line);margin-left:5px;padding-top:4px;padding-bottom:4px}
+.aside{position:sticky;top:32px;padding-top:40px}
+.aside .box{border-top:1px solid var(--line);padding-top:14px;margin-bottom:24px}
+.aside .k{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:8px}
+.aside p{font-size:13.5px;color:var(--muted);margin:0 0 8px;line-height:1.6}
+.aside a{color:var(--accent);text-decoration:none}
+@media(max-width:1120px){.layout{grid-template-columns:1fr;padding:0}.toc,.aside{display:none}}
 </style>
 </head>
 <body>
