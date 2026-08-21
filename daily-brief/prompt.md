@@ -106,7 +106,18 @@ Hanya satu paragraf: daftar angka yang belum ditriangulasi ke sumber primer, den
 ---
 
 ## WRITING STYLE
-Bahasa Indonesia eksekutif natural. Pertahankan istilah bisnis Inggris yang presisi (capital allocation, optionality, downside, governance, project finance, decision rights, operating model, frontier model, AI agent, captured price, curtailment, strategic fit, shareholder return, bankability, financial close). Tone: calm, analytical, precise, senior, evidence-led. Hindari sensational language, clickbait, filler, motivational prose, jargon tanpa fungsi, generic recommendation, pengulangan, ringkasan berita tanpa analisis, dan process metadata.
+Bahasa Indonesia eksekutif natural dan mengalir. Tulis PARAGRAF LENGKAP yang bernas, bukan fragmen pendek atau poin rumpang — pembaca harus membaca analisis utuh, bukan checklist. Pertahankan istilah bisnis Inggris yang presisi (capital allocation, optionality, downside, governance, project finance, decision rights, operating model, frontier model, AI agent, captured price, curtailment, strategic fit, shareholder return, bankability, financial close).
+
+Tone: calm, analytical, precise, senior, evidence-led.
+
+HINDARI AI-SLOP:
+- Jangan menjadikan em dash (—) sebagai tanda baca utama; utamakan kalimat lengkap dengan titik, koma, dan konjungsi natural.
+- Jangan membanjiri dengan daftar bernomor atau pola "X butir" yang mekanis; uraikan dalam prosa.
+- Jangan memberi bold berlebihan; bold hanya untuk satu-dua kesimpulan kunci per bagian.
+- Jangan mengulang kata kunci yang sama beruntun; variasikan diksi dan panjang kalimat.
+- Jangan menulis kalimat yang bisa keluar dari template generik; tiap kalimat harus membawa informasi spesifik.
+
+Hindari juga: sensational language, clickbait, filler, motivational prose, jargon tanpa fungsi, generic recommendation, pengulangan, ringkasan berita tanpa analisis, dan process metadata.
 
 ## HTML CONTRACT (WAJIB — desain di-inject runner, jadi semua edisi identik)
 
