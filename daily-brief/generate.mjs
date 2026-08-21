@@ -206,6 +206,16 @@ function writeIndex() {
   writeFileSync(join(BRIEFS, 'index.html'), html, 'utf8');
 }
 
+function injectTemplate(html) {
+  const css = readFileSync(join(__dirname, 'template.css'), 'utf8');
+  const styleTag = '<style>\n' + css + '\n</style>';
+  html = html.replace(/<style[\s\S]*?<\/style>/gi, '');
+  if (/<\/head>/i.test(html)) {
+    return html.replace(/<\/head>/i, styleTag + '\n</head>');
+  }
+  return '<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">' + styleTag + '</head><body>' + html + '</body></html>';
+}
+
 async function main() {
   mkdirSync(BRIEFS, { recursive: true });
   const promptText = readFileSync(join(__dirname, 'prompt.md'), 'utf8');
@@ -213,7 +223,7 @@ async function main() {
   const items = await gather();
   const news = material(items);
   console.log('calling deepseek...');
-  const html = await callDeepSeek(promptText, news);
+  const html = injectTemplate(await callDeepSeek(promptText, news));
   if (!html || html.length < 500) throw new Error('HTML output kosong/terlalu pendek');
   const file = dateStr + '.html';
   writeFileSync(join(BRIEFS, file), html + '\n', 'utf8');

@@ -2,7 +2,7 @@
 
 - Anda menerima TANGGAL hari ini dan MATERI BERITA (agregasi headline + ringkasan dari berbagai sumber) yang disediakan runner di bawah.
 - Tidak ada tool WebSearch / web_fetch / Artifact / bash. Semua materi sudah tersedia; gunakan sebagai bahan kurasi.
-- Tulis brief sebagai SATU dokumen HTML mandiri dan lengkap (termasuk <style> internal di <head>).
+- Tulis brief sebagai SATU dokumen HTML mandiri. JANGAN menulis blok <style>, JANGAN menulis style inline, JANGAN menulis link font — desain (CSS) di-inject otomatis oleh runner. Gunakan struktur/class pada bagian HTML CONTRACT di bawah.
 - Kembalikan HANYA HTML — tanpa fence markdown, tanpa komentar, tanpa teks lain sebelum/sesudahnya.
 - Runner menyimpannya sebagai briefs/YYYY-MM-DD.html dan mengindeks otomatis ke arsip.
 - Ikuti seluruh standar kualitas di bawah ini.
@@ -108,8 +108,43 @@ Hanya satu paragraf: daftar angka yang belum ditriangulasi ke sumber primer, den
 ## WRITING STYLE
 Bahasa Indonesia eksekutif natural. Pertahankan istilah bisnis Inggris yang presisi (capital allocation, optionality, downside, governance, project finance, decision rights, operating model, frontier model, AI agent, captured price, curtailment, strategic fit, shareholder return, bankability, financial close). Tone: calm, analytical, precise, senior, evidence-led. Hindari sensational language, clickbait, filler, motivational prose, jargon tanpa fungsi, generic recommendation, pengulangan, ringkasan berita tanpa analisis, dan process metadata.
 
-## VISUAL SYSTEM (identik antar edisi)
-Newsreader serif untuk headlines/bottom-lines, Inter untuk body dan label, warm paper background (#f7f6f3) dengan muted oxide accent (#8a3324), full dark-mode token set, monospace item numbers dan figures. Theme-aware wajib: light palette di bare :root, dark tokens di @media (prefers-color-scheme: dark) dengan guard :root:not([data-theme="light"]), dan :root[data-theme="dark"]. Body membawa explicit token background. Setiap tabel di dalam overflow-x:auto; page body tidak pernah scroll horizontal. Tone calm, restrained, high-contrast, no decorative clutter. Font via Google Fonts (Newsreader + Inter).
+## HTML CONTRACT (WAJIB — desain di-inject runner, jadi semua edisi identik)
+
+Gunakan STRUKTUR dan class berikut PERSIS. Runner akan menyuntikkan CSS-nya sendiri.
+
+- Masthead: <header class="masthead"><div class="masthead-mark">🧭</div><div class="masthead-name">Daily Executive Intelligence & Board Leadership Brief</div><div class="masthead-date">[Hari, DD MMMM YYYY]</div></header>
+- Judul seksi: <h2 class="sec-kicker">Nama Seksi</h2>
+- Headline of the Day: <div class="headline"><p>…</p></div>
+- Executive Synthesis: <p class="lede">…</p>
+- Three Things That Changed: <ul class="changes"><li>…</li></ul>
+- Tabel (Heat Map, Watchlist): <div class="table-wrap"><table>…</table></div>
+- Item Perkembangan Kunci:
+  <article class="item">
+    <div class="item-head"><span class="item-num">1</span><h3>…</h3></div>
+    <div class="meta">
+      <span class="chip">DOMAIN</span>
+      <span class="chip">GEOGRAPHY</span>
+      <span class="chip sig-action">Action Required</span>
+      <span class="chip date">EVENT DATE</span>
+      <span class="chip date">PUBLICATION DATE</span>
+    </div>
+    <p class="btl"><b>Bottom Line</b> …</p>
+    <div class="field"><span class="fk">What Changed</span><p>…</p></div>
+    … satu .field per elemen (Evidence & Magnitude, Why It Matters Now, dst.)
+  </article>
+- Label evidence inline: <span class="ev-fact">FACT</span>, <span class="ev-inf">INFERENCE</span>, <span class="ev-unc">UNCERTAINTY</span>, <span class="ev-rec">RECOMMENDATION</span>
+- Board Integrated Synthesis: <section class="board">…</section>
+- What Not To Do: <section class="whatnot"><p>…</p></section>
+- Footer: <footer class="foot"><p>…</p></footer>
+
+Aturan class signal chip:
+- ACTION REQUIRED → class "chip sig-action"
+- MATERIAL SHIFT → class "chip sig-shift"
+- EMERGING SIGNAL → class "chip sig-signal"
+
+Urgency di heat map: Very High = <span class="lvl-vh">Very High</span>, High = "lvl-h", Medium = "lvl-m", Low = "lvl-l".
+
+Bungkus seluruh isi dalam <div class="wrap">…</div> tepat di dalam <body>. Tulis HTML lengkap dan valid. Kembalikan HANYA HTML.
 
 ## FINAL SUCCESS TEST
 Setelah membaca, senior leader harus dapat menjawab: (1) Apa yang berubah sejak kemarin? (2) Mana yang material? (3) Apa yang berbeda dari baseline? (4) Implikasi bagi Indonesia dan enterprise? (5) Asumsi apa yang perlu di-challenge? (6) Apa yang harus diputuskan sekarang? (7) Apa yang perlu dipersiapkan? (8) Apa yang dimonitor 7–30 hari? (9) Apa yang mungkin terlewat? (10) Apa satu pertanyaan untuk Direksi/Board?
