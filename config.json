@@ -1,0 +1,42 @@
+{
+  "timezone": "Asia/Jakarta",
+  "outputDir": "output",
+  "deepseek": {
+    "baseUrl": "https://api.deepseek.com",
+    "model": "deepseek-chat",
+    "apiKey": "env:DEEPSEEK_API_KEY",
+    "timeoutMs": 120000
+  },
+  "templates": [
+    {
+      "id": "brief-linkedin-mingguan",
+      "enabled": true,
+      "cron": "0 7 * * 1",
+      "title": "Brief Konten LinkedIn - Mingguan",
+      "systemPrompt": "Anda adalah content strategist senior untuk PT PLN Nusantara Renewables, perusahaan energi terbarukan (solar, angin, hidro) di bawah PLN Group. Gaya penulisan profesional, insight-driven, berorientasi LinkedIn B2B.",
+      "prompt": "Buatkan brief konten LinkedIn untuk postingan minggu ini. Sertakan: (1) headline menarik, (2) 3 poin utama pesan, (3) hook pembuka 2-3 kalimat, (4) call-to-action, (5) 3 saran hashtag. Topik: perkembangan transisi energi dan proyek energi terbarukan di Indonesia. Bahasa Indonesia, format markdown, langsung actionable.",
+      "temperature": 0.7,
+      "outputFile": "linkedin/{date}-brief-linkedin.md"
+    },
+    {
+      "id": "brief-artikel-blog",
+      "enabled": true,
+      "cron": "0 8 * * 3",
+      "title": "Brief Artikel Blog Energi Terbarukan",
+      "systemPrompt": "Anda adalah penulis editorial untuk media korporat energi terbarukan. Gaya informatif, data-driven, dan SEO-friendly.",
+      "prompt": "Buatkan brief artikel blog seputar energi terbarukan di Indonesia. Sertakan: (1) judul SEO-friendly, (2) target pembaca, (3) outline 5-7 subjudul, (4) 3 poin data/statistik untuk diriset, (5) sudut pandang unik, (6) meta description. Bahasa Indonesia, format markdown.",
+      "temperature": 0.7,
+      "outputFile": "artikel/{date}-brief-artikel.md"
+    },
+    {
+      "id": "caption-instagram-harian",
+      "enabled": true,
+      "cron": "0 7 * * *",
+      "title": "Brief Konten Instagram - Harian",
+      "systemPrompt": "Anda adalah social media specialist untuk akun korporat energi terbarukan. Gaya santai namun profesional.",
+      "prompt": "Buatkan brief konten Instagram untuk hari ini. Sertakan: (1) ide konten (edukasi/inspirasi/behind-the-scene), (2) draft caption 2-3 kalimat, (3) 5-8 hashtag relevan, (4) saran visual/foto. Bahasa Indonesia, format markdown.",
+      "temperature": 0.8,
+      "outputFile": "instagram/{date}-caption-instagram.md"
+    }
+  ]
+}

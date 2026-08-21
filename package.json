@@ -1,0 +1,15 @@
+{
+  "name": "content-scheduler",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Cloud scheduled content/brief generator (GitHub Actions + DeepSeek API)",
+  "scripts": {
+    "run": "node src/run.js",
+    "now": "node src/run.js --now",
+    "list": "node src/run.js --list"
+  },
+  "dependencies": {
+    "cron-parser": "^5.0.0"
+  }
+}
