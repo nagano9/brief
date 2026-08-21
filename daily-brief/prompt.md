@@ -127,7 +127,7 @@ CONTOH YANG BENAR: "Tender 100 GW PLTS menandai titik balik kelistrikan Indonesi
 
 Gunakan STRUKTUR dan class berikut PERSIS. Runner akan menyuntikkan CSS-nya sendiri.
 
-- Masthead: <header class="masthead"><div class="masthead-mark">🧭</div><div class="masthead-name">Daily Executive Intelligence & Board Leadership Brief</div><div class="masthead-date">[Hari, DD MMMM YYYY]</div></header>
+- Masthead: <header class="masthead"><div class="masthead-name">Leader Brief</div><div class="masthead-date">[Hari, DD MMMM YYYY]</div></header>
 - Judul seksi: <h2 class="sec-kicker">Nama Seksi</h2>
 - Headline of the Day: <div class="headline"><p>…</p></div>
 - Executive Synthesis: <p class="lede">…</p>
