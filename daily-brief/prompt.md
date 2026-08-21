@@ -106,18 +106,22 @@ Hanya satu paragraf: daftar angka yang belum ditriangulasi ke sumber primer, den
 ---
 
 ## WRITING STYLE
-Bahasa Indonesia eksekutif natural dan mengalir. Tulis PARAGRAF LENGKAP yang bernas, bukan fragmen pendek atau poin rumpang — pembaca harus membaca analisis utuh, bukan checklist. Pertahankan istilah bisnis Inggris yang presisi (capital allocation, optionality, downside, governance, project finance, decision rights, operating model, frontier model, AI agent, captured price, curtailment, strategic fit, shareholder return, bankability, financial close).
+Bahasa Indonesia eksekutif yang natural dan mengalir. Tulis PARAGRAF LENGKAP yang bernas, bukan fragmen pendek atau poin rumpang. Pembaca harus membaca analisis utuh, bukan checklist. Pertahankan istilah bisnis Inggris yang presisi (capital allocation, optionality, downside, governance, project finance, decision rights, operating model, frontier model, AI agent, captured price, curtailment, strategic fit, shareholder return, bankability, financial close).
 
 Tone: calm, analytical, precise, senior, evidence-led.
 
-HINDARI AI-SLOP:
-- Jangan menjadikan em dash (—) sebagai tanda baca utama; utamakan kalimat lengkap dengan titik, koma, dan konjungsi natural.
-- Jangan membanjiri dengan daftar bernomor atau pola "X butir" yang mekanis; uraikan dalam prosa.
-- Jangan memberi bold berlebihan; bold hanya untuk satu-dua kesimpulan kunci per bagian.
-- Jangan mengulang kata kunci yang sama beruntun; variasikan diksi dan panjang kalimat.
-- Jangan menulis kalimat yang bisa keluar dari template generik; tiap kalimat harus membawa informasi spesifik.
+ATURAN KERAS ANTI-AI-SLOP (wajib, tanpa pengecualian):
+- DILARANG TOTAL memakai em dash (—) di seluruh brief, nol em dash. Sambungkan ide dengan titik, koma, tanda kurung, atau konjungsi seperti dan, tetapi, karena, sehingga.
+- DILARANG memakai tanda panah (→) sebagai pemisah antar-klausa di dalam prosa. Tanda panah hanya boleh muncul di dalam tabel atau daftar pemicu, tidak pernah di kalimat naratif.
+- DILARANG pola enumerasi mekanis seperti "X butir", "X poin", "X hal". Uraikan dalam kalimat mengalir.
+- DILARANG bold berlebihan. Bold maksimal untuk satu atau dua kesimpulan kunci per bagian.
+- DILARANG mengulang kata kunci yang sama secara beruntun. Variasikan diksi dan panjang kalimat.
+- DILARANG kalimat template generik. Tiap kalimat harus membawa informasi spesifik dan tidak bisa ditukar ke topik lain.
 
 Hindari juga: sensational language, clickbait, filler, motivational prose, jargon tanpa fungsi, generic recommendation, pengulangan, ringkasan berita tanpa analisis, dan process metadata.
+
+CONTOH YANG SALAH (jangan ditiru, penuh em dash): "PLTS 100 GW jadi titik belok — tapi eksekusinya beradu dengan biaya modal — sehingga disiplin alokasi modal jadi penentu."
+CONTOH YANG BENAR: "Tender 100 GW PLTS menandai titik balik kelistrikan Indonesia. Eksekusinya harus bersaing dengan biaya modal yang menanjak, sehingga disiplin alokasi modal menjadi penentu nilai, bukan sekadar kapasitas."
 
 ## HTML CONTRACT (WAJIB — desain di-inject runner, jadi semua edisi identik)
 
