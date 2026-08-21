@@ -3,10 +3,13 @@ name: Scheduled Content
 on:
   schedule:
     # Setiap jam (UTC). Template di config.json memakai zona Asia/Jakarta (WIB).
-    # Ubah ke '*/30 * * * *' untuk granularitas 30 menit (catatan: repo private
-    # punya kuota 2000 menit/bulan; repo public unlimited).
     - cron: '0 * * * *'
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      template:
+        description: 'Template id untuk digenerate sekarang (kosongkan = tick normal)'
+        required: false
+        type: string
 
 permissions:
   contents: write
@@ -28,10 +31,17 @@ jobs:
       - name: Install dependencies
         run: npm install --no-fund --no-audit
 
-      - name: Generate due content
+      - name: Generate due content (tick)
+        if: ${{ inputs.template == '' }}
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
         run: node src/run.js
+
+      - name: Generate one template now
+        if: ${{ inputs.template != '' }}
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+        run: node src/run.js --now "${{ inputs.template }}"
 
       - name: Commit & push results
         run: |
