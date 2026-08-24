@@ -1,12 +1,13 @@
 {
   "brief-linkedin-mingguan": {
-    "nextRunAt": "2026-08-24T00:00:00.000Z"
+    "nextRunAt": "2026-08-31T00:00:00.000Z",
+    "lastRunAt": "2026-08-24T00:19:35.876Z"
   },
   "brief-artikel-blog": {
     "nextRunAt": "2026-08-26T01:00:00.000Z"
   },
   "caption-instagram-harian": {
-    "nextRunAt": "2026-08-24T00:00:00.000Z",
-    "lastRunAt": "2026-08-23T00:19:50.026Z"
+    "nextRunAt": "2026-08-25T00:00:00.000Z",
+    "lastRunAt": "2026-08-24T00:19:35.876Z"
   }
 }
