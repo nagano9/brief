@@ -1,32 +1,22 @@
-<!doctype html>
-<html lang="id">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Daily Executive Brief — Arsip</title>
+<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Daily Executive Brief — Arsip</title>
 <style>
-:root{--bg:#f7f6f3;--fg:#1b1a16;--fg2:#4a4840;--accent:#8a3324;--border:#e3e0d6}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#161512;--fg:#ece9e1;--fg2:#b6b3a8;--accent:#d58a72;--border:#2e2b24}}
+:root{--bg:#ffffff;--fg:#191919;--fg2:#6b6b6b;--accent:#1a8917;--border:#e8e8e8}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#121212;--fg:#e6e6e6;--fg2:#9a9a9a;--accent:#3ddc3d;--border:#2a2a2a}}
 body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,sans-serif;line-height:1.6}
 .wrap{max-width:760px;margin:0 auto;padding:40px 20px 80px}
 h1{font-size:28px;margin:0 0 6px}
 .sub{color:var(--fg2);margin:0 0 24px}
 input{width:100%;padding:12px 14px;font-size:16px;border:1px solid var(--border);border-radius:6px;background:var(--bg);color:var(--fg);margin-bottom:20px;box-sizing:border-box}
 ul{list-style:none;padding:0}
-li{padding:14px 0;border-top:1px solid var(--border)}
-a{color:var(--accent);text-decoration:none;font-weight:600}
-li span{color:var(--fg2)}
-</style>
-</head>
-<body>
-<div class="wrap">
+li{padding:16px 0;border-top:1px solid var(--border)}
+a{color:var(--accent);text-decoration:none;font-weight:600;display:block}
+li span{color:var(--fg2);display:block;margin-top:3px;font-size:13.5px;line-height:1.55}
+</style></head><body><div class="wrap">
 <h1>Daily Executive Brief</h1>
 <p class="sub">Arsip brief harian — ketik untuk memfilter.</p>
 <input type="search" placeholder="Cari tanggal atau topik…" oninput="f()">
 <ul id="list">
-<li><a href="2026-08-21.html">Jumat, 21 Agustus 2026</a> — <span>Pembangunan PLTS 100 GW menjadi titik belok struktural kelistrikan Indonesia — tetapi eksekusinya kini beradu dengan biaya modal yang menanjak (Fed hawkish, Brent di atas US$90).</span></li>
+<li><a href="2026-08-21.html">Jumat, 21 Agustus 2026 — Tender surya mengubah offtake</a><span>Pembukaan tender PLTS 30 GW menjadikan akses grid dan harga offtake sebagai medan kompetisi, tepat ketika biaya modal dan harga energi menanjak.</span></li>
 </ul>
 <script>function f(){var q=(document.querySelector("input").value||"").toLowerCase();var items=document.querySelectorAll("#list li");for(var i=0;i<items.length;i++){items[i].style.display=items[i].textContent.toLowerCase().indexOf(q)>-1?"":"none";}}</script>
-</div>
-</body>
-</html>
+</div></body></html>

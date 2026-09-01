@@ -175,7 +175,9 @@ function writeIndex() {
     const e = m[d];
     const dd = new Date(d + 'T00:00:00Z');
     const pd = dd.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Asia/Jakarta' });
-    return '<li><a href="' + e.file + '">' + pd + '</a> — ' + escapeHtml(e.headline || '') + '</li>';
+    const t = e.title || pd;
+    const d = e.dek || e.headline || '';
+    return '<li><a href="' + e.file + '">' + t + '</a>' + (d ? '<span>' + escapeHtml(d) + '</span>' : '') + '</li>';
   }).join('\n');
   const html = [
     '<!doctype html><html lang="id"><head><meta charset="utf-8">',
@@ -191,8 +193,8 @@ function writeIndex() {
     'input{width:100%;padding:12px 14px;font-size:16px;border:1px solid var(--border);border-radius:6px;background:var(--bg);color:var(--fg);margin-bottom:20px;box-sizing:border-box}',
     'ul{list-style:none;padding:0}',
     'li{padding:14px 0;border-top:1px solid var(--border)}',
-    'a{color:var(--accent);text-decoration:none;font-weight:600}',
-    'li span{color:var(--fg2)}',
+    'a{color:var(--accent);text-decoration:none;font-weight:600;display:block}',
+    'li span{color:var(--fg2);display:block;margin-top:3px;font-size:13.5px;line-height:1.55}',
     '</style></head><body><div class="wrap">',
     '<h1>Daily Executive Brief</h1>',
     '<p class="sub">Arsip brief harian — ketik untuk memfilter.</p>',
