@@ -151,18 +151,28 @@ async function callDeepSeek(promptText, news) {
   return html;
 }
 
-function extractHeadline(html) {
-  const m = html.match(/<div class="headline"><p>([\s\S]*?)<\/p><\/div>/);
-  if (m) return m[1].replace(/<[^>]+>/g, '').trim();
-  const t = html.match(/<title>([\s\S]*?)<\/title>/);
-  return t ? t[1].replace(/<[^>]+>/g, '').trim() : '';
+function stripTags(s) { return s.replace(/<[^>]+>/g, '').trim(); }
+
+function extractMeta(html) {
+  const dekM = html.match(/<p class="dek">([\s\S]*?)<\/p>/);
+  const lensM = html.match(/<div class="lensa">([\s\S]*?)<\/div>/);
+  const teaserM = html.match(/<meta name="teaser" content="([^"]*)">/);
+  let lens = lensM ? stripTags(lensM[1]) : '';
+  lens = lens.replace(/^Lensa hari ini\s*[:—-]?\s*/i, '').trim();
+  return {
+    dek: dekM ? stripTags(dekM[1]) : '',
+    lens: lens,
+    teaser: teaserM ? teaserM[1].trim() : ''
+  };
 }
 
-function updateManifest(d, headline, file) {
+function updateManifest(d, meta, file) {
   const p = join(BRIEFS, 'manifest.json');
   let m = {};
   if (existsSync(p)) { try { m = JSON.parse(readFileSync(p, 'utf8')); } catch (e) {} }
-  m[d] = { date: d, headline: headline, file: file };
+  const pd = new Date(d + 'T00:00:00Z').toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Asia/Jakarta' });
+  const title = pd + (meta.lens ? ' — ' + meta.lens : '');
+  m[d] = { date: d, title: title, dek: meta.dek, teaser: meta.teaser, headline: meta.dek || meta.lens, file: file };
   writeFileSync(p, JSON.stringify(m, null, 2) + '\n', 'utf8');
 }
 
@@ -261,8 +271,8 @@ async function main() {
   if (!html || html.length < 500) throw new Error('HTML output kosong/terlalu pendek');
   const file = dateStr + '.html';
   writeFileSync(join(BRIEFS, file), html + '\n', 'utf8');
-  const headline = extractHeadline(html);
-  updateManifest(dateStr, headline, file);
+  const meta = extractMeta(html);
+  updateManifest(dateStr, meta, file);
   writeIndex();
   console.log('done -> briefs/' + file);
 }
