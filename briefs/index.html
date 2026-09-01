@@ -16,6 +16,12 @@ li span{color:var(--fg2);display:block;margin-top:3px;font-size:13.5px;line-heig
 <p class="sub">Arsip brief harian — ketik untuk memfilter.</p>
 <input type="search" placeholder="Cari tanggal atau topik…" oninput="f()">
 <ul id="list">
+<li><a href="2026-09-01.html">Selasa, 1 September 2026</a></li>
+<li><a href="2026-08-28.html">Jumat, 28 Agustus 2026</a></li>
+<li><a href="2026-08-27.html">Kamis, 27 Agustus 2026</a></li>
+<li><a href="2026-08-26.html">Rabu, 26 Agustus 2026</a></li>
+<li><a href="2026-08-25.html">Selasa, 25 Agustus 2026</a></li>
+<li><a href="2026-08-24.html">Senin, 24 Agustus 2026</a></li>
 <li><a href="2026-08-21.html">Jumat, 21 Agustus 2026 — Tender surya mengubah offtake</a><span>Pembukaan tender PLTS 30 GW menjadikan akses grid dan harga offtake sebagai medan kompetisi, tepat ketika biaya modal dan harga energi menanjak.</span></li>
 </ul>
 <script>function f(){var q=(document.querySelector("input").value||"").toLowerCase();var items=document.querySelectorAll("#list li");for(var i=0;i<items.length;i++){items[i].style.display=items[i].textContent.toLowerCase().indexOf(q)>-1?"":"none";}}</script>
