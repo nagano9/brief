@@ -9,6 +9,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: daily-executive-brief
+  cancel-in-progress: false
+
 jobs:
   generate:
     runs-on: ubuntu-latest
@@ -26,12 +30,24 @@ jobs:
       - name: Install deps
         run: cd daily-brief && npm install --no-fund --no-audit
 
+      - name: Syntax check
+        run: cd daily-brief && node --check generate.mjs
+
       - name: Generate brief
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
           TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
           SERPER_API_KEY: ${{ secrets.SERPER_API_KEY }}
         run: cd daily-brief && node generate.mjs
+
+      - name: Validate published files
+        run: |
+          set -euo pipefail
+          today="$(TZ=Asia/Jakarta date +%F)"
+          test -f "briefs/${today}.html"
+          test -f "briefs/manifest.json"
+          test -f "index.html"
+          TODAY="$today" node -e "const fs=require('fs'); const d=process.env.TODAY; const m=JSON.parse(fs.readFileSync('briefs/manifest.json','utf8')); if (!m[d] || m[d].file !== d + '.html') throw new Error('manifest missing today: ' + d); const home=fs.readFileSync('index.html','utf8'); if (!home.includes('./briefs/' + d + '.html')) throw new Error('homepage latest link is stale: ' + d);"
 
       - name: Commit & push
         run: |

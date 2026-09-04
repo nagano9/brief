@@ -176,15 +176,26 @@ function updateManifest(d, meta, file) {
   writeFileSync(p, JSON.stringify(m, null, 2) + '\n', 'utf8');
 }
 
-function writeIndex() {
+function loadManifest() {
   const p = join(BRIEFS, 'manifest.json');
-  let m = {};
-  if (existsSync(p)) { try { m = JSON.parse(readFileSync(p, 'utf8')); } catch (e) {} }
+  if (!existsSync(p)) return {};
+  try {
+    return JSON.parse(readFileSync(p, 'utf8'));
+  } catch (e) {
+    return {};
+  }
+}
+
+function prettyDate(d) {
+  return new Date(d + 'T00:00:00Z').toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Asia/Jakarta' });
+}
+
+function writeIndex() {
+  const m = loadManifest();
   const dates = Object.keys(m).sort().reverse();
   const rows = dates.map(function (d) {
     const e = m[d];
-    const dd = new Date(d + 'T00:00:00Z');
-    const pd = dd.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Asia/Jakarta' });
+    const pd = prettyDate(d);
     const t = e.title || pd;
     const dek = e.dek || e.headline || '';
     return '<li><a href="' + e.file + '">' + t + '</a>' + (dek ? '<span>' + escapeHtml(dek) + '</span>' : '') + '</li>';
@@ -216,6 +227,72 @@ function writeIndex() {
     '</div></body></html>'
   ].join('\n');
   writeFileSync(join(BRIEFS, 'index.html'), html, 'utf8');
+}
+
+function writeHomePage() {
+  const m = loadManifest();
+  const dates = Object.keys(m).sort().reverse();
+  const latest = dates[0] || '';
+  const latestEntry = latest ? m[latest] : null;
+  const latestHref = latestEntry ? './briefs/' + latestEntry.file : './briefs/';
+  const latestNote = latest ? 'Brief terbaru: ' + prettyDate(latest) : 'Brief pertama sedang disiapkan.';
+  const html = [
+    '<!doctype html>',
+    '<html lang="id">',
+    '<head>',
+    '<meta charset="utf-8">',
+    '<meta name="viewport" content="width=device-width, initial-scale=1">',
+    '<title>Leader Brief</title>',
+    '<meta name="description" content="Brief harian board-grade untuk pemimpin Indonesia: perkembangan kunci, sintesis dewan, dan watchlist 7–30 hari.">',
+    '<link rel="preconnect" href="https://fonts.googleapis.com">',
+    '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>',
+    '<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">',
+    '<style>',
+    ':root{--bg:#ffffff;--fg:#191919;--muted:#6b6b6b;--accent:#1a8917;--line:#e8e8e8}',
+    '@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#121212;--fg:#e6e6e6;--muted:#9a9a9a;--accent:#3ddc3d;--line:#2a2a2a}}',
+    '*{box-sizing:border-box}',
+    'body{margin:0;background:var(--bg);color:var(--fg);font-family:"Inter",system-ui,sans-serif;line-height:1.7;-webkit-font-smoothing:antialiased}',
+    '.top{max-width:720px;margin:0 auto;padding:28px 24px}',
+    '.brand{font-family:"Newsreader",Georgia,serif;font-size:23px;font-weight:600;letter-spacing:-.01em}',
+    'main{max-width:720px;margin:0 auto;padding:56px 24px 72px}',
+    'h1{font-family:"Newsreader",Georgia,serif;font-size:46px;line-height:1.1;font-weight:600;letter-spacing:-.02em;margin:0 0 22px}',
+    '.sub{font-size:19px;color:var(--muted);max-width:560px;margin:0 0 36px;line-height:1.6}',
+    '.btn{display:inline-block;background:var(--accent);color:#fff;padding:12px 26px;border-radius:24px;text-decoration:none;font-size:15px;font-weight:500}',
+    '.btn:hover{opacity:.9}',
+    '.note{margin-top:18px;font-size:13px;color:var(--muted)}',
+    '.foot{max-width:720px;margin:0 auto;padding:24px;border-top:1px solid var(--line);color:var(--muted);font-size:13px}',
+    '@media(max-width:640px){h1{font-size:31px}.sub{font-size:17px}main{padding:40px 20px 56px}.top{padding:20px}.btn{display:block;text-align:center}}',
+    '</style>',
+    '</head>',
+    '<body>',
+    '<div class="top"><div class="brand">Leader Brief</div></div>',
+    '<main>',
+    '  <h1>Brief harian yang mengubah berita menjadi keputusan.</h1>',
+    '  <p class="sub">Ringkasan board-grade untuk pemimpin Indonesia. Setiap hari kerja kami kurasi perkembangan paling material dan terjemahkan menjadi tindakan yang siap dibawa ke rapat Direksi.</p>',
+    '  <a class="btn" id="latest" href="' + latestHref + '">Baca Brief Terbaru</a>',
+    '  <div class="note" id="note">' + latestNote + '</div>',
+    '</main>',
+    '<footer class="foot">Leader Brief · Setiap hari kerja pukul 05:30 WIB · leaderbrief.id</footer>',
+    '<script>',
+    '(function () {',
+    "  var a = document.getElementById('latest');",
+    "  var n = document.getElementById('note');",
+    "  fetch('./briefs/manifest.json?v=' + Date.now(), { cache: 'no-store' }).then(function (r) { return r.json(); }).then(function (m) {",
+    '    var keys = Object.keys(m).sort().reverse();',
+    '    if (keys.length > 0) {',
+    '      var latest = keys[0];',
+    "      var d = new Date(latest + 'T00:00:00Z');",
+    "      var pretty = d.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Asia/Jakarta' });",
+    "      a.href = './briefs/' + m[latest].file;",
+    "      n.textContent = 'Brief terbaru: ' + pretty;",
+    '    }',
+    '  }).catch(function () {});',
+    '})();',
+    '</script>',
+    '</body>',
+    '</html>'
+  ].join('\n');
+  writeFileSync(join(REPO, 'index.html'), html + '\n', 'utf8');
 }
 
 function injectTemplate(html) {
@@ -274,6 +351,7 @@ async function main() {
   const meta = extractMeta(html);
   updateManifest(dateStr, meta, file);
   writeIndex();
+  writeHomePage();
   console.log('done -> briefs/' + file);
 }
 

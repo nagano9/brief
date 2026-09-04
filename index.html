@@ -30,15 +30,15 @@ h1{font-family:"Newsreader",Georgia,serif;font-size:46px;line-height:1.1;font-we
 <main>
   <h1>Brief harian yang mengubah berita menjadi keputusan.</h1>
   <p class="sub">Ringkasan board-grade untuk pemimpin Indonesia. Setiap hari kerja kami kurasi perkembangan paling material dan terjemahkan menjadi tindakan yang siap dibawa ke rapat Direksi.</p>
-  <a class="btn" id="latest" href="./briefs/">Baca Brief Terbaru</a>
-  <div class="note" id="note"></div>
+  <a class="btn" id="latest" href="./briefs/2026-09-04.html">Baca Brief Terbaru</a>
+  <div class="note" id="note">Brief terbaru: Jumat, 4 September 2026</div>
 </main>
 <footer class="foot">Leader Brief · Setiap hari kerja pukul 05:30 WIB · leaderbrief.id</footer>
 <script>
 (function () {
   var a = document.getElementById('latest');
   var n = document.getElementById('note');
-  fetch('./briefs/manifest.json').then(function (r) { return r.json(); }).then(function (m) {
+  fetch('./briefs/manifest.json?v=' + Date.now(), { cache: 'no-store' }).then(function (r) { return r.json(); }).then(function (m) {
     var keys = Object.keys(m).sort().reverse();
     if (keys.length > 0) {
       var latest = keys[0];
@@ -47,7 +47,7 @@ h1{font-family:"Newsreader",Georgia,serif;font-size:46px;line-height:1.1;font-we
       a.href = './briefs/' + latest + '.html';
       n.textContent = 'Brief terbaru: ' + pretty;
     } else { n.textContent = 'Brief pertama sedang disiapkan.'; }
-  }).catch(function () { n.textContent = 'Kunjungi arsip untuk melihat brief.'; });
+  }).catch(function () {});
 })();
 </script>
 </body>
