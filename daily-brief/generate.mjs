@@ -203,7 +203,8 @@ function writeSeoFiles() {
   const latest = dates[0] || dateStr;
   const urls = [
     { loc: absUrl('/'), lastmod: latest },
-    { loc: absUrl('/briefs/'), lastmod: latest }
+    { loc: absUrl('/briefs/'), lastmod: latest },
+    { loc: absUrl('/premium.html'), lastmod: latest }
   ];
   for (const d of dates) {
     const e = m[d] || {};
@@ -307,6 +308,7 @@ function writeHomePage() {
     'h1{font-family:"Newsreader",Georgia,serif;font-size:46px;line-height:1.1;font-weight:600;letter-spacing:-.02em;margin:0 0 22px}',
     '.sub{font-size:19px;color:var(--muted);max-width:560px;margin:0 0 36px;line-height:1.6}',
     '.btn{display:inline-block;background:var(--accent);color:#fff;padding:12px 26px;border-radius:24px;text-decoration:none;font-size:15px;font-weight:500}',
+    '.link{display:inline-block;margin-left:16px;color:var(--accent);text-decoration:none;font-size:15px;font-weight:600}',
     '.btn:hover{opacity:.9}',
     '.note{margin-top:18px;font-size:13px;color:var(--muted)}',
     '.foot{max-width:720px;margin:0 auto;padding:24px;border-top:1px solid var(--line);color:var(--muted);font-size:13px}',
@@ -318,7 +320,7 @@ function writeHomePage() {
     '<main>',
     '  <h1>Brief harian yang mengubah berita menjadi keputusan.</h1>',
     '  <p class="sub">Ringkasan board-grade untuk pemimpin Indonesia. Setiap hari kerja kami kurasi perkembangan paling material dan terjemahkan menjadi tindakan yang siap dibawa ke rapat Direksi.</p>',
-    '  <a class="btn" id="latest" href="' + latestHref + '">Baca Brief Terbaru</a>',
+    '  <a class="btn" id="latest" href="' + latestHref + '">Baca Brief Terbaru</a><a class="link" href="./premium.html">Paket Premium</a>',
     '  <div class="note" id="note">' + latestNote + '</div>',
     '</main>',
     '<footer class="foot">Leader Brief · Setiap hari kerja pukul 05:30 WIB · leaderbrief.id</footer>',
@@ -342,6 +344,47 @@ function writeHomePage() {
     '</html>'
   ].join('\n');
   writeFileSync(join(REPO, 'index.html'), html + '\n', 'utf8');
+}
+
+function writePremiumPage() {
+  const html = [
+    '<!doctype html>',
+    '<html lang="id">',
+    '<head>',
+    '<meta charset="utf-8">',
+    '<meta name="viewport" content="width=device-width, initial-scale=1">',
+    '<title>Paket Premium | Leader Brief</title>',
+    '<meta name="description" content="Paket premium dan korporasi Leader Brief untuk board intelligence, sponsor, dan briefing khusus pemimpin Indonesia.">',
+    GOOGLE_SITE_VERIFICATION,
+    '<link rel="canonical" href="' + absUrl('/premium.html') + '">',
+    FAVICON_LINK,
+    '<style>',
+    ':root{--bg:#ffffff;--fg:#191919;--muted:#6b6b6b;--accent:#1a8917;--line:#e8e8e8;--serif:Newsreader,Georgia,serif;--sans:Inter,system-ui,sans-serif}',
+    '@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#121212;--fg:#e6e6e6;--muted:#9a9a9a;--accent:#3ddc3d;--line:#2a2a2a}}',
+    '*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);line-height:1.7;-webkit-font-smoothing:antialiased}.wrap{max-width:880px;margin:0 auto;padding:32px 24px 80px}.brand{font-family:var(--serif);font-size:23px;font-weight:600;text-decoration:none;color:var(--fg)}',
+    'header{border-bottom:1px solid var(--line);padding-bottom:18px;margin-bottom:44px;display:flex;justify-content:space-between;gap:18px;align-items:baseline;flex-wrap:wrap}nav a{color:var(--accent);text-decoration:none;font-size:14px;font-weight:600;margin-left:16px}h1{font-family:var(--serif);font-size:43px;line-height:1.12;font-weight:600;margin:0 0 18px}.dek{font-family:var(--serif);font-size:21px;line-height:1.5;color:var(--muted);max-width:700px;margin:0 0 34px}',
+    '.plans{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;margin:28px 0 42px}.plan{border-top:1px solid var(--line);padding-top:16px}.plan h2{font-size:18px;margin:0 0 6px}.price{font-size:13px;color:var(--accent);font-weight:700;margin:0 0 10px}.plan p{color:var(--muted);font-size:15px;margin:0}h3{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin:38px 0 12px}ul{padding-left:20px;color:var(--fg)}li{margin-bottom:8px}.cta{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:24px 0;margin-top:34px}.btn{display:inline-block;background:var(--accent);color:#fff;padding:12px 22px;border-radius:24px;text-decoration:none;font-size:15px;font-weight:600}.foot{margin-top:44px;color:var(--muted);font-size:13px}',
+    '@media(max-width:760px){h1{font-size:31px}.plans{grid-template-columns:1fr}nav a{margin-left:0;margin-right:14px}}',
+    '</style>',
+    '</head>',
+    '<body><div class="wrap">',
+    '<header><a class="brand" href="./">Leader Brief</a><nav><a href="./briefs/">Arsip</a><a href="./">Beranda</a></nav></header>',
+    '<main>',
+    '<h1>Board intelligence untuk keputusan yang tidak bisa menunggu.</h1>',
+    '<p class="dek">Leader Brief publik membangun kebiasaan baca harian. Paket premium mengubahnya menjadi memo eksekutif, sesi briefing, dan sponsor placement untuk audiens pemimpin Indonesia.</p>',
+    '<div class="plans">',
+    '<section class="plan"><h2>Individu</h2><p class="price">Rp149.000-299.000 per bulan</p><p>Untuk eksekutif yang membutuhkan arsip lengkap, memo mingguan, dan watchlist keputusan 7-30 hari.</p></section>',
+    '<section class="plan"><h2>Korporasi</h2><p class="price">Rp2.500.000-7.500.000 per bulan</p><p>Untuk Direksi, komisaris, corporate strategy, risk, legal, dan transformation office yang perlu briefing sektor dan board pack.</p></section>',
+    '<section class="plan"><h2>Sponsor</h2><p class="price">Paket bulanan</p><p>Untuk brand B2B yang ingin menjangkau pembaca pengambil keputusan melalui sponsor yang diberi label jelas dan menjaga kepercayaan editorial.</p></section>',
+    '</div>',
+    '<h3>Produk awal</h3>',
+    '<ul><li>Weekly board memo dari seluruh edisi pekan berjalan.</li><li>Custom briefing untuk rapat Direksi, Komite Risiko, atau tim strategi.</li><li>Sector watch: energi, BUMN, AI, capital allocation, dan governance.</li><li>Sponsor slot dengan disclosure yang jelas.</li></ul>',
+    '<section class="cta"><h3>Pilot 30 hari</h3><p>Mulai dari satu memo mingguan, satu sesi briefing, dan satu daftar tema prioritas. Setelah respons pembaca terlihat, paket bisa dinaikkan ke langganan korporasi atau sponsorship.</p><p><a class="btn" href="https://wa.me/6281393000399?text=Saya%20ingin%20diskusi%20paket%20premium%20LeaderBrief." rel="noopener" target="_blank">Diskusikan paket</a></p></section>',
+    '</main><footer class="foot">Leader Brief · Premium, corporate briefing, dan sponsorship</footer>',
+    '</div></body></html>',
+    ''
+  ].join('\n');
+  writeFileSync(join(REPO, 'premium.html'), html, 'utf8');
 }
 
 function injectTemplate(html, meta) {
@@ -395,7 +438,7 @@ function addChrome(html) {
   const linksHtml = links.join('');
   const toc = '<aside class="toc"><div class="k">On this page</div>' + linksHtml + '</aside>';
   const tocMobile = '<details class="toc-mobile"><summary>Daftar isi</summary>' + linksHtml + '</details>';
-  const aside = '<aside class="aside"><div class="box"><div class="k">Edisi</div><p>' + pretty + '</p><p>Terbit setiap hari kerja pukul 05:30 WIB.</p></div><div class="box"><div class="k">Navigasi</div><p><a href="../briefs/">Lihat arsip edisi</a></p><p><a href="../">Beranda Leader Brief</a></p></div></aside>';
+  const aside = '<aside class="aside"><div class="box"><div class="k">Edisi</div><p>' + pretty + '</p><p>Terbit setiap hari kerja pukul 05:30 WIB.</p></div><div class="box"><div class="k">Navigasi</div><p><a href="../briefs/">Lihat arsip edisi</a></p><p><a href="../premium.html">Paket premium</a></p><p><a href="../">Beranda Leader Brief</a></p></div></aside>';
   html = html.replace(/<body[^>]*>/, '<body>\n<div class="layout">\n' + toc + tocMobile);
   html = html.replace(/<\/body>/, aside + '\n</div>\n</body>');
   return html;
@@ -417,6 +460,7 @@ async function main() {
   updateManifest(dateStr, meta, file);
   writeIndex();
   writeHomePage();
+  writePremiumPage();
   writeSeoFiles();
   console.log('done -> briefs/' + file);
 }
