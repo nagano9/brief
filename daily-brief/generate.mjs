@@ -186,8 +186,8 @@ function writeIndex() {
     const dd = new Date(d + 'T00:00:00Z');
     const pd = dd.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Asia/Jakarta' });
     const t = e.title || pd;
-    const d = e.dek || e.headline || '';
-    return '<li><a href="' + e.file + '">' + t + '</a>' + (d ? '<span>' + escapeHtml(d) + '</span>' : '') + '</li>';
+    const dek = e.dek || e.headline || '';
+    return '<li><a href="' + e.file + '">' + t + '</a>' + (dek ? '<span>' + escapeHtml(dek) + '</span>' : '') + '</li>';
   }).join('\n');
   const html = [
     '<!doctype html><html lang="id"><head><meta charset="utf-8">',
