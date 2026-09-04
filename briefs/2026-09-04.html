@@ -1,0 +1,256 @@
+<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><style>
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600;6..72,700&family=Inter:wght@400;500;600;700&display=swap');
+
+:root{
+  --bg:#ffffff;
+  --fg:#191919;
+  --muted:#6b6b6b;
+  --faint:#9a9a9a;
+  --accent:#1a8917;
+  --accent-soft:rgba(26,137,23,.07);
+  --line:#e8e8e8;
+  --line-strong:#d6d6d6;
+  --serif:"Newsreader",Georgia,"Times New Roman",serif;
+  --sans:"Inter",system-ui,-apple-system,sans-serif;
+  --mono:"SFMono-Regular",ui-monospace,"JetBrains Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#121212; --fg:#e6e6e6; --muted:#9a9a9a; --faint:#7a7a7a;
+    --accent:#3ddc3d; --accent-soft:rgba(61,220,61,.08);
+    --line:#2a2a2a; --line-strong:#3a3a3a;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#121212; --fg:#e6e6e6; --muted:#9a9a9a; --faint:#7a7a7a;
+  --accent:#3ddc3d; --accent-soft:rgba(61,220,61,.08);
+  --line:#2a2a2a; --line-strong:#3a3a3a;
+}
+
+*{box-sizing:border-box}
+img{max-width:100%;height:auto}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:16.5px;line-height:1.75;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:40px 24px 96px}
+
+.masthead{border-bottom:1px solid var(--line);padding-bottom:18px;margin-bottom:40px}
+.masthead-name{font-family:var(--serif);font-size:27px;font-weight:600;letter-spacing:-.01em;line-height:1.2}
+.masthead-date{font-size:14px;color:var(--muted);margin-top:6px}
+
+.sec-kicker{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:46px 0 14px}
+
+h3{font-family:var(--serif);font-size:22px;font-weight:600;margin:28px 0 10px;line-height:1.3}
+
+.headline{margin:0 0 22px}
+.headline p{font-family:var(--serif);font-size:27px;line-height:1.32;font-weight:600;margin:0;color:var(--fg)}
+
+.lede{font-family:var(--serif);font-size:19px;line-height:1.68;color:var(--fg);margin:0 0 18px}
+
+.changes{list-style:none;padding:0;margin:0 0 14px}
+.changes li{padding:11px 0;border-top:1px solid var(--line)}
+.changes li:first-child{border-top:none}
+.changes b{color:var(--fg)}
+
+.table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:12px 0 20px}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th,td{padding:9px 12px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+th{font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+td{color:var(--fg)}
+td b,td strong{color:var(--fg);font-weight:600}
+
+.item{padding:34px 0;border-top:1px solid var(--line-strong)}
+.item:first-of-type{border-top:none;padding-top:6px}
+.item-head{display:flex;align-items:baseline;gap:14px}
+.item-num{font-family:var(--mono);font-size:15px;font-weight:600;color:var(--accent);flex:none}
+.item-head h3{font-size:23px;margin:0;font-weight:600;line-height:1.25}
+.meta{margin:10px 0 2px;font-size:13px;color:var(--faint);line-height:1.6}
+.chip{color:inherit}
+.chip.sig-action{color:var(--accent);font-weight:600}
+.chip.sig-shift{color:var(--muted);font-weight:600}
+.chip.sig-signal{color:var(--faint);font-weight:600}
+
+.btl{margin:16px 0 18px;font-size:16.5px;line-height:1.7;color:var(--fg)}
+.btl b{display:block;color:var(--accent);font-size:11.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;margin-bottom:4px}
+
+.field{margin:0 0 14px}
+.fk{display:block;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+.field p{margin:0;color:var(--fg)}
+.field p b,.field p strong{color:var(--fg);font-weight:600}
+
+.ev-fact{color:var(--accent);font-weight:600}
+.ev-inf{color:var(--muted);font-style:italic}
+.ev-unc{color:var(--muted)}
+.ev-rec{font-weight:600}
+
+.board{margin-top:4px}
+.board .sec-kicker{margin-top:26px}
+.board h3{font-size:19px}
+
+.foot{border-top:1px solid var(--line-strong);margin-top:52px;padding-top:18px}
+.foot .fk{color:var(--accent)}
+.foot p{font-size:13px;color:var(--muted);line-height:1.7}
+
+@media(max-width:640px){
+  .wrap{padding:20px 16px 56px}
+  .masthead-name{font-size:21px}
+  .masthead-date{font-size:13px}
+  .headline p{font-size:20px;line-height:1.35}
+  .lede{font-size:17px;line-height:1.6}
+  h3{font-size:19px}
+  .item-head{flex-wrap:wrap;row-gap:6px}
+  .item-head h3{font-size:19px}
+  .btl{font-size:15.5px}
+  .field p{font-size:15.5px}
+  table{font-size:12.5px}
+  th,td{padding:7px 8px}
+}
+/* --- layout 3 kolom: toc + konten + aside --- */
+.layout{display:grid;grid-template-columns:240px minmax(0,1fr) 260px;gap:40px;max-width:1400px;margin:0 auto;padding:0 28px;align-items:start}
+.toc{position:sticky;top:32px;padding-top:40px;max-height:calc(100vh - 64px);overflow-y:auto}
+.toc .k{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:12px}
+.toc a{display:block;font-size:13.5px;color:var(--muted);text-decoration:none;padding:5px 0;line-height:1.4}
+.toc a:hover{color:var(--accent)}
+.toc a.indent{padding-left:16px;font-size:12.5px;color:var(--faint);border-left:1px solid var(--line);margin-left:5px;padding-top:4px;padding-bottom:4px}
+.aside{position:sticky;top:32px;padding-top:40px}
+.aside .box{border-top:1px solid var(--line);padding-top:14px;margin-bottom:24px}
+.aside .k{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:8px}
+.aside p{font-size:13.5px;color:var(--muted);margin:0 0 8px;line-height:1.6}
+.aside a{color:var(--accent);text-decoration:none}
+.toc-mobile{display:none;border:1px solid var(--line);border-radius:8px;margin:0 0 24px;overflow:hidden}
+.toc-mobile summary{padding:14px 16px;font-size:14px;font-weight:600;color:var(--accent);cursor:pointer;list-style:none;user-select:none}
+.toc-mobile summary::-webkit-details-marker{display:none}
+.toc-mobile[open] summary{border-bottom:1px solid var(--line)}
+.toc-mobile a{display:block;padding:9px 16px;font-size:14px;color:var(--muted);text-decoration:none;border-bottom:1px solid var(--line)}
+.toc-mobile a:last-child{border-bottom:none}
+.toc-mobile a.indent{padding-left:28px;font-size:13px;color:var(--faint)}
+@media(max-width:1120px){.layout{grid-template-columns:1fr;padding:0}.toc,.aside{display:none}.toc-mobile{display:block}}
+.lensa{font-size:12.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+.dek{font-family:var(--serif);font-size:22px;line-height:1.4;font-weight:500;margin:0 0 26px;color:var(--fg)}
+.blk-k{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin:0 0 10px}
+.seconds{border:1px solid var(--line);border-radius:8px;padding:18px 20px;margin:0 0 24px}
+.seconds ul{list-style:none;padding:0;margin:0 0 12px}
+.seconds li{padding:7px 0;border-top:1px solid var(--line);font-size:15px;line-height:1.5}
+.seconds li:first-child{border-top:none}
+.seconds .act{margin:0;font-size:15px}
+.boardq{border-left:3px solid var(--accent);padding:2px 0 2px 18px;margin:0 0 24px}
+.boardq p{font-family:var(--serif);font-size:20px;line-height:1.4;font-weight:500;margin:0}
+.skip{margin:0 0 24px}
+.skip ul{list-style:none;padding:0;margin:0}
+.skip li{padding:5px 0;font-size:14.5px;color:var(--muted)}
+
+</style></head><body>
+<div class="layout">
+<aside class="toc"><div class="k">On this page</div><a href="#sec-1">Executive Pulse</a><a href="#sec-2">Three Things That Changed</a><a href="#sec-3">Leadership Posture</a><a href="#sec-4">Executive Heat Map</a><a href="#sec-5">Board Integrated Synthesis</a><a href="#sec-6">Watchlist 7-30 Hari</a></aside><details class="toc-mobile"><summary>Daftar isi</summary><a href="#sec-1">Executive Pulse</a><a href="#sec-2">Three Things That Changed</a><a href="#sec-3">Leadership Posture</a><a href="#sec-4">Executive Heat Map</a><a href="#sec-5">Board Integrated Synthesis</a><a href="#sec-6">Watchlist 7-30 Hari</a></details><div class="wrap">
+<header class="masthead">
+<div class="masthead-name">Leader Brief</div>
+<div class="masthead-date">Jumat, 4 September 2026</div>
+</header>
+<div class="lensa">Lensa hari ini: Macro &amp; Modal | Energi &amp; Offtake | Governance &amp; BUMN | Operasi &amp; AI | Sintesis Minggu</div>
+<p class="dek">Inflasi Agustus menembus batas atas target BI dan memaksa kalibrasi ulang asumsi suku bunga, sementara Danantara menggeser dari fase deklarasi ke eksekusi proyek yang menuntut keputusan alokasi modal riil.</p>
+<div class="seconds">
+<div class="blk-k">60 detik</div>
+<ul>
+<li>Inflasi Agustus 3,19% (yoy) melampaui batas atas target BI 2,5%±1%, didorong gejolak pangan dan harga energi, mengubah peta jalan pelonggaran moneter.</li>
+<li>BI-Rate tetap 5,75% untuk kedua kalinya, namun tekanan pada rupiah dan kekhawatiran independensi bank sentral membuat pasar menahan napas menjelang RDG September.</li>
+<li>Danantara resmikan enam proyek hilirisasi Fase-I di 13 lokasi, menandai transisi dari perencanaan ke eksekusi yang menuntut tata kelola dan pendanaan transparan.</li>
+</ul>
+<p class="act"><b>Aksi utama:</b> Tinjau ulang asumsi biaya modal dan lindung nilai (hedging) untuk proyek yang sensitif terhadap suku bunga dan kurs, karena inflasi yang membandel menunda ruang penurunan BI-Rate.</p>
+</div>
+<div class="boardq">
+<div class="blk-k">Board Question</div>
+<p>Apakah struktur pendanaan dan hedging portfolio kami masih tepat jika BI-Rate bertahan di 5,75% lebih lama dari perkiraan pasar, sementara inflasi inti menunjukkan tanda-tanda sticky?</p>
+</div>
+<div class="skip">
+<div class="blk-k">Jangan diulang dari kemarin</div>
+<ul>
+<li>Wacana defisit APBN di atas 3% PDB dan dampaknya terhadap pasar SBN. Sudah dibahas, belum ada keputusan final.</li>
+<li>Detail target PLTS 100 GW dan 30 GW tender tahap pertama. Isu teknis lelang PLN yang lamban masih relevan namun tidak ada delta baru yang material.</li>
+<li>Kekhawatiran independensi BI pasca pengunduran diri Perry Warjiyo. Tetap menjadi sentimen, tetapi tidak ada fakta baru yang mengubah arah kebijakan.</li>
+</ul>
+</div>
+<h2 class="sec-kicker" id="sec-1">Executive Pulse<span class="spacer"></span></h2>
+<p>Inflasi Agustus yang menembus 3,19% (yoy) adalah sinyal pertama yang jelas bahwa tekanan harga domestik tidak lagi sekadar impor cost-push. Ini mengubah kalkulus bagi BI yang tengah berada dalam masa transisi kepemimpinan. Dengan inti inflasi yang masih tertahan di kisaran 2,4-2,6%, ruang untuk penurunan suku bunga acuan dalam jangka pendek semakin sempit. Bagi korporasi, ini berarti biaya modal yang lebih tinggi untuk durasi lebih panjang, dan premi risiko atas aset berdenominasi rupiah tetap tinggi. Sementara itu, Danantara yang mulai eksekusi proyek Fase-I menciptakan dua arus sekaligus: peluang kontrak dan offtake, namun juga potensi crowding-out di pasar pendanaan. Pekan ini adalah tentang kalibrasi ulang ekspektasi, bukan sekadar membaca data.</p>
+<h2 class="sec-kicker" id="sec-2">Three Things That Changed<span class="spacer"></span></h2>
+<article class="item" id="item-1">
+<div class="item-head"><span class="item-num">1</span><h3>Inflasi Agustus Menerobos Batas Atas Target BI</h3></div>
+<div class="meta"><span class="chip">MACRO</span><span class="chip">ID</span><span class="chip sig-shift">MATERIAL SHIFT</span><span class="chip date">04 SEPT 2026</span></div>
+<p class="btl"><b>Bottom Line</b> Inflasi umum 3,19% (yoy) di Agustus, naik dari 2,88% di Juli, menandai tekanan harga yang lebih persisten dari prakiraan dan mempersempit ruang pelonggaran moneter.</p>
+<div class="field"><span class="fk">Delta hari ini</span><p>Data resmi BI mencatat lonjakan inflasi dari 2,88% menjadi 3,19% dalam sebulan, level tertinggi sejak awal tahun. Pemicu utama adalah volatilitas harga pangan dan penyesuaian harga energi yang merambat ke komponen inti.</p></div>
+<div class="field"><span class="fk">FACT</span><p><span class="ev-fact">FACT</span> Inflasi Agustus 3,19% (yoy), melampaui batas atas target BI 1,5%-3,5%. Inflasi inti masih di 2,44% (yoy) per data terakhir, tetapi tren menunjukkan kenaikan bertahap.</p></div>
+<div class="field"><span class="fk">INFERENCE</span><p><span class="ev-inf">INFERENCE</span> BI akan mempertahankan sikap hawkish lebih lama. Pasar yang sebelumnya memperkirakan penurunan BI-Rate pada Q4 2026 harus menggeser ekspektasi ke Q1 2027, dengan risiko stagflasi ringan jika pertumbuhan melambat.</p></div>
+<div class="field"><span class="fk">Implikasi keputusan</span><p>Untuk korporasi dengan utang floating rate atau refixing jangka pendek, lindung nilai suku bunga menjadi lebih kritis. Proyek dengan struktur pendanaan yang mengandalkan penurunan BI-Rate harus diuji sensitivitasnya terhadap skenario suku bunga tinggi lebih lama.</p></div>
+<div class="field"><span class="fk">Pemenang / pecundang / asumsi yang pecah</span><p>Pemenang: sektor perbankan dengan net interest margin lebar. Pecundang: pengembang properti dan infrastruktur dengan utang tinggi. Asumsi yang pecah: narasi disinflasi yang cepat dan ruang pelonggaran moneter yang dekat.</p></div>
+<div class="field"><span class="fk">Relevansi</span><p>Sektor perbankan, properti, infrastruktur, dan semua industri padat modal dengan durasi utang menengah.</p></div>
+<div class="field"><span class="fk">Action</span><p>Owner: CFO dan Treasury. Horizon: 7 hari. Outcome: Stress test portfolio utang terhadap skenario BI-Rate 6,0% hingga Q2 2027. Escalation trigger: Jika inflasi September tetap di atas 3%, lakukan review atas seluruh rencana penerbitan utang baru.</p></div>
+</article>
+<article class="item" id="item-2">
+<div class="item-head"><span class="item-num">2</span><h3>Danantara Resmikan Enam Proyek Hilirisasi Fase-I, Transisi ke Eksekusi</h3></div>
+<div class="meta"><span class="chip">GOVERNANCE</span><span class="chip">ID</span><span class="chip sig-action">ACTION REQUIRED</span><span class="chip date">04 SEPT 2026</span></div>
+<p class="btl"><b>Bottom Line</b> Groundbreaking enam proyek di 13 lokasi menandai dimulainya realisasi 26 proyek hilirisasi senilai Rp225 triliun, menggeser fokus dari sekadar rencana ke tata kelola eksekusi dan pendanaan.</p>
+<div class="field"><span class="fk">Delta hari ini</span><p>Peresmian serentak oleh Danantara bersama PTPN Group menunjukkan percepatan yang nyata. Ini bukan lagi wacana, melainkan proyek yang membutuhkan keputusan kontrak, pengadaan, dan alokasi modal dalam waktu dekat.</p></div>
+<div class="field"><span class="fk">FACT</span><p><span class="ev-fact">FACT</span> Enam proyek hilirisasi Fase-I diresmikan di 13 lokasi, dengan PTPN Group terlibat untuk memperkuat ketahanan energi. Total investasi 26 proyek mencapai Rp225 triliun.</p></div>
+<div class="field"><span class="fk">INFERENCE</span><p><span class="ev-inf">INFERENCE</span> Eksekusi proyek akan menyerap kapasitas kontraktor, vendor, dan pasar pendanaan. Potensi bottleneck ada pada koordinasi antar-BUMN dan kecepatan pengambilan keputusan di lapangan.</p></div>
+<div class="field"><span class="fk">Implikasi keputusan</span><p>Vendor dan kontraktor harus memetakan peluang di proyek-proyek ini, tetapi juga mewaspadai risiko keterlambatan pembayaran dan perubahan spesifikasi yang kerap terjadi di proyek besar. Konsorsium perlu menyiapkan skema pendanaan campuran.</p></div>
+<div class="field"><span class="fk">Pemenang / pecundang / asumsi yang pecah</span><p>Pemenang: BUMN konstruksi dan manufaktur pendukung. Pecundang: kompetitor swasta yang tidak memiliki akses ke ekosistem Danantara. Asumsi yang pecah: bahwa proyek hanya akan berjalan di atas kertas tanpa eksekusi nyata.</p></div>
+<div class="field"><span class="fk">Relevansi</span><p>Kontraktor, EPC, manufaktur, jasa keuangan, dan seluruh rantai pasok industri hilirisasi.</p></div>
+<div class="field"><span class="fk">Action</span><p>Owner: Direktur Bisnis dan Corporate Development. Horizon: 30 hari. Outcome: Petakan potensi keterlibatan di proyek Fase-I dan Fase-II, termasuk kajian partner strategis. Escalation trigger: Jika ada perubahan signifikan dalam struktur kepemilikan atau pendanaan proyek.</p></div>
+</article>
+<article class="item" id="item-3">
+<div class="item-head"><span class="item-num">3</span><h3>Fed Tahan Suku Bunga di 3,5-3,75%, Inflasi AS Masih Memerah</h3></div>
+<div class="meta"><span class="chip">MACRO</span><span class="chip">US</span><span class="chip sig-signal">EMERGING SIGNAL</span><span class="chip date">04 SEPT 2026</span></div>
+<p class="btl"><b>Bottom Line</b> The Fed mempertahankan suku bunga di 3,5-3,75% dengan nada hawkish karena inflasi inti PCE yang masih di atas target, memperpanjang tekanan pada nilai tukar negara berkembang termasuk rupiah.</p>
+<div class="field"><span class="fk">Delta hari ini</span><p>Risalah FOMC terbaru mengonfirmasi kekhawatiran inflasi yang membandel, dengan core PCE mencapai 3,3% di Juni. Pasar kini memperhitungkan suku bunga tinggi lebih lama di AS, yang berimplikasi pada arus modal global.</p></div>
+<div class="field"><span class="fk">FACT</span><p><span class="ev-fact">FACT</span> Fed mempertahankan suku bunga di 3,5-3,75% pada pertemuan Juli, dengan sinyal tidak ada pemotongan dalam waktu dekat. Inflasi inti PCE di 3,3% (yoy) per Juni 2026.</p></div>
+<div class="field"><span class="fk">INFERENCE</span><p><span class="ev-inf">INFERENCE</span> Diferensial suku bunga dengan Indonesia tetap lebar, menjaga tekanan depresiasi pada rupiah. Ini membatasi ruang BI untuk melonggarkan kebijakan meskipun pertumbuhan domestik melambat.</p></div>
+<div class="field"><span class="fk">Implikasi keputusan</span><p>Perusahaan dengan utang dalam dolar AS harus memperkuat lindung nilai, sementara yang memiliki eksposur pendapatan dolar justru diuntungkan. Keputusan investasi yang bergantung pada stabilitas kurs perlu dikaji ulang.</p></div>
+<div class="field"><span class="fk">Pemenang / pecundang / asumsi yang pecah</span><p>Pemenang: eksportir dengan penerimaan dolar. Pecundang: importir dan perusahaan dengan utang dolar tanpa hedging. Asumsi yang pecah: pemulihan cepat di pasar negara berkembang pasca normalisasi Fed.</p></div>
+<div class="field"><span class="fk">Relevansi</span><p>Semua sektor dengan eksposur valas, terutama manufaktur, energi, dan perusahaan dengan utang luar negeri.</p></div>
+<div class="field"><span class="fk">Action</span><p>Owner: CFO. Horizon: 7 hari. Outcome: Review rasio lindung nilai utang dolar dan tetapkan trigger untuk menambah porsi hedging jika USD/IDR melewati level tertentu. Escalation trigger: Jika rupiah melemah lebih dari 2% dalam sepekan.</p></div>
+</article>
+<h2 class="sec-kicker" id="sec-3">Leadership Posture<span class="spacer"></span></h2>
+<p><b>ACT</b> Segera lakukan stress test pada portfolio utang dan proyek yang sensitif terhadap suku bunga, karena inflasi domestik yang tinggi mempersempit ruang penurunan BI-Rate.</p>
+<p><b>PREPARE</b> Siapkan skenario pendanaan alternatif dan identifikasi mitra strategis untuk proyek yang selaras dengan ekosistem Danantara, karena eksekusi proyek akan membutuhkan kapasitas besar.</p>
+<p><b>MONITOR</b> Awasi pergerakan inflasi September dan keputusan RDG BI akhir bulan ini, karena data tersebut akan menentukan arah suku bunga dan nilai tukar untuk sisa tahun.</p>
+<p><b>CHALLENGE</b> Pertanyakan asumsi bahwa proyek hilirisasi Danantara akan berjalan mulus; uji ketahanan rantai pasok dan skema pendanaan terhadap potensi keterlambatan.</p>
+<h2 class="sec-kicker" id="sec-4">Executive Heat Map<span class="spacer"></span></h2>
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th>Isu</th><th>Signal</th><th>Impact</th><th>Urgency</th></tr>
+</thead>
+<tbody>
+<tr><td>Inflasi ID Agustus 3,19%</td><td>Shift</td><td>Tinggi: mengubah ekspektasi suku bunga</td><td class="lvl-vh">Very High</td></tr>
+<tr><td>Danantara eksekusi proyek Fase-I</td><td>Action</td><td>Sedang: peluang kontrak &amp; pendanaan</td><td class="lvl-h">High</td></tr>
+<tr><td>Fed tahan suku bunga, hawkish</td><td>Signal</td><td>Sedang: tekanan rupiah dan arus modal</td><td class="lvl-h">High</td></tr>
+<tr><td>Tender PLTS 30 GW (tanpa delta baru)</td><td>Signal</td><td>Rendah: isu teknis masih dominan</td><td class="lvl-m">Medium</td></tr>
+</tbody>
+</table>
+</div>
+<h2 class="sec-kicker" id="sec-5">Board Integrated Synthesis<span class="spacer"></span></h2>
+<section class="board">
+<p>Pekan ini menyajikan dua kekuatan yang saling tarik. Di satu sisi, inflasi domestik yang membandel dan sikap hawkish The Fed menutup ruang pelonggaran moneter, menaikkan biaya modal dan menuntut disiplin alokasi modal yang lebih ketat. Di sisi lain, percepatan eksekusi proyek Danantara membuka peluang pertumbuhan baru yang membutuhkan pendanaan besar. Persimpangan ini menciptakan dilema strategis: mengejar peluang ekspansi di tengah lingkungan biaya modal yang tinggi, atau menahan diri dan memperkuat neraca. Keputusan yang tepat tidak seragam untuk semua sektor. Perusahaan dengan arus kas kuat dan akses pendanaan murah dapat memanfaatkan momen ini untuk mengambil pangsa pasar, sementara yang memiliki struktur utang rapuh sebaiknya fokus pada efisiensi dan deleveraging. Kuncinya adalah membedakan antara investasi yang menciptakan nilai jangka panjang dan sekadar mengejar pertumbuhan di lingkungan yang tidak mendukung.</p>
+</section>
+<section class="whatnot">
+<p><b>What Not To Do:</b> Jangan menunda keputusan lindung nilai dengan harapan rupiah menguat. Jangan mengunci kontrak jangka panjang dengan asumsi suku bunga akan turun dalam 12 bulan ke depan. Jangan mengabaikan sinyal inflasi yang membandel hanya karena data bulan lalu masih dalam target.</p>
+</section>
+<h2 class="sec-kicker" id="sec-6">Watchlist 7-30 Hari<span class="spacer"></span></h2>
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th>Kapan</th><th>Peristiwa</th><th>Mengapa penting</th></tr>
+</thead>
+<tbody>
+<tr><td>15-19 Sep 2026</td><td>RDG Bank Indonesia bulan September</td><td>Keputusan suku bunga dan pernyataan gubernur baru akan menjadi sinyal arah kebijakan.</td></tr>
+<tr><td>Sep 2026</td><td>Data inflasi September (awal Oktober)</td><td>Konfirmasi apakah lonjakan Agustus hanya sementara atau awal tren baru.</td></tr>
+<tr><td>Sep-Oct 2026</td><td>Rilis detail proyek Fase-II Danantara</td><td>Menentukan peluang kontrak dan potensi pendanaan bagi swasta.</td></tr>
+<tr><td>Akhir Sep 2026</td><td>Perkembangan lelang PLTS 30 GW</td><td>Kemajuan atau hambatan lelang akan memengaruhi sentimen investor EBT.</td></tr>
+<tr><td>1 Okt 2026</td><td>Data PMI manufaktur September</td><td>Indikasi awal dampak biaya modal tinggi terhadap aktivitas ekonomi riil.</td></tr>
+</tbody>
+</table>
+</div>
+<footer class="foot">
+<p>Leader Brief edisi Jumat, 4 September 2026. Disusun untuk konsumsi internal Dewan Direksi dan pemimpin senior. Sumber data: Bank Indonesia, Kementerian Keuangan, Danantara Indonesia, Federal Reserve, dan lembaga riset terpercaya. Keputusan investasi tetap menjadi tanggung jawab masing-masing pemimpin.</p>
+</footer>
+</div><aside class="aside"><div class="box"><div class="k">Edisi</div><p>Jumat, 4 September 2026</p><p>Terbit setiap hari kerja pukul 05:30 WIB.</p></div><div class="box"><div class="k">Navigasi</div><p><a href="../briefs/">Lihat arsip edisi</a></p><p><a href="../">Beranda Leader Brief</a></p></div></aside>
+</div>
+</body></html>
