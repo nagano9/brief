@@ -7,6 +7,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const REPO = resolve(__dirname, '..');
 const BRIEFS = join(REPO, 'briefs');
 const parser = new Parser({ timeout: 30000 });
+const SITE_URL = 'https://leaderbrief.id';
 const FAVICON_LINK = '<link rel="icon" href="/favicon.svg" type="image/svg+xml">';
 
 const DEEPSEEK = process.env.DEEPSEEK_API_KEY || '';
@@ -191,6 +192,45 @@ function prettyDate(d) {
   return new Date(d + 'T00:00:00Z').toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Asia/Jakarta' });
 }
 
+function absUrl(pathname) {
+  return SITE_URL + pathname;
+}
+
+function writeSeoFiles() {
+  const m = loadManifest();
+  const dates = Object.keys(m).sort().reverse();
+  const latest = dates[0] || dateStr;
+  const urls = [
+    { loc: absUrl('/'), lastmod: latest },
+    { loc: absUrl('/briefs/'), lastmod: latest }
+  ];
+  for (const d of dates) {
+    const e = m[d] || {};
+    if (!e.file) continue;
+    urls.push({ loc: absUrl('/briefs/' + e.file), lastmod: d });
+  }
+
+  const sitemap = [
+    '<?xml version="1.0" encoding="UTF-8"?>',
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+    urls.map(function (u) {
+      return '  <url><loc>' + escapeHtml(u.loc) + '</loc><lastmod>' + escapeHtml(u.lastmod) + '</lastmod></url>';
+    }).join('\n'),
+    '</urlset>',
+    ''
+  ].join('\n');
+  writeFileSync(join(REPO, 'sitemap.xml'), sitemap, 'utf8');
+
+  const robots = [
+    'User-agent: *',
+    'Allow: /',
+    '',
+    'Sitemap: ' + absUrl('/sitemap.xml'),
+    ''
+  ].join('\n');
+  writeFileSync(join(REPO, 'robots.txt'), robots, 'utf8');
+}
+
 function writeIndex() {
   const m = loadManifest();
   const dates = Object.keys(m).sort().reverse();
@@ -204,7 +244,9 @@ function writeIndex() {
   const html = [
     '<!doctype html><html lang="id"><head><meta charset="utf-8">',
     '<meta name="viewport" content="width=device-width, initial-scale=1">',
-    '<title>Daily Executive Brief — Arsip</title>',
+    '<title>Daily Executive Brief | Arsip</title>',
+    '<meta name="description" content="Arsip semua edisi Leader Brief, brief harian board-grade untuk pemimpin Indonesia.">',
+    '<link rel="canonical" href="' + absUrl('/briefs/') + '">',
     FAVICON_LINK,
     '<style>',
     ':root{--bg:#ffffff;--fg:#191919;--fg2:#6b6b6b;--accent:#1a8917;--border:#e8e8e8}',
@@ -246,6 +288,7 @@ function writeHomePage() {
     '<meta name="viewport" content="width=device-width, initial-scale=1">',
     '<title>Leader Brief</title>',
     '<meta name="description" content="Brief harian board-grade untuk pemimpin Indonesia: perkembangan kunci, sintesis dewan, dan watchlist 7–30 hari.">',
+    '<link rel="canonical" href="' + absUrl('/') + '">',
     FAVICON_LINK,
     '<link rel="preconnect" href="https://fonts.googleapis.com">',
     '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>',
@@ -298,14 +341,28 @@ function writeHomePage() {
   writeFileSync(join(REPO, 'index.html'), html + '\n', 'utf8');
 }
 
-function injectTemplate(html) {
+function injectTemplate(html, meta) {
   const css = readFileSync(join(__dirname, 'template.css'), 'utf8');
   const styleTag = '<style>\n' + css + '\n</style>';
+  const pageTitle = (meta && (meta.lens || meta.dek)) ? escapeHtml((meta.lens || meta.dek).slice(0, 90)) + ' | Leader Brief' : pretty + ' | Leader Brief';
+  const description = (meta && (meta.dek || meta.teaser || meta.lens)) ? escapeHtml((meta.dek || meta.teaser || meta.lens).slice(0, 160)) : 'Brief harian board-grade untuk pemimpin Indonesia.';
+  const seo = [
+    '<title>' + pageTitle + '</title>',
+    '<meta name="description" content="' + description + '">',
+    '<link rel="canonical" href="' + absUrl('/briefs/' + dateStr + '.html') + '">',
+    '<meta property="og:type" content="article">',
+    '<meta property="og:title" content="' + pageTitle + '">',
+    '<meta property="og:description" content="' + description + '">',
+    '<meta property="og:url" content="' + absUrl('/briefs/' + dateStr + '.html') + '">'
+  ].join('\n');
   html = html.replace(/<style[\s\S]*?<\/style>/gi, '');
+  html = html.replace(/<title>[\s\S]*?<\/title>/gi, '');
+  html = html.replace(/<meta\s+name=["']description["'][^>]*>/gi, '');
+  html = html.replace(/<link\s+rel=["']canonical["'][^>]*>/gi, '');
   if (/<\/head>/i.test(html)) {
-    return html.replace(/<\/head>/i, FAVICON_LINK + '\n' + styleTag + '\n</head>');
+    return html.replace(/<\/head>/i, seo + '\n' + FAVICON_LINK + '\n' + styleTag + '\n</head>');
   }
-  return '<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">' + FAVICON_LINK + styleTag + '</head><body>' + html + '</body></html>';
+  return '<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">' + seo + '\n' + FAVICON_LINK + styleTag + '</head><body>' + html + '</body></html>';
 }
 
 function addChrome(html) {
@@ -347,14 +404,16 @@ async function main() {
   const items = await gather();
   const news = material(items);
   console.log('calling deepseek...');
-  const html = addChrome(injectTemplate(await callDeepSeek(promptText, news)));
+  let html = await callDeepSeek(promptText, news);
+  const meta = extractMeta(html);
+  html = addChrome(injectTemplate(html, meta));
   if (!html || html.length < 500) throw new Error('HTML output kosong/terlalu pendek');
   const file = dateStr + '.html';
   writeFileSync(join(BRIEFS, file), html + '\n', 'utf8');
-  const meta = extractMeta(html);
   updateManifest(dateStr, meta, file);
   writeIndex();
   writeHomePage();
+  writeSeoFiles();
   console.log('done -> briefs/' + file);
 }
 

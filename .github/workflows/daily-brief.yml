@@ -47,7 +47,9 @@ jobs:
           test -f "briefs/${today}.html"
           test -f "briefs/manifest.json"
           test -f "index.html"
-          TODAY="$today" node -e "const fs=require('fs'); const d=process.env.TODAY; const m=JSON.parse(fs.readFileSync('briefs/manifest.json','utf8')); if (!m[d] || m[d].file !== d + '.html') throw new Error('manifest missing today: ' + d); const home=fs.readFileSync('index.html','utf8'); if (!home.includes('./briefs/' + d + '.html')) throw new Error('homepage latest link is stale: ' + d);"
+          test -f "sitemap.xml"
+          test -f "robots.txt"
+          TODAY="$today" node -e "const fs=require('fs'); const d=process.env.TODAY; const m=JSON.parse(fs.readFileSync('briefs/manifest.json','utf8')); if (!m[d] || m[d].file !== d + '.html') throw new Error('manifest missing today: ' + d); const home=fs.readFileSync('index.html','utf8'); if (!home.includes('./briefs/' + d + '.html')) throw new Error('homepage latest link is stale: ' + d); if (!home.includes('rel=\"canonical\" href=\"https://leaderbrief.id/\"')) throw new Error('homepage canonical missing'); const sitemap=fs.readFileSync('sitemap.xml','utf8'); if (!sitemap.includes('https://leaderbrief.id/briefs/' + d + '.html')) throw new Error('sitemap missing today: ' + d); const robots=fs.readFileSync('robots.txt','utf8'); if (!robots.includes('Sitemap: https://leaderbrief.id/sitemap.xml')) throw new Error('robots missing sitemap'); const article=fs.readFileSync('briefs/' + d + '.html','utf8'); if (!article.includes('rel=\"canonical\" href=\"https://leaderbrief.id/briefs/' + d + '.html\"')) throw new Error('article canonical missing: ' + d);"
 
       - name: Commit & push
         run: |
