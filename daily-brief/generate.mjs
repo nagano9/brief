@@ -9,6 +9,7 @@ const BRIEFS = join(REPO, 'briefs');
 const parser = new Parser({ timeout: 30000 });
 const SITE_URL = 'https://leaderbrief.id';
 const FAVICON_LINK = '<link rel="icon" href="/favicon.svg" type="image/svg+xml">';
+const GOOGLE_SITE_VERIFICATION = '<meta name="google-site-verification" content="D_rAihSMsnXvLIIEMHCEGqosuxUua9czU0NmXbOWrp8">';
 
 const DEEPSEEK = process.env.DEEPSEEK_API_KEY || '';
 const TAVILY = process.env.TAVILY_API_KEY || '';
@@ -246,6 +247,7 @@ function writeIndex() {
     '<meta name="viewport" content="width=device-width, initial-scale=1">',
     '<title>Daily Executive Brief | Arsip</title>',
     '<meta name="description" content="Arsip semua edisi Leader Brief, brief harian board-grade untuk pemimpin Indonesia.">',
+    GOOGLE_SITE_VERIFICATION,
     '<link rel="canonical" href="' + absUrl('/briefs/') + '">',
     FAVICON_LINK,
     '<style>',
@@ -288,6 +290,7 @@ function writeHomePage() {
     '<meta name="viewport" content="width=device-width, initial-scale=1">',
     '<title>Leader Brief</title>',
     '<meta name="description" content="Brief harian board-grade untuk pemimpin Indonesia: perkembangan kunci, sintesis dewan, dan watchlist 7–30 hari.">',
+    GOOGLE_SITE_VERIFICATION,
     '<link rel="canonical" href="' + absUrl('/') + '">',
     FAVICON_LINK,
     '<link rel="preconnect" href="https://fonts.googleapis.com">',
@@ -349,6 +352,7 @@ function injectTemplate(html, meta) {
   const seo = [
     '<title>' + pageTitle + '</title>',
     '<meta name="description" content="' + description + '">',
+    GOOGLE_SITE_VERIFICATION,
     '<link rel="canonical" href="' + absUrl('/briefs/' + dateStr + '.html') + '">',
     '<meta property="og:type" content="article">',
     '<meta property="og:title" content="' + pageTitle + '">',
