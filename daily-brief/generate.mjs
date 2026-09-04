@@ -7,6 +7,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const REPO = resolve(__dirname, '..');
 const BRIEFS = join(REPO, 'briefs');
 const parser = new Parser({ timeout: 30000 });
+const FAVICON_LINK = '<link rel="icon" href="/favicon.svg" type="image/svg+xml">';
 
 const DEEPSEEK = process.env.DEEPSEEK_API_KEY || '';
 const TAVILY = process.env.TAVILY_API_KEY || '';
@@ -204,6 +205,7 @@ function writeIndex() {
     '<!doctype html><html lang="id"><head><meta charset="utf-8">',
     '<meta name="viewport" content="width=device-width, initial-scale=1">',
     '<title>Daily Executive Brief — Arsip</title>',
+    FAVICON_LINK,
     '<style>',
     ':root{--bg:#ffffff;--fg:#191919;--fg2:#6b6b6b;--accent:#1a8917;--border:#e8e8e8}',
     '@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#121212;--fg:#e6e6e6;--fg2:#9a9a9a;--accent:#3ddc3d;--border:#2a2a2a}}',
@@ -244,6 +246,7 @@ function writeHomePage() {
     '<meta name="viewport" content="width=device-width, initial-scale=1">',
     '<title>Leader Brief</title>',
     '<meta name="description" content="Brief harian board-grade untuk pemimpin Indonesia: perkembangan kunci, sintesis dewan, dan watchlist 7–30 hari.">',
+    FAVICON_LINK,
     '<link rel="preconnect" href="https://fonts.googleapis.com">',
     '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>',
     '<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">',
@@ -300,9 +303,9 @@ function injectTemplate(html) {
   const styleTag = '<style>\n' + css + '\n</style>';
   html = html.replace(/<style[\s\S]*?<\/style>/gi, '');
   if (/<\/head>/i.test(html)) {
-    return html.replace(/<\/head>/i, styleTag + '\n</head>');
+    return html.replace(/<\/head>/i, FAVICON_LINK + '\n' + styleTag + '\n</head>');
   }
-  return '<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">' + styleTag + '</head><body>' + html + '</body></html>';
+  return '<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">' + FAVICON_LINK + styleTag + '</head><body>' + html + '</body></html>';
 }
 
 function addChrome(html) {

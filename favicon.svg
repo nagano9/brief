@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Leader Brief">
+  <rect width="64" height="64" rx="14" fill="#101510"/>
+  <path d="M16 14h32v36H16z" fill="#f7f5ee"/>
+  <path d="M22 22h20M22 30h20M22 38h13" stroke="#101510" stroke-width="3" stroke-linecap="round"/>
+  <path d="M46 14v36" stroke="#1a8917" stroke-width="4"/>
+  <text x="32" y="57" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="700" fill="#3ddc3d">LB</text>
+</svg>
