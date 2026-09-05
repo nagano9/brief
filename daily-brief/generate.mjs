@@ -174,7 +174,7 @@ function updateManifest(d, meta, file) {
   let m = {};
   if (existsSync(p)) { try { m = JSON.parse(readFileSync(p, 'utf8')); } catch (e) {} }
   const pd = new Date(d + 'T00:00:00Z').toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Asia/Jakarta' });
-  const title = pd + (meta.lens ? ' — ' + meta.lens : '');
+  const title = pd + (meta.lens ? ' - ' + meta.lens : '');
   m[d] = { date: d, title: title, dek: meta.dek, teaser: meta.teaser, headline: meta.dek || meta.lens, file: file };
   writeFileSync(p, JSON.stringify(m, null, 2) + '\n', 'utf8');
 }
@@ -247,8 +247,8 @@ function writeIndex() {
   const html = [
     '<!doctype html><html lang="id"><head><meta charset="utf-8">',
     '<meta name="viewport" content="width=device-width, initial-scale=1">',
-    '<title>Daily Executive Brief | Arsip</title>',
-    '<meta name="description" content="Arsip semua edisi Leader Brief, brief harian board-grade untuk pemimpin Indonesia.">',
+    '<title>LeaderBrief.id | Arsip</title>',
+    '<meta name="description" content="Arsip semua edisi LeaderBrief.id, brief harian board-grade untuk pemimpin Indonesia.">',
     GOOGLE_SITE_VERIFICATION,
     '<link rel="canonical" href="' + absUrl('/briefs/') + '">',
     FAVICON_LINK,
@@ -265,8 +265,8 @@ function writeIndex() {
     'a{color:var(--accent);text-decoration:none;font-weight:600;display:block}',
     'li span{color:var(--fg2);display:block;margin-top:3px;font-size:13.5px;line-height:1.55}',
     '</style></head><body><div class="wrap">',
-    '<h1>Daily Executive Brief</h1>',
-    '<p class="sub">Arsip brief harian — ketik untuk memfilter.</p>',
+    '<h1>LeaderBrief.id Archive</h1>',
+    '<p class="sub">Arsip brief harian. Ketik untuk memfilter tanggal atau topik.</p>',
     '<input type="search" placeholder="Cari tanggal atau topik…" oninput="f()">',
     '<ul id="list">',
     rows,
@@ -284,14 +284,20 @@ function writeHomePage() {
   const latestEntry = latest ? m[latest] : null;
   const latestHref = latestEntry ? './briefs/' + latestEntry.file : './briefs/';
   const latestNote = latest ? 'Brief terbaru: ' + prettyDate(latest) : 'Brief pertama sedang disiapkan.';
+  const latestTitle = latestEntry && (latestEntry.title || latestEntry.headline)
+    ? stripHtml(latestEntry.title || latestEntry.headline).replace(/^\S+,\s+\d+\s+\S+\s+\d+\s+[—-]\s+/, '')
+    : 'Edisi terbaru sedang disiapkan';
+  const latestDek = latestEntry && latestEntry.dek
+    ? stripHtml(latestEntry.dek)
+    : 'Lihat perkembangan paling material dan keputusan yang perlu disiapkan minggu ini.';
   const html = [
     '<!doctype html>',
     '<html lang="id">',
     '<head>',
     '<meta charset="utf-8">',
     '<meta name="viewport" content="width=device-width, initial-scale=1">',
-    '<title>Leader Brief</title>',
-    '<meta name="description" content="Brief harian board-grade untuk pemimpin Indonesia: perkembangan kunci, sintesis dewan, dan watchlist 7–30 hari.">',
+    '<title>LeaderBrief.id</title>',
+    '<meta name="description" content="Brief harian board-grade untuk pemimpin Indonesia: perkembangan kunci, sintesis dewan, dan watchlist 7-30 hari.">',
     GOOGLE_SITE_VERIFICATION,
     '<link rel="canonical" href="' + absUrl('/') + '">',
     FAVICON_LINK,
@@ -299,34 +305,47 @@ function writeHomePage() {
     '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>',
     '<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">',
     '<style>',
-    ':root{--bg:#ffffff;--fg:#191919;--muted:#6b6b6b;--accent:#1a8917;--line:#e8e8e8}',
-    '@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#121212;--fg:#e6e6e6;--muted:#9a9a9a;--accent:#3ddc3d;--line:#2a2a2a}}',
+    ':root{--bg:#ffffff;--fg:#191919;--muted:#626866;--faint:#7f8783;--accent:#0f5c4d;--line:#e0e5e2;--line2:#b9c3bf;--card:#f8faf8;--serif:"Newsreader",Georgia,serif;--sans:"Inter",system-ui,sans-serif;--mono:ui-monospace,"SF Mono","Cascadia Mono",Consolas,monospace}',
+    '@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#101312;--fg:#e6e9e7;--muted:#98a19e;--faint:#7f8985;--accent:#5cbfa8;--line:#252a28;--line2:#39413e;--card:#171b1a}}',
     '*{box-sizing:border-box}',
-    'body{margin:0;background:var(--bg);color:var(--fg);font-family:"Inter",system-ui,sans-serif;line-height:1.7;-webkit-font-smoothing:antialiased}',
-    '.top{max-width:720px;margin:0 auto;padding:28px 24px}',
-    '.brand{font-family:"Newsreader",Georgia,serif;font-size:23px;font-weight:600;letter-spacing:-.01em}',
-    'main{max-width:720px;margin:0 auto;padding:56px 24px 72px}',
-    'h1{font-family:"Newsreader",Georgia,serif;font-size:46px;line-height:1.1;font-weight:600;letter-spacing:-.02em;margin:0 0 22px}',
-    '.sub{font-size:19px;color:var(--muted);max-width:560px;margin:0 0 36px;line-height:1.6}',
-    '.btn{display:inline-block;background:var(--accent);color:#fff;padding:12px 26px;border-radius:24px;text-decoration:none;font-size:15px;font-weight:500}',
-    '.link{display:inline-block;margin-left:16px;color:var(--accent);text-decoration:none;font-size:15px;font-weight:600}',
-    '.btn:hover{opacity:.9}',
-    '.note{margin-top:18px;font-size:13px;color:var(--muted)}',
-    '.audit{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:12px 0;margin:26px 0 0;font-size:12.5px;color:var(--muted)}.audit b{color:var(--accent);text-transform:uppercase;letter-spacing:.08em}',
-    '.foot{max-width:720px;margin:0 auto;padding:24px;border-top:1px solid var(--line);color:var(--muted);font-size:13px}',
-    '@media(max-width:640px){h1{font-size:31px}.sub{font-size:17px}main{padding:40px 20px 56px}.top{padding:20px}.btn{display:block;text-align:center}}',
+    'body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);line-height:1.7;-webkit-font-smoothing:antialiased}',
+    '.wrap{max-width:960px;margin:0 auto;padding:0 24px}',
+    'header{border-bottom:1px solid var(--line2);padding:24px 0 14px;margin-bottom:54px}',
+    '.mast{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;padding-bottom:18px;border-bottom:1px solid var(--line)}',
+    '.brand{font-family:var(--serif);font-size:30px;line-height:1.05;font-weight:600;letter-spacing:-.01em}.brand span{color:var(--accent)}',
+    '.brand-sub{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:7px}',
+    '.status{text-align:right;font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.05em}.status b{display:block;color:var(--fg);font-size:14px}.status span{text-transform:uppercase;color:var(--faint);font-size:11px;letter-spacing:.13em}',
+    'nav{display:flex;justify-content:space-between;gap:18px;padding-top:13px;font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.1em}nav a{color:var(--muted);text-decoration:none}nav a:hover{color:var(--accent)}.nav-main{display:flex;gap:18px;flex-wrap:wrap}.premium{color:var(--fg);border:1px solid var(--line2);padding:4px 9px;margin-top:-5px}',
+    'main{padding-bottom:76px}',
+    '.hero{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(260px,.75fr);gap:44px;align-items:start}',
+    'h1{font-family:var(--serif);font-size:50px;line-height:1.05;font-weight:600;letter-spacing:-.02em;margin:0 0 22px;max-width:720px}',
+    '.sub{font-family:var(--serif);font-size:21px;color:var(--muted);max-width:650px;margin:0 0 30px;line-height:1.48}',
+    '.actions{display:flex;gap:14px;flex-wrap:wrap;align-items:center}.btn{display:inline-block;background:var(--accent);color:#fff;padding:11px 18px;text-decoration:none;font-size:14px;font-weight:600}.link{color:var(--accent);text-decoration:none;font-size:14px;font-weight:600}',
+    '.latest{border-top:1px solid var(--line2);border-bottom:1px solid var(--line2);padding:18px 0}.k{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--faint);margin-bottom:8px}.latest h2{font-family:var(--serif);font-size:24px;line-height:1.18;margin:0 0 8px}.latest h2 a{color:inherit;text-decoration:none}.latest p{font-size:14px;color:var(--muted);margin:0 0 10px;line-height:1.55}.note{font-family:var(--mono);font-size:12px;color:var(--muted)}',
+    '.audit{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:12px 0;margin:30px 0 0;font-size:12.5px;color:var(--muted)}.audit b{color:var(--accent);text-transform:uppercase;letter-spacing:.08em}',
+    '.context{border-top:1px solid var(--line2);border-bottom:1px solid var(--line2);padding:20px 0;margin:48px 0 42px}.context-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:18px}.context b{display:block;font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--faint);margin-bottom:4px}.context span{display:block;font-size:15px;color:var(--fg);line-height:1.35}.context small{display:block;font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:5px}',
+    '.proof{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;border-top:1px solid var(--line);padding-top:24px}.proof h3{font-size:13px;margin:0 0 8px}.proof p{font-size:14px;color:var(--muted);margin:0;line-height:1.55}',
+    '.foot{max-width:960px;margin:0 auto;padding:24px;border-top:1px solid var(--line);color:var(--muted);font-size:13px}',
+    '@media(max-width:820px){.hero{grid-template-columns:1fr}.context-grid,.proof{grid-template-columns:1fr 1fr}h1{font-size:38px}}',
+    '@media(max-width:560px){.wrap{padding:0 18px}.mast{display:block}.status{text-align:left;margin-top:14px}nav{display:block}.nav-main{margin-bottom:12px}h1{font-size:32px}.sub{font-size:18px}.context-grid,.proof{grid-template-columns:1fr}.premium{display:inline-block}}',
     '</style>',
     '</head>',
     '<body>',
-    '<div class="top"><div class="brand">Leader Brief</div></div>',
-    '<main>',
+    '<header><div class="wrap"><div class="mast"><div><div class="brand">LeaderBrief<span>.id</span></div><div class="brand-sub">Policy · Capital · Execution</div></div><div class="status"><span>Latest brief</span><b id="status-date">' + (latest ? prettyDate(latest) : 'Menunggu edisi') + '</b><small>Board-ready daily intelligence</small></div></div><nav><div class="nav-main"><a href="./briefs/">Arsip</a><a href="./methodology.html">Metodologi</a><a href="./">Beranda</a></div><a class="premium" href="./premium.html">Premium</a></nav></div></header>',
+    '<main class="wrap">',
+    '<section class="hero">',
+    '<div>',
     '  <h1>Brief harian yang mengubah berita menjadi keputusan.</h1>',
-    '  <p class="sub">Ringkasan board-grade untuk pemimpin Indonesia. Setiap hari kerja kami kurasi perkembangan paling material dan terjemahkan menjadi tindakan yang siap dibawa ke rapat Direksi.</p>',
-    '  <a class="btn" id="latest" href="' + latestHref + '">Baca Brief Terbaru</a><a class="link" href="./premium.html">Paket Premium</a><a class="link" href="./methodology.html">Metodologi</a>',
-    '  <div class="note" id="note">' + latestNote + '</div>',
+    '  <p class="sub">Ringkasan board-grade untuk pemimpin Indonesia: apa yang berubah, mengapa penting, dan keputusan apa yang perlu disiapkan dalam 7-30 hari.</p>',
+    '  <div class="actions"><a class="btn" id="latest" href="' + latestHref + '">Baca Brief Terbaru</a><a class="link" href="./premium.html">Paket Premium</a><a class="link" href="./methodology.html">Metodologi</a></div>',
     '  <div class="audit"><b>Audit passed</b> · Dibantu AI, diverifikasi sumber, dan bertanggung jawab editorial. Pemeriksaan: kutipan, duplikasi, sumber primer, tangga keputusan, dan pola bahasa generik.</div>',
+    '</div>',
+    '<aside class="latest"><div class="k">Latest Brief</div><h2><a id="latest-title" href="' + latestHref + '">' + escapeHtml(latestTitle) + '</a></h2><p id="latest-dek">' + escapeHtml(latestDek) + '</p><div class="note" id="note">' + latestNote + '</div></aside>',
+    '</section>',
+    '<section class="context"><div class="k">Executive context</div><div class="context-grid"><div><b>BI Rate</b><span>Cost of capital</span><small>RDG watch</small></div><div><b>Inflasi</b><span>Pricing power</span><small>BPS release</small></div><div><b>USD/IDR</b><span>FX exposure</span><small>Hedging trigger</small></div><div><b>APBN/SBN</b><span>Fiscal room</span><small>Funding signal</small></div><div><b>Energi</b><span>Input cost</span><small>ICP / offtake</small></div></div></section>',
+    '<section class="proof"><div><h3>Board question</h3><p>Satu pertanyaan yang layak masuk agenda Direksi atau komite risiko.</p></div><div><h3>Decision lens</h3><p>Setiap sinyal diterjemahkan ke owner, horizon, outcome, dan trigger eskalasi.</p></div><div><h3>Source discipline</h3><p>Brief memakai sumber publik yang dapat diperiksa, dengan audit sebelum publikasi.</p></div><div><h3>Premium path</h3><p>Memo mingguan, watchlist sektor, briefing khusus, dan board pack untuk tim.</p></div></section>',
     '</main>',
-    '<footer class="foot">Leader Brief · AI-assisted · Source-verified · Editorially accountable · leaderbrief.id</footer>',
+    '<footer class="foot">LeaderBrief.id · AI-assisted · Source-verified · Editorially accountable</footer>',
     '<script>',
     '(function () {',
     "  var a = document.getElementById('latest');",
@@ -338,6 +357,12 @@ function writeHomePage() {
     "      var d = new Date(latest + 'T00:00:00Z');",
     "      var pretty = d.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Asia/Jakarta' });",
     "      a.href = './briefs/' + m[latest].file;",
+    "      var t = document.getElementById('latest-title');",
+    "      var dk = document.getElementById('latest-dek');",
+    "      var sd = document.getElementById('status-date');",
+    "      if (t) { t.href = './briefs/' + m[latest].file; t.textContent = (m[latest].title || m[latest].headline || 'Brief terbaru').replace(/^\\S+,\\s+\\d+\\s+\\S+\\s+\\d+\\s+[—-]\\s+/, ''); }",
+    "      if (dk && m[latest].dek) dk.textContent = m[latest].dek;",
+    "      if (sd) sd.textContent = pretty;",
     "      n.textContent = 'Brief terbaru: ' + pretty;",
     '    }',
     '  }).catch(function () {});',
@@ -356,8 +381,8 @@ function writePremiumPage() {
     '<head>',
     '<meta charset="utf-8">',
     '<meta name="viewport" content="width=device-width, initial-scale=1">',
-    '<title>Paket Premium | Leader Brief</title>',
-    '<meta name="description" content="Paket premium dan korporasi Leader Brief untuk board intelligence, sponsor, dan briefing khusus pemimpin Indonesia.">',
+    '<title>Paket Premium | LeaderBrief.id</title>',
+    '<meta name="description" content="Paket premium dan korporasi LeaderBrief.id untuk board intelligence, sponsor, dan briefing khusus pemimpin Indonesia.">',
     GOOGLE_SITE_VERIFICATION,
     '<link rel="canonical" href="' + absUrl('/premium.html') + '">',
     FAVICON_LINK,
@@ -371,10 +396,10 @@ function writePremiumPage() {
     '</style>',
     '</head>',
     '<body><div class="wrap">',
-    '<header><a class="brand" href="./">Leader Brief</a><nav><a href="./briefs/">Arsip</a><a href="./methodology.html">Metodologi</a><a href="./">Beranda</a></nav></header>',
+    '<header><a class="brand" href="./">LeaderBrief.id</a><nav><a href="./briefs/">Arsip</a><a href="./methodology.html">Metodologi</a><a href="./">Beranda</a></nav></header>',
     '<main>',
     '<h1>Board intelligence untuk keputusan yang tidak bisa menunggu.</h1>',
-    '<p class="dek">Leader Brief publik membangun kebiasaan baca harian. Paket premium mengubahnya menjadi memo eksekutif, sesi briefing, dan sponsor placement untuk audiens pemimpin Indonesia.</p>',
+    '<p class="dek">LeaderBrief.id publik membangun kebiasaan baca harian. Paket premium mengubahnya menjadi memo eksekutif, sesi briefing, dan sponsor placement untuk audiens pemimpin Indonesia.</p>',
     '<div class="audit"><b>Workflow</b> · AI-assisted, source-verified, editorially accountable. Brief disusun dengan bantuan otomasi, lalu diperiksa untuk kutipan, duplikasi, sumber primer, dan ketajaman keputusan.</div>',
     '<div class="plans">',
     '<section class="plan"><h2>Individu</h2><p class="price">Rp149.000-299.000 per bulan</p><p>Untuk eksekutif yang membutuhkan arsip lengkap, memo mingguan, dan watchlist keputusan 7-30 hari.</p></section>',
@@ -384,7 +409,7 @@ function writePremiumPage() {
     '<h3>Produk awal</h3>',
     '<ul><li>Weekly board memo dari seluruh edisi pekan berjalan.</li><li>Custom briefing untuk rapat Direksi, Komite Risiko, atau tim strategi.</li><li>Sector watch: energi, BUMN, AI, capital allocation, dan governance.</li><li>Sponsor slot dengan disclosure yang jelas.</li></ul>',
     '<section class="cta"><h3>Pilot 30 hari</h3><p>Mulai dari satu memo mingguan, satu sesi briefing, dan satu daftar tema prioritas. Setelah respons pembaca terlihat, paket bisa dinaikkan ke langganan korporasi atau sponsorship.</p><p><a class="btn" href="https://wa.me/6281393000399?text=Saya%20ingin%20diskusi%20paket%20premium%20LeaderBrief." rel="noopener" target="_blank">Diskusikan paket</a></p></section>',
-    '</main><footer class="foot">Leader Brief · AI-assisted · Source-verified · Editorially accountable</footer>',
+    '</main><footer class="foot">LeaderBrief.id · AI-assisted · Source-verified · Editorially accountable</footer>',
     '</div></body></html>',
     ''
   ].join('\n');
@@ -398,8 +423,8 @@ function writeMethodologyPage() {
     '<head>',
     '<meta charset="utf-8">',
     '<meta name="viewport" content="width=device-width, initial-scale=1">',
-    '<title>Metodologi | Leader Brief</title>',
-    '<meta name="description" content="Cara Leader Brief menggunakan AI, sumber publik, audit kutipan, dan tanggung jawab editorial sebelum publikasi.">',
+    '<title>Metodologi | LeaderBrief.id</title>',
+    '<meta name="description" content="Cara LeaderBrief.id menggunakan AI, sumber publik, audit kutipan, dan tanggung jawab editorial sebelum publikasi.">',
     GOOGLE_SITE_VERIFICATION,
     '<link rel="canonical" href="' + absUrl('/methodology.html') + '">',
     FAVICON_LINK,
@@ -412,18 +437,18 @@ function writeMethodologyPage() {
     '</style>',
     '</head>',
     '<body><div class="wrap">',
-    '<header><a class="brand" href="./">Leader Brief</a><nav><a href="./briefs/">Arsip</a><a href="./premium.html">Premium</a><a href="./">Beranda</a></nav></header>',
+    '<header><a class="brand" href="./">LeaderBrief.id</a><nav><a href="./briefs/">Arsip</a><a href="./premium.html">Premium</a><a href="./">Beranda</a></nav></header>',
     '<main>',
     '<h1>Metodologi dan penggunaan AI.</h1>',
-    '<p class="dek">Leader Brief memakai AI sebagai alat kerja editorial, bukan sebagai otoritas final. Nilai produk berada pada pemilihan sumber, struktur keputusan, dan audit sebelum publikasi.</p>',
+    '<p class="dek">LeaderBrief.id memakai AI sebagai alat kerja editorial, bukan sebagai otoritas final. Nilai produk berada pada pemilihan sumber, struktur keputusan, dan audit sebelum publikasi.</p>',
     '<div class="audit"><b>Principle</b> · AI-assisted, source-verified, editorially accountable.</div>',
     '<h2>Bagaimana brief disusun</h2>',
     '<p>Runner mengumpulkan kandidat dari sumber publik, RSS, dan pencarian. Model bahasa membantu menyusun draf berdasarkan materi yang diberikan runner. Draf kemudian dipaksa mengikuti struktur board-grade: fakta, inferensi, implikasi keputusan, owner, horizon, outcome, dan escalation trigger.</p>',
     '<h2>Apa yang diaudit</h2>',
     '<ul><li>Kutipan dan tautan sumber harus tersedia.</li><li>Duplikasi isu dan pengulangan dari edisi sebelumnya ditekan.</li><li>Bahasa generik, em dash, filler, dan rekomendasi kosong ditolak.</li><li>Perbedaan antara fakta dan inferensi harus terlihat.</li><li>Keputusan investasi, hukum, dan teknis tetap menjadi tanggung jawab pembaca.</li></ul>',
     '<h2>Akuntabilitas</h2>',
-    '<p>Kami tidak menyamarkan otomasi sebagai tulisan manusia murni. Kami juga tidak menyerahkan keputusan editorial kepada model. Leader Brief adalah produk editorial berbasis sumber publik yang dibantu AI dan diperiksa sebelum terbit.</p>',
-    '</main><footer class="foot">Leader Brief · AI-assisted · Source-verified · Editorially accountable</footer>',
+    '<p>Kami tidak menyamarkan otomasi sebagai tulisan manusia murni. Kami juga tidak menyerahkan keputusan editorial kepada model. LeaderBrief.id adalah produk editorial berbasis sumber publik yang dibantu AI dan diperiksa sebelum terbit.</p>',
+    '</main><footer class="foot">LeaderBrief.id · AI-assisted · Source-verified · Editorially accountable</footer>',
     '</div></body></html>',
     ''
   ].join('\n');
@@ -433,7 +458,7 @@ function writeMethodologyPage() {
 function injectTemplate(html, meta) {
   const css = readFileSync(join(__dirname, 'template.css'), 'utf8');
   const styleTag = '<style>\n' + css + '\n</style>';
-  const pageTitle = (meta && (meta.lens || meta.dek)) ? escapeHtml((meta.lens || meta.dek).slice(0, 90)) + ' | Leader Brief' : pretty + ' | Leader Brief';
+  const pageTitle = (meta && (meta.lens || meta.dek)) ? escapeHtml((meta.lens || meta.dek).slice(0, 90)) + ' | LeaderBrief.id' : pretty + ' | LeaderBrief.id';
   const description = (meta && (meta.dek || meta.teaser || meta.lens)) ? escapeHtml((meta.dek || meta.teaser || meta.lens).slice(0, 160)) : 'Brief harian board-grade untuk pemimpin Indonesia.';
   const seo = [
     '<title>' + pageTitle + '</title>',
@@ -481,7 +506,7 @@ function addChrome(html) {
   const linksHtml = links.join('');
   const toc = '<aside class="toc"><div class="k">On this page</div>' + linksHtml + '</aside>';
   const tocMobile = '<details class="toc-mobile"><summary>Daftar isi</summary>' + linksHtml + '</details>';
-  const aside = '<aside class="aside"><div class="box"><div class="k">Edisi</div><p>' + pretty + '</p><p>Terbit setiap hari kerja pukul 05:30 WIB.</p></div><div class="box"><div class="k">Audit</div><p>AI-assisted, source-verified, editorially accountable.</p><p>Kutipan, duplikasi, sumber primer, tangga keputusan, dan pola bahasa generik diperiksa sebelum publikasi.</p></div><div class="box"><div class="k">Navigasi</div><p><a href="../briefs/">Lihat arsip edisi</a></p><p><a href="../premium.html">Paket premium</a></p><p><a href="../methodology.html">Metodologi</a></p><p><a href="../">Beranda Leader Brief</a></p></div></aside>';
+  const aside = '<aside class="aside"><div class="box"><div class="k">Edisi</div><p><strong>' + pretty + '</strong></p><p>Terbit setiap hari kerja pukul 05:30 WIB.</p></div><div class="box"><div class="k">Boardroom rail</div><ul><li><strong>Pertanyaan dewan:</strong> keputusan apa yang harus dipercepat, ditunda, atau diuji ulang?</li><li><strong>Aksi minggu ini:</strong> minta owner, horizon, dan trigger eskalasi untuk sinyal utama.</li><li><strong>Jendela risiko:</strong> pantau dampak 7-30 hari terhadap modal, izin, offtake, dan reputasi.</li></ul></div><div class="box"><div class="k">Audit</div><p>AI-assisted, source-verified, editorially accountable.</p><p>Kutipan, duplikasi, sumber primer, tangga keputusan, dan pola bahasa generik diperiksa sebelum publikasi.</p></div><div class="box"><div class="k">Navigasi</div><p><a href="../briefs/">Lihat arsip edisi</a></p><p><a href="../premium.html">Paket premium</a></p><p><a href="../methodology.html">Metodologi</a></p><p><a href="../">Beranda LeaderBrief.id</a></p></div></aside>';
   html = html.replace(/<body[^>]*>/, '<body>\n<div class="layout">\n' + toc + tocMobile);
   html = html.replace(/<\/body>/, aside + '\n</div>\n</body>');
   return html;

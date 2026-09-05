@@ -39,9 +39,13 @@ html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:16.5px;line-height:1.75;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 .wrap{max-width:720px;margin:0 auto;padding:40px 24px 96px}
 
-.masthead{border-bottom:1px solid var(--line);padding-bottom:18px;margin-bottom:40px}
-.masthead-name{font-family:var(--serif);font-size:27px;font-weight:600;letter-spacing:-.01em;line-height:1.2}
-.masthead-date{font-size:14px;color:var(--muted);margin-top:6px}
+.masthead{border-bottom:1px solid var(--line-strong);padding-bottom:20px;margin-bottom:34px}
+.masthead-top{display:flex;align-items:flex-end;justify-content:space-between;gap:24px}
+.masthead-name{font-family:var(--serif);font-size:29px;font-weight:600;letter-spacing:-.01em;line-height:1.1}
+.masthead-name span{color:var(--accent)}
+.masthead-sub{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:7px}
+.masthead-date{text-align:right;font-size:13px;color:var(--muted)}
+.masthead-date b{display:block;color:var(--fg);font-size:14px;font-weight:600}
 
 .sec-kicker{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:46px 0 14px}
 
@@ -100,6 +104,8 @@ td b,td strong{color:var(--fg);font-weight:600}
   .wrap{padding:20px 16px 56px}
   .masthead-name{font-size:21px}
   .masthead-date{font-size:13px}
+  .masthead-top{display:block}
+  .masthead-date{text-align:left;margin-top:12px}
   .headline p{font-size:20px;line-height:1.35}
   .lede{font-size:17px;line-height:1.6}
   h3{font-size:19px}
@@ -122,6 +128,10 @@ td b,td strong{color:var(--fg);font-weight:600}
 .aside .k{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:8px}
 .aside p{font-size:13.5px;color:var(--muted);margin:0 0 8px;line-height:1.6}
 .aside a{color:var(--accent);text-decoration:none}
+.aside strong{color:var(--fg);font-weight:600}
+.aside ul{list-style:none;margin:0;padding:0}
+.aside li{font-size:13.5px;color:var(--muted);line-height:1.55;padding:7px 0;border-top:1px solid var(--line)}
+.aside li:first-child{border-top:0}
 .toc-mobile{display:none;border:1px solid var(--line);border-radius:8px;margin:0 0 24px;overflow:hidden}
 .toc-mobile summary{padding:14px 16px;font-size:14px;font-weight:600;color:var(--accent);cursor:pointer;list-style:none;user-select:none}
 .toc-mobile summary::-webkit-details-marker{display:none}
@@ -143,6 +153,7 @@ td b,td strong{color:var(--fg);font-weight:600}
 .skip{margin:0 0 24px}
 .skip ul{list-style:none;padding:0;margin:0}
 .skip li{padding:5px 0;font-size:14.5px;color:var(--muted)}
+
 </style>
 </head>
 <body>
@@ -151,10 +162,7 @@ td b,td strong{color:var(--fg);font-weight:600}
 <details class="toc-mobile"><summary>Daftar isi</summary><a href="#sec-1">Executive Pulse</a><a href="#sec-2">Perkembangan Kunci</a><a class="indent" href="#item-1">1. Tender surya 30 GW</a><a class="indent" href="#item-2">2. Brent &amp; Fed</a><a class="indent" href="#item-3">3. Data center AI</a><a href="#sec-3">Watchlist 7–30 hari</a><a href="#sec-4">Board Integrated Synthesis</a><a href="#sec-5">What Not To Do</a></details>
 <div class="wrap">
 
-<header class="masthead">
-  <div class="masthead-name">Leader Brief</div>
-  <div class="masthead-date">Jumat, 21 Agustus 2026</div>
-</header>
+<header class="masthead"><div class="masthead-top"><div><div class="masthead-name">LeaderBrief<span>.id</span></div><div class="masthead-sub">Policy · Capital · Execution</div></div><div class="masthead-date"><span>Edisi</span><b>Jumat, 21 Agustus 2026</b></div></div></header>
 
 <div class="lensa">Lensa hari ini: Sintesis Minggu</div>
 <p class="dek">Tender surya 30 GW mengubah offtake dari sekadar kapasitas menjadi arena kompetisi, tepat ketika biaya modal dan harga energi menanjak bersamaan.</p>
@@ -291,10 +299,7 @@ td b,td strong{color:var(--fg);font-weight:600}
 </footer>
 
 </div>
-<aside class="aside">
-  <div class="box"><div class="k">Edisi</div><p>Jumat, 21 Agustus 2026</p><p>Terbit setiap hari kerja pukul 05:30 WIB.</p></div>
-  <div class="box"><div class="k">Navigasi</div><p><a href="../briefs/">Lihat arsip edisi</a></p><p><a href="../">Beranda Leader Brief</a></p></div>
-</aside>
+<aside class="aside"><div class="box"><div class="k">Edisi</div><p><strong>Jumat, 21 Agustus 2026</strong></p><p>Terbit setiap hari kerja pukul 05:30 WIB.</p></div><div class="box"><div class="k">Boardroom rail</div><ul><li><strong>Pertanyaan dewan:</strong> keputusan apa yang harus dipercepat, ditunda, atau diuji ulang?</li><li><strong>Aksi minggu ini:</strong> minta owner, horizon, dan trigger eskalasi untuk sinyal utama.</li><li><strong>Jendela risiko:</strong> pantau dampak 7-30 hari terhadap modal, izin, offtake, dan reputasi.</li></ul></div><div class="box"><div class="k">Audit</div><p>AI-assisted, source-verified, editorially accountable.</p><p>Kutipan, duplikasi, sumber primer, tangga keputusan, dan pola bahasa generik diperiksa sebelum publikasi.</p></div><div class="box"><div class="k">Navigasi</div><p><a href="../briefs/">Lihat arsip edisi</a></p><p><a href="../premium.html">Paket premium</a></p><p><a href="../methodology.html">Metodologi</a></p><p><a href="../">Beranda LeaderBrief.id</a></p></div></aside>
 </div>
 </body>
 </html>

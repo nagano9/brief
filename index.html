@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Leader Brief</title>
-<meta name="description" content="Brief harian board-grade untuk pemimpin Indonesia: perkembangan kunci, sintesis dewan, dan watchlist 7–30 hari.">
+<title>LeaderBrief.id</title>
+<meta name="description" content="Brief harian board-grade untuk pemimpin Indonesia: perkembangan kunci, sintesis dewan, dan watchlist 7-30 hari.">
 <meta name="google-site-verification" content="D_rAihSMsnXvLIIEMHCEGqosuxUua9czU0NmXbOWrp8">
 <link rel="canonical" href="https://leaderbrief.id/">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -12,49 +12,21 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#ffffff;--fg:#191919;--muted:#6b6b6b;--accent:#1a8917;--line:#e8e8e8}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#121212;--fg:#e6e6e6;--muted:#9a9a9a;--accent:#3ddc3d;--line:#2a2a2a}}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--fg);font-family:"Inter",system-ui,sans-serif;line-height:1.7;-webkit-font-smoothing:antialiased}
-.top{max-width:720px;margin:0 auto;padding:28px 24px}
-.brand{font-family:"Newsreader",Georgia,serif;font-size:23px;font-weight:600;letter-spacing:-.01em}
-main{max-width:720px;margin:0 auto;padding:56px 24px 72px}
-h1{font-family:"Newsreader",Georgia,serif;font-size:46px;line-height:1.1;font-weight:600;letter-spacing:-.02em;margin:0 0 22px}
-.sub{font-size:19px;color:var(--muted);max-width:560px;margin:0 0 36px;line-height:1.6}
-.btn{display:inline-block;background:var(--accent);color:#fff;padding:12px 26px;border-radius:24px;text-decoration:none;font-size:15px;font-weight:500}
-.link{display:inline-block;margin-left:16px;color:var(--accent);text-decoration:none;font-size:15px;font-weight:600}
-.btn:hover{opacity:.9}
-.note{margin-top:18px;font-size:13px;color:var(--muted)}
-.audit{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:12px 0;margin:26px 0 0;font-size:12.5px;color:var(--muted)}.audit b{color:var(--accent);text-transform:uppercase;letter-spacing:.08em}
-.foot{max-width:720px;margin:0 auto;padding:24px;border-top:1px solid var(--line);color:var(--muted);font-size:13px}
-@media(max-width:640px){h1{font-size:31px}.sub{font-size:17px}main{padding:40px 20px 56px}.top{padding:20px}.btn{display:block;text-align:center}}
+:root{--bg:#ffffff;--fg:#191919;--muted:#626866;--faint:#7f8783;--accent:#0f5c4d;--line:#e0e5e2;--line2:#b9c3bf;--card:#f8faf8;--serif:"Newsreader",Georgia,serif;--sans:"Inter",system-ui,sans-serif;--mono:ui-monospace,"SF Mono","Cascadia Mono",Consolas,monospace}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#101312;--fg:#e6e9e7;--muted:#98a19e;--faint:#7f8985;--accent:#5cbfa8;--line:#252a28;--line2:#39413e;--card:#171b1a}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);line-height:1.7;-webkit-font-smoothing:antialiased}.wrap{max-width:960px;margin:0 auto;padding:0 24px}
+header{border-bottom:1px solid var(--line2);padding:24px 0 14px;margin-bottom:54px}.mast{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;padding-bottom:18px;border-bottom:1px solid var(--line)}.brand{font-family:var(--serif);font-size:30px;line-height:1.05;font-weight:600;letter-spacing:-.01em}.brand span{color:var(--accent)}.brand-sub{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:7px}.status{text-align:right;font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.05em}.status b{display:block;color:var(--fg);font-size:14px}.status span{text-transform:uppercase;color:var(--faint);font-size:11px;letter-spacing:.13em}
+nav{display:flex;justify-content:space-between;gap:18px;padding-top:13px;font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.1em}nav a{color:var(--muted);text-decoration:none}nav a:hover{color:var(--accent)}.nav-main{display:flex;gap:18px;flex-wrap:wrap}.premium{color:var(--fg);border:1px solid var(--line2);padding:4px 9px;margin-top:-5px}main{padding-bottom:76px}.hero{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(260px,.75fr);gap:44px;align-items:start}h1{font-family:var(--serif);font-size:50px;line-height:1.05;font-weight:600;letter-spacing:-.02em;margin:0 0 22px;max-width:720px}.sub{font-family:var(--serif);font-size:21px;color:var(--muted);max-width:650px;margin:0 0 30px;line-height:1.48}.actions{display:flex;gap:14px;flex-wrap:wrap;align-items:center}.btn{display:inline-block;background:var(--accent);color:#fff;padding:11px 18px;text-decoration:none;font-size:14px;font-weight:600}.link{color:var(--accent);text-decoration:none;font-size:14px;font-weight:600}.latest{border-top:1px solid var(--line2);border-bottom:1px solid var(--line2);padding:18px 0}.k{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--faint);margin-bottom:8px}.latest h2{font-family:var(--serif);font-size:24px;line-height:1.18;margin:0 0 8px}.latest h2 a{color:inherit;text-decoration:none}.latest p{font-size:14px;color:var(--muted);margin:0 0 10px;line-height:1.55}.note{font-family:var(--mono);font-size:12px;color:var(--muted)}.audit{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:12px 0;margin:30px 0 0;font-size:12.5px;color:var(--muted)}.audit b{color:var(--accent);text-transform:uppercase;letter-spacing:.08em}.context{border-top:1px solid var(--line2);border-bottom:1px solid var(--line2);padding:20px 0;margin:48px 0 42px}.context-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:18px}.context b{display:block;font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--faint);margin-bottom:4px}.context span{display:block;font-size:15px;color:var(--fg);line-height:1.35}.context small{display:block;font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:5px}.proof{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;border-top:1px solid var(--line);padding-top:24px}.proof h3{font-size:13px;margin:0 0 8px}.proof p{font-size:14px;color:var(--muted);margin:0;line-height:1.55}.foot{max-width:960px;margin:0 auto;padding:24px;border-top:1px solid var(--line);color:var(--muted);font-size:13px}
+@media(max-width:820px){.hero{grid-template-columns:1fr}.context-grid,.proof{grid-template-columns:1fr 1fr}h1{font-size:38px}}@media(max-width:560px){.wrap{padding:0 18px}.mast{display:block}.status{text-align:left;margin-top:14px}nav{display:block}.nav-main{margin-bottom:12px}h1{font-size:32px}.sub{font-size:18px}.context-grid,.proof{grid-template-columns:1fr}.premium{display:inline-block}}
 </style>
 </head>
 <body>
-<div class="top"><div class="brand">Leader Brief</div></div>
-<main>
-  <h1>Brief harian yang mengubah berita menjadi keputusan.</h1>
-  <p class="sub">Ringkasan board-grade untuk pemimpin Indonesia. Setiap hari kerja kami kurasi perkembangan paling material dan terjemahkan menjadi tindakan yang siap dibawa ke rapat Direksi.</p>
-  <a class="btn" id="latest" href="./briefs/2026-09-04.html">Baca Brief Terbaru</a><a class="link" href="./premium.html">Paket Premium</a><a class="link" href="./methodology.html">Metodologi</a>
-  <div class="note" id="note">Brief terbaru: Jumat, 4 September 2026</div>
-  <div class="audit"><b>Audit passed</b> · Dibantu AI, diverifikasi sumber, dan bertanggung jawab editorial. Pemeriksaan: kutipan, duplikasi, sumber primer, tangga keputusan, dan pola bahasa generik.</div>
+<header><div class="wrap"><div class="mast"><div><div class="brand">LeaderBrief<span>.id</span></div><div class="brand-sub">Policy · Capital · Execution</div></div><div class="status"><span>Latest brief</span><b id="status-date">Jumat, 4 September 2026</b><small>Board-ready daily intelligence</small></div></div><nav><div class="nav-main"><a href="./briefs/">Arsip</a><a href="./methodology.html">Metodologi</a><a href="./">Beranda</a></div><a class="premium" href="./premium.html">Premium</a></nav></div></header>
+<main class="wrap">
+<section class="hero"><div><h1>Brief harian yang mengubah berita menjadi keputusan.</h1><p class="sub">Ringkasan board-grade untuk pemimpin Indonesia: apa yang berubah, mengapa penting, dan keputusan apa yang perlu disiapkan dalam 7-30 hari.</p><div class="actions"><a class="btn" id="latest" href="./briefs/2026-09-04.html">Baca Brief Terbaru</a><a class="link" href="./premium.html">Paket Premium</a><a class="link" href="./methodology.html">Metodologi</a></div><div class="audit"><b>Audit passed</b> · Dibantu AI, diverifikasi sumber, dan bertanggung jawab editorial. Pemeriksaan: kutipan, duplikasi, sumber primer, tangga keputusan, dan pola bahasa generik.</div></div><aside class="latest"><div class="k">Latest Brief</div><h2><a id="latest-title" href="./briefs/2026-09-04.html">Macro &amp; Modal | Energi &amp; Offtake | Governance &amp; BUMN | Operasi &amp; AI | Sintesis Minggu</a></h2><p id="latest-dek">Inflasi Agustus menembus batas atas target BI dan memaksa kalibrasi ulang asumsi suku bunga, sementara Danantara menggeser dari fase deklarasi ke eksekusi proyek yang menuntut keputusan alokasi modal riil.</p><div class="note" id="note">Brief terbaru: Jumat, 4 September 2026</div></aside></section>
+<section class="context"><div class="k">Executive context</div><div class="context-grid"><div><b>BI Rate</b><span>Cost of capital</span><small>RDG watch</small></div><div><b>Inflasi</b><span>Pricing power</span><small>BPS release</small></div><div><b>USD/IDR</b><span>FX exposure</span><small>Hedging trigger</small></div><div><b>APBN/SBN</b><span>Fiscal room</span><small>Funding signal</small></div><div><b>Energi</b><span>Input cost</span><small>ICP / offtake</small></div></div></section>
+<section class="proof"><div><h3>Board question</h3><p>Satu pertanyaan yang layak masuk agenda Direksi atau komite risiko.</p></div><div><h3>Decision lens</h3><p>Setiap sinyal diterjemahkan ke owner, horizon, outcome, dan trigger eskalasi.</p></div><div><h3>Source discipline</h3><p>Brief memakai sumber publik yang dapat diperiksa, dengan audit sebelum publikasi.</p></div><div><h3>Premium path</h3><p>Memo mingguan, watchlist sektor, briefing khusus, dan board pack untuk tim.</p></div></section>
 </main>
-<footer class="foot">Leader Brief · AI-assisted · Source-verified · Editorially accountable · leaderbrief.id</footer>
-<script>
-(function () {
-  var a = document.getElementById('latest');
-  var n = document.getElementById('note');
-  fetch('./briefs/manifest.json?v=' + Date.now(), { cache: 'no-store' }).then(function (r) { return r.json(); }).then(function (m) {
-    var keys = Object.keys(m).sort().reverse();
-    if (keys.length > 0) {
-      var latest = keys[0];
-      var d = new Date(latest + 'T00:00:00Z');
-      var pretty = d.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Asia/Jakarta' });
-      a.href = './briefs/' + latest + '.html';
-      n.textContent = 'Brief terbaru: ' + pretty;
-    } else { n.textContent = 'Brief pertama sedang disiapkan.'; }
-  }).catch(function () {});
-})();
-</script>
+<footer class="foot">LeaderBrief.id · AI-assisted · Source-verified · Editorially accountable</footer>
 </body>
 </html>

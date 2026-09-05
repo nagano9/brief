@@ -32,9 +32,13 @@ html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:16.5px;line-height:1.75;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 .wrap{max-width:720px;margin:0 auto;padding:40px 24px 96px}
 
-.masthead{border-bottom:1px solid var(--line);padding-bottom:18px;margin-bottom:40px}
-.masthead-name{font-family:var(--serif);font-size:27px;font-weight:600;letter-spacing:-.01em;line-height:1.2}
-.masthead-date{font-size:14px;color:var(--muted);margin-top:6px}
+.masthead{border-bottom:1px solid var(--line-strong);padding-bottom:20px;margin-bottom:34px}
+.masthead-top{display:flex;align-items:flex-end;justify-content:space-between;gap:24px}
+.masthead-name{font-family:var(--serif);font-size:29px;font-weight:600;letter-spacing:-.01em;line-height:1.1}
+.masthead-name span{color:var(--accent)}
+.masthead-sub{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:7px}
+.masthead-date{text-align:right;font-size:13px;color:var(--muted)}
+.masthead-date b{display:block;color:var(--fg);font-size:14px;font-weight:600}
 
 .sec-kicker{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:46px 0 14px}
 
@@ -93,6 +97,8 @@ td b,td strong{color:var(--fg);font-weight:600}
   .wrap{padding:20px 16px 56px}
   .masthead-name{font-size:21px}
   .masthead-date{font-size:13px}
+  .masthead-top{display:block}
+  .masthead-date{text-align:left;margin-top:12px}
   .headline p{font-size:20px;line-height:1.35}
   .lede{font-size:17px;line-height:1.6}
   h3{font-size:19px}
@@ -115,6 +121,10 @@ td b,td strong{color:var(--fg);font-weight:600}
 .aside .k{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:8px}
 .aside p{font-size:13.5px;color:var(--muted);margin:0 0 8px;line-height:1.6}
 .aside a{color:var(--accent);text-decoration:none}
+.aside strong{color:var(--fg);font-weight:600}
+.aside ul{list-style:none;margin:0;padding:0}
+.aside li{font-size:13.5px;color:var(--muted);line-height:1.55;padding:7px 0;border-top:1px solid var(--line)}
+.aside li:first-child{border-top:0}
 .toc-mobile{display:none;border:1px solid var(--line);border-radius:8px;margin:0 0 24px;overflow:hidden}
 .toc-mobile summary{padding:14px 16px;font-size:14px;font-weight:600;color:var(--accent);cursor:pointer;list-style:none;user-select:none}
 .toc-mobile summary::-webkit-details-marker{display:none}

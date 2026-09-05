@@ -33,9 +33,13 @@ html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:16.5px;line-height:1.75;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 .wrap{max-width:720px;margin:0 auto;padding:40px 24px 96px}
 
-.masthead{border-bottom:1px solid var(--line);padding-bottom:18px;margin-bottom:40px}
-.masthead-name{font-family:var(--serif);font-size:27px;font-weight:600;letter-spacing:-.01em;line-height:1.2}
-.masthead-date{font-size:14px;color:var(--muted);margin-top:6px}
+.masthead{border-bottom:1px solid var(--line-strong);padding-bottom:20px;margin-bottom:34px}
+.masthead-top{display:flex;align-items:flex-end;justify-content:space-between;gap:24px}
+.masthead-name{font-family:var(--serif);font-size:29px;font-weight:600;letter-spacing:-.01em;line-height:1.1}
+.masthead-name span{color:var(--accent)}
+.masthead-sub{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:7px}
+.masthead-date{text-align:right;font-size:13px;color:var(--muted)}
+.masthead-date b{display:block;color:var(--fg);font-size:14px;font-weight:600}
 
 .sec-kicker{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:46px 0 14px}
 
@@ -94,6 +98,8 @@ td b,td strong{color:var(--fg);font-weight:600}
   .wrap{padding:20px 16px 56px}
   .masthead-name{font-size:21px}
   .masthead-date{font-size:13px}
+  .masthead-top{display:block}
+  .masthead-date{text-align:left;margin-top:12px}
   .headline p{font-size:20px;line-height:1.35}
   .lede{font-size:17px;line-height:1.6}
   h3{font-size:19px}
@@ -116,6 +122,10 @@ td b,td strong{color:var(--fg);font-weight:600}
 .aside .k{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:8px}
 .aside p{font-size:13.5px;color:var(--muted);margin:0 0 8px;line-height:1.6}
 .aside a{color:var(--accent);text-decoration:none}
+.aside strong{color:var(--fg);font-weight:600}
+.aside ul{list-style:none;margin:0;padding:0}
+.aside li{font-size:13.5px;color:var(--muted);line-height:1.55;padding:7px 0;border-top:1px solid var(--line)}
+.aside li:first-child{border-top:0}
 .toc-mobile{display:none;border:1px solid var(--line);border-radius:8px;margin:0 0 24px;overflow:hidden}
 .toc-mobile summary{padding:14px 16px;font-size:14px;font-weight:600;color:var(--accent);cursor:pointer;list-style:none;user-select:none}
 .toc-mobile summary::-webkit-details-marker{display:none}
@@ -124,13 +134,24 @@ td b,td strong{color:var(--fg);font-weight:600}
 .toc-mobile a:last-child{border-bottom:none}
 .toc-mobile a.indent{padding-left:28px;font-size:13px;color:var(--faint)}
 @media(max-width:1120px){.layout{grid-template-columns:1fr;padding:0}.toc,.aside{display:none}.toc-mobile{display:block}}
+.lensa{font-size:12.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+.dek{font-family:var(--serif);font-size:22px;line-height:1.4;font-weight:500;margin:0 0 26px;color:var(--fg)}
+.blk-k{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin:0 0 10px}
+.seconds{border:1px solid var(--line);border-radius:8px;padding:18px 20px;margin:0 0 24px}
+.seconds ul{list-style:none;padding:0;margin:0 0 12px}
+.seconds li{padding:7px 0;border-top:1px solid var(--line);font-size:15px;line-height:1.5}
+.seconds li:first-child{border-top:none}
+.seconds .act{margin:0;font-size:15px}
+.boardq{border-left:3px solid var(--accent);padding:2px 0 2px 18px;margin:0 0 24px}
+.boardq p{font-family:var(--serif);font-size:20px;line-height:1.4;font-weight:500;margin:0}
+.skip{margin:0 0 24px}
+.skip ul{list-style:none;padding:0;margin:0}
+.skip li{padding:5px 0;font-size:14.5px;color:var(--muted)}
+
 </style></head><body>
 <div class="layout">
 <aside class="toc"><div class="k">On this page</div></aside><details class="toc-mobile"><summary>Daftar isi</summary></details><div class="wrap">
-<header class="masthead">
-  <div class="masthead-name">Leader Brief</div>
-  <div class="masthead-date">Kamis, 27 Agustus 2026</div>
-</header>
+<header class="masthead"><div class="masthead-top"><div><div class="masthead-name">LeaderBrief<span>.id</span></div><div class="masthead-sub">Policy · Capital · Execution</div></div><div class="masthead-date"><span>Edisi</span><b>Kamis, 27 Agustus 2026</b></div></div></header>
 
 <h2 class="sec-kicker">Executive Pulse</h2>
 
@@ -287,6 +308,6 @@ td b,td strong{color:var(--fg);font-weight:600}
   <p class="btl"><b>Bottom Line</b> OpenAI memperkenalkan Frontier, platform untuk membangun, menerapkan, dan mengelola AI agents yang dapat melakukan pekerjaan nyata. Ini menandai pergeseran dari model bahasa ke agen otonom yang dapat mengotomatisasi proses bisnis, dengan implikasi besar pada efisiensi operasional dan model tenaga kerja.</p>
   <div class="field"><span class="fk">What Changed</span><p>Sebelumnya, AI agents masih bersifat eksperimental dan terbatas pada tugas-tugas sederhana. Kini, dengan platform seperti Frontier, perusahaan dapat membangun dan mengelola agen AI yang terintegrasi dengan sistem bisnis mereka. Ini membuka peluang untuk otomatisasi proses yang lebih kompleks, tetapi juga menuntut kesiapan organisasi dan tata kelola.</p></div>
   <div class="field"><span class="fk">Evidence & Magnitude</span><p>OpenAI Frontier dirancang untuk enterprise, dengan kemampuan untuk mengoordinasikan jaringan lebih dari 100 agen AI khusus. <span class="ev-fact">FACT</span> Ini adalah lompatan dari model bahasa statis ke agen yang dapat merencanakan, mengeksekusi, dan beradaptasi dengan intervensi manusia yang minimal. Adopsi teknologi ini dapat meningkatkan produktivitas secara signifikan, tetapi juga menimbulkan risiko keamanan dan tata kelola.</p></div>
-  <div class="field"><span class="fk">Why It Matters Now</span><p>BUMN dan perusahaan besar di Indonesia mulai mengeksplorasi AI untuk meningkatkan efisiensi. Platform seperti Frontier menawarkan kemampuan yang lebih canggih, tetapi juga membutuhkan investasi dalam infrastruktur data, keamanan siber<aside class="aside"><div class="box"><div class="k">Edisi</div><p>Kamis, 27 Agustus 2026</p><p>Terbit setiap hari kerja pukul 05:30 WIB.</p></div><div class="box"><div class="k">Navigasi</div><p><a href="../briefs/">Lihat arsip edisi</a></p><p><a href="../">Beranda Leader Brief</a></p></div></aside>
+  <div class="field"><span class="fk">Why It Matters Now</span><p>BUMN dan perusahaan besar di Indonesia mulai mengeksplorasi AI untuk meningkatkan efisiensi. Platform seperti Frontier menawarkan kemampuan yang lebih canggih, tetapi juga membutuhkan investasi dalam infrastruktur data, keamanan siber<aside class="aside"><div class="box"><div class="k">Edisi</div><p><strong>Kamis, 27 Agustus 2026</strong></p><p>Terbit setiap hari kerja pukul 05:30 WIB.</p></div><div class="box"><div class="k">Boardroom rail</div><ul><li><strong>Pertanyaan dewan:</strong> keputusan apa yang harus dipercepat, ditunda, atau diuji ulang?</li><li><strong>Aksi minggu ini:</strong> minta owner, horizon, dan trigger eskalasi untuk sinyal utama.</li><li><strong>Jendela risiko:</strong> pantau dampak 7-30 hari terhadap modal, izin, offtake, dan reputasi.</li></ul></div><div class="box"><div class="k">Audit</div><p>AI-assisted, source-verified, editorially accountable.</p><p>Kutipan, duplikasi, sumber primer, tangga keputusan, dan pola bahasa generik diperiksa sebelum publikasi.</p></div><div class="box"><div class="k">Navigasi</div><p><a href="../briefs/">Lihat arsip edisi</a></p><p><a href="../premium.html">Paket premium</a></p><p><a href="../methodology.html">Metodologi</a></p><p><a href="../">Beranda LeaderBrief.id</a></p></div></aside>
 </div>
 </body></html>

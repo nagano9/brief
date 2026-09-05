@@ -69,7 +69,7 @@ Jika tidak ada delta, nyatakan "Tidak ada pergeseran material pada isu X" dan al
 
 Gunakan struktur dan class berikut PERSIS:
 
-- Masthead: <header class="masthead"><div class="masthead-name">Leader Brief</div><div class="masthead-date">[Hari, DD MMMM YYYY]</div></header>
+- Masthead: <header class="masthead"><div class="masthead-top"><div><div class="masthead-name">LeaderBrief<span>.id</span></div><div class="masthead-sub">Policy · Capital · Execution</div></div><div class="masthead-date"><span>Edisi</span><b>[Hari, DD MMMM YYYY]</b></div></div></header>
 - Lensa: <div class="lensa">Lensa hari ini: [lensa]</div>
 - Dek: <p class="dek">[satu kalimat]</p>
 - 60 detik: <div class="seconds"><div class="blk-k">60 detik</div><ul><li>…</li></ul><p class="act"><b>Aksi utama:</b> …</p></div>
