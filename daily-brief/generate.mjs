@@ -338,7 +338,7 @@ function writeHomePage() {
     '  <h1>Brief harian yang mengubah berita menjadi keputusan.</h1>',
     '  <p class="sub">Ringkasan board-grade untuk pemimpin Indonesia: apa yang berubah, mengapa penting, dan keputusan apa yang perlu disiapkan dalam 7-30 hari.</p>',
     '  <div class="actions"><a class="btn" id="latest" href="' + latestHref + '">Baca Brief Terbaru</a><a class="link" href="./premium.html">Paket Premium</a><a class="link" href="./methodology.html">Metodologi</a></div>',
-    '  <div class="audit"><b>Audit passed</b> · Dibantu AI, diverifikasi sumber, dan bertanggung jawab editorial. Pemeriksaan: kutipan, duplikasi, sumber primer, tangga keputusan, dan pola bahasa generik.</div>',
+    '  <div class="audit"><b>Audit passed</b> · Dibantu AI, diverifikasi sumber, dan bertanggung jawab editorial. Setiap edisi melewati quality review internal sebelum publikasi.</div>',
     '</div>',
     '<aside class="latest"><div class="k">Latest Brief</div><h2><a id="latest-title" href="' + latestHref + '">' + escapeHtml(latestTitle) + '</a></h2><p id="latest-dek">' + escapeHtml(latestDek) + '</p><div class="note" id="note">' + latestNote + '</div></aside>',
     '</section>',
@@ -445,7 +445,7 @@ function writeMethodologyPage() {
     '<h2>Bagaimana brief disusun</h2>',
     '<p>Runner mengumpulkan kandidat dari sumber publik, RSS, dan pencarian. Model bahasa membantu menyusun draf berdasarkan materi yang diberikan runner. Draf kemudian dipaksa mengikuti struktur board-grade: fakta, inferensi, implikasi keputusan, owner, horizon, outcome, dan escalation trigger.</p>',
     '<h2>Apa yang diaudit</h2>',
-    '<ul><li>Kutipan dan tautan sumber harus tersedia.</li><li>Duplikasi isu dan pengulangan dari edisi sebelumnya ditekan.</li><li>Bahasa generik, em dash, filler, dan rekomendasi kosong ditolak.</li><li>Perbedaan antara fakta dan inferensi harus terlihat.</li><li>Keputusan investasi, hukum, dan teknis tetap menjadi tanggung jawab pembaca.</li></ul>',
+    '<ul><li>Setiap edisi disusun dari sumber publik yang dapat ditelusuri.</li><li>Analisis melewati quality review internal sebelum publikasi.</li><li>Standar editorial menekankan akurasi, relevansi, konteks, dan kejelasan implikasi keputusan.</li><li>Keputusan investasi, hukum, dan teknis tetap menjadi tanggung jawab pembaca.</li></ul>',
     '<h2>Akuntabilitas</h2>',
     '<p>Kami tidak menyamarkan otomasi sebagai tulisan manusia murni. Kami juga tidak menyerahkan keputusan editorial kepada model. LeaderBrief.id adalah produk editorial berbasis sumber publik yang dibantu AI dan diperiksa sebelum terbit.</p>',
     '</main><footer class="foot">LeaderBrief.id · AI-assisted · Source-verified · Editorially accountable</footer>',
@@ -506,7 +506,7 @@ function addChrome(html) {
   const linksHtml = links.join('');
   const toc = '<aside class="toc"><div class="k">On this page</div>' + linksHtml + '</aside>';
   const tocMobile = '<details class="toc-mobile"><summary>Daftar isi</summary>' + linksHtml + '</details>';
-  const aside = '<aside class="aside"><div class="box"><div class="k">Edisi</div><p><strong>' + pretty + '</strong></p><p>Terbit setiap hari kerja pukul 05:30 WIB.</p></div><div class="box"><div class="k">Boardroom rail</div><ul><li><strong>Pertanyaan dewan:</strong> keputusan apa yang harus dipercepat, ditunda, atau diuji ulang?</li><li><strong>Aksi minggu ini:</strong> minta owner, horizon, dan trigger eskalasi untuk sinyal utama.</li><li><strong>Jendela risiko:</strong> pantau dampak 7-30 hari terhadap modal, izin, offtake, dan reputasi.</li></ul></div><div class="box"><div class="k">Audit</div><p>AI-assisted, source-verified, editorially accountable.</p><p>Kutipan, duplikasi, sumber primer, tangga keputusan, dan pola bahasa generik diperiksa sebelum publikasi.</p></div><div class="box"><div class="k">Navigasi</div><p><a href="../briefs/">Lihat arsip edisi</a></p><p><a href="../premium.html">Paket premium</a></p><p><a href="../methodology.html">Metodologi</a></p><p><a href="../">Beranda LeaderBrief.id</a></p></div></aside>';
+  const aside = '<aside class="aside"><div class="box"><div class="k">Edisi</div><p><strong>' + pretty + '</strong></p><p>Terbit setiap hari kerja pukul 05:30 WIB.</p></div><div class="box"><div class="k">Boardroom rail</div><ul><li><strong>Pertanyaan dewan:</strong> keputusan apa yang harus dipercepat, ditunda, atau diuji ulang?</li><li><strong>Aksi minggu ini:</strong> minta owner, horizon, dan trigger eskalasi untuk sinyal utama.</li><li><strong>Jendela risiko:</strong> pantau dampak 7-30 hari terhadap modal, izin, offtake, dan reputasi.</li></ul></div><div class="box"><div class="k">Audit</div><p>AI-assisted, source-verified, editorially accountable.</p><p>Setiap edisi melewati quality review internal sebelum publikasi.</p></div><div class="box"><div class="k">Navigasi</div><p><a href="../briefs/">Lihat arsip edisi</a></p><p><a href="../premium.html">Paket premium</a></p><p><a href="../methodology.html">Metodologi</a></p><p><a href="../">Beranda LeaderBrief.id</a></p></div></aside>';
   html = html.replace(/<body[^>]*>/, '<body>\n<div class="layout">\n' + toc + tocMobile);
   html = html.replace(/<\/body>/, aside + '\n</div>\n</body>');
   return html;
