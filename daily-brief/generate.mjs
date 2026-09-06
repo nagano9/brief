@@ -8,7 +8,14 @@ const REPO = resolve(__dirname, '..');
 const BRIEFS = join(REPO, 'briefs');
 const parser = new Parser({ timeout: 30000 });
 const SITE_URL = 'https://leaderbrief.id';
-const FAVICON_LINK = '<link rel="icon" href="/favicon.svg" type="image/svg+xml">';
+const FAVICON_LINK = [
+  '<link rel="icon" href="/favicon.ico" sizes="any">',
+  '<link rel="icon" href="/favicon.svg" type="image/svg+xml">',
+  '<link rel="icon" href="/favicon-48x48.png" type="image/png" sizes="48x48">',
+  '<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">',
+  '<link rel="manifest" href="/site.webmanifest">',
+  '<meta name="theme-color" content="#101510">'
+].join('\n');
 const GOOGLE_SITE_VERIFICATION = '<meta name="google-site-verification" content="D_rAihSMsnXvLIIEMHCEGqosuxUua9czU0NmXbOWrp8">';
 
 const DEEPSEEK = process.env.DEEPSEEK_API_KEY || '';
