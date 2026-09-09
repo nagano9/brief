@@ -7,7 +7,8 @@
   "scripts": {
     "run": "node src/run.js",
     "now": "node src/run.js --now",
-    "list": "node src/run.js --list"
+    "list": "node src/run.js --list",
+    "test": "node --test test/*.test.js"
   },
   "dependencies": {
     "cron-parser": "^5.0.0"

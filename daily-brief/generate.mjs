@@ -2,6 +2,7 @@ import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import Parser from 'rss-parser';
+import { auditInstruction, auditLeaderBrief } from '../src/audit.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const REPO = resolve(__dirname, '..');
@@ -147,7 +148,7 @@ async function callDeepSeek(promptText, news) {
       model: process.env.BRIEF_MODEL || 'deepseek-chat',
       messages: [
         { role: 'system', content: 'Anda analis executive intelligence kelas dewan untuk pemimpin Indonesia. Anda menulis Daily Executive Intelligence & Board Leadership Brief dalam Bahasa Indonesia.' },
-        { role: 'user', content: promptText + '\n\n=== TANGGAL ===\n' + pretty + ' (' + dateStr + ')\n\n=== MATERI RISET (dari search/RSS, perlu verifikasi bila dikutip) ===\n' + news + '\n\nTulis HTML lengkap sekarang. Kembalikan HANYA HTML (tanpa fence markdown, tanpa komentar).' }
+        { role: 'user', content: promptText + '\n\n' + auditInstruction() + '\n\n=== TANGGAL ===\n' + pretty + ' (' + dateStr + ')\n\n=== MATERI RISET (dari search/RSS, perlu verifikasi bila dikutip) ===\n' + news + '\n\nTulis HTML lengkap sekarang. Kembalikan HANYA HTML (tanpa fence markdown, tanpa komentar).' }
       ],
       temperature: 0.4,
       stream: false
@@ -555,6 +556,7 @@ async function main() {
   let html = await callDeepSeek(promptText, news);
   const meta = extractMeta(html);
   html = addChrome(injectTemplate(html, meta));
+  auditLeaderBrief(html);
   if (!html || html.length < 500) throw new Error('HTML output kosong/terlalu pendek');
   const file = dateStr + '.html';
   writeFileSync(join(BRIEFS, file), html + '\n', 'utf8');
