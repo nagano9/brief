@@ -13,7 +13,26 @@
       "type": "image/png"
     }
   ],
+  "start_url": "/",
+  "scope": "/",
   "theme_color": "#101510",
   "background_color": "#ffffff",
-  "display": "standalone"
+  "display": "standalone",
+  "shortcuts": [
+    {
+      "name": "Brief terbaru",
+      "short_name": "Terbaru",
+      "url": "/"
+    },
+    {
+      "name": "Arsip edisi",
+      "short_name": "Arsip",
+      "url": "/briefs/"
+    },
+    {
+      "name": "Paket premium",
+      "short_name": "Premium",
+      "url": "/premium.html"
+    }
+  ]
 }
