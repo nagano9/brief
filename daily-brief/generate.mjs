@@ -204,6 +204,21 @@ function absUrl(pathname) {
   return SITE_URL + pathname;
 }
 
+function editionSwitchHtml(currentDate) {
+  const m = loadManifest();
+  const dates = Object.keys(m).sort();
+  const idx = dates.indexOf(currentDate);
+  if (idx < 0) return '';
+  const older = idx > 0 ? m[dates[idx - 1]] : null;
+  const newer = idx < dates.length - 1 ? m[dates[idx + 1]] : null;
+  if (!older && !newer) return '';
+  return '<nav class="edition-switch" aria-label="Pindah edisi"><b>Pindah edisi</b>' +
+    (older && older.file ? '<a href="./' + older.file + '">Sebelumnya</a><span>/</span>' : '') +
+    '<a href="../briefs/">Arsip</a>' +
+    (newer && newer.file ? '<span>/</span><a href="./' + newer.file + '">Berikutnya</a>' : '') +
+    '</nav>';
+}
+
 function writeSeoFiles() {
   const m = loadManifest();
   const dates = Object.keys(m).sort().reverse();
@@ -526,7 +541,7 @@ function addChrome(html) {
   const tocMobile = '<details class="toc-mobile"><summary>Daftar isi</summary>' + linksHtml + '</details>';
   const aside = '<aside class="aside"><div class="box"><div class="k">Edisi</div><p><strong>' + pretty + '</strong></p><p>Terbit setiap hari kerja pukul 05:30 WIB.</p></div><div class="box"><div class="k">Boardroom rail</div><ul><li><strong>Pertanyaan dewan:</strong> keputusan apa yang harus dipercepat, ditunda, atau diuji ulang?</li><li><strong>Aksi minggu ini:</strong> minta owner, horizon, dan trigger eskalasi untuk sinyal utama.</li><li><strong>Jendela risiko:</strong> pantau dampak 7-30 hari terhadap modal, izin, offtake, dan reputasi.</li></ul></div><div class="box"><div class="k">Audit</div><p>AI-assisted, source-verified, editorially accountable.</p><p>Setiap edisi melewati quality review internal sebelum publikasi.</p></div><div class="box"><div class="k">Navigasi</div><p><a href="../briefs/">Lihat arsip edisi</a></p><p><a href="../premium.html">Paket premium</a></p><p><a href="../methodology.html">Metodologi</a></p><p><a href="../">Beranda LeaderBrief.id</a></p></div></aside>';
   html = html.replace(/<body[^>]*>/, '<body>\n<div class="layout">\n' + toc + tocMobile);
-  html = html.replace(/<\/body>/, aside + '\n</div>\n</body>');
+  html = html.replace(/<\/body>/, editionSwitchHtml(dateStr) + aside + '\n</div>\n</body>');
   return html;
 }
 
