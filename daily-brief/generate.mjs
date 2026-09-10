@@ -177,6 +177,16 @@ function extractMeta(html) {
   };
 }
 
+function normalizeAuditLanguage(html) {
+  return String(html || '')
+    .replace(/\bdi tengah dinamika\b/gi, 'dalam kondisi ini')
+    .replace(/\bdalam lanskap\b/gi, 'dalam kondisi')
+    .replace(/\bdi era\b/gi, 'pada fase')
+    .replace(/\bseiring dengan perkembangan\b/gi, 'setelah perubahan')
+    .replace(/\bimplikasinya jelas\b/gi, 'implikasinya')
+    .replace(/\bke depan\b/gi, 'dalam 7-30 hari');
+}
+
 function updateManifest(d, meta, file) {
   const p = join(BRIEFS, 'manifest.json');
   let m = {};
@@ -562,7 +572,7 @@ async function main() {
       : '';
     const draft = await callDeepSeek(promptText + repairNote, news);
     const draftMeta = extractMeta(draft);
-    const dressed = addChrome(injectTemplate(draft, draftMeta));
+    const dressed = normalizeAuditLanguage(addChrome(injectTemplate(draft, draftMeta)));
     try {
       auditLeaderBrief(dressed);
       html = dressed;
