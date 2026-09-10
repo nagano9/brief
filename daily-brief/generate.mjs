@@ -177,6 +177,64 @@ function weekdayDeliverable() {
   return map[wd] || map.senin;
 }
 
+function leaderCoverageMap() {
+  return [
+    {
+      name: 'Finance & Capital',
+      owner: 'CEO, CFO, treasury, investment committee',
+      basis: 'dipilih bila sinyal mengubah biaya modal, liquidity, kurs, refinancing, capex, dividen, hedging, atau capital allocation',
+      decision: 'reprioritisasi modal, debt plan, cash buffer, hurdle rate, dan shareholder return'
+    },
+    {
+      name: 'Operations & Execution',
+      owner: 'CEO, COO, CTO/CIO, transformation office',
+      basis: 'dipilih bila sinyal mengubah delivery proyek, productivity, procurement, supply chain, vendor dependency, AI workflow, SLA, atau bottleneck eksekusi',
+      decision: 'perubahan operating model, resource allocation, vendor control, milestone, dan escalation path'
+    },
+    {
+      name: 'Risk & Resilience',
+      owner: 'CEO, CRO, legal, audit committee, risk committee',
+      basis: 'dipilih bila sinyal mengubah regulatory risk, legal exposure, reputasi, cyber, continuity, covenant, downside scenario, atau climate transition risk',
+      decision: 'risk appetite, mitigation owner, contingency, disclosure, dan trigger eskalasi'
+    },
+    {
+      name: 'Strategy & Portfolio',
+      owner: 'CEO, chief strategy, investment committee, board',
+      basis: 'dipilih bila sinyal mengubah where to play, how to win, M&A, divestment, market entry, portfolio pruning, atau competitive position',
+      decision: 'portfolio choice, strategic fit, optionality, timing masuk atau keluar, dan prioritas pertumbuhan'
+    },
+    {
+      name: 'Governance & Decision Rights',
+      owner: 'CEO, board, corporate secretary, shareholder office',
+      basis: 'dipilih bila sinyal mengubah mandat pemegang saham, approval gate, delegation of authority, BUMN governance, atau decision rights',
+      decision: 'siapa memutuskan apa, kapan naik ke board, dan kontrol akuntabilitas'
+    },
+    {
+      name: 'People & Organization',
+      owner: 'CEO, CHRO, business unit leaders',
+      basis: 'dipilih bila sinyal mengubah capability gap, workforce plan, leadership bench, incentive, culture, operating rhythm, atau change adoption',
+      decision: 'capability build, org design, leadership assignment, insentif, dan adoption plan'
+    },
+    {
+      name: 'Market, Policy & Stakeholder',
+      owner: 'CEO, public affairs, investor relations, commercial leaders',
+      basis: 'dipilih bila sinyal mengubah policy direction, geopolitik, demand, customer pressure, investor sentiment, regulator stance, atau stakeholder coalition',
+      decision: 'stakeholder engagement, pricing posture, policy response, communications, dan commercial timing'
+    }
+  ];
+}
+
+function leaderCoverageInstruction() {
+  return leaderCoverageMap().map(function (c, i) {
+    return [
+      (i + 1) + '. ' + c.name,
+      '   Owner: ' + c.owner,
+      '   Basis pemilihan: ' + c.basis,
+      '   Keputusan terdampak: ' + c.decision
+    ].join('\n');
+  }).join('\n\n');
+}
+
 function recentEditionMemory(limit = 10) {
   const manifest = loadManifest();
   const dates = Object.keys(manifest).sort().reverse().filter(function (d) { return d !== dateStr; }).slice(0, limit);
@@ -213,6 +271,12 @@ function editorialBriefing() {
     'Produk editorial: ' + d.product,
     'Modul rotasi wajib: ' + d.module,
     d.force,
+    '',
+    '=== COVERAGE LEADER YANG BOLEH DIPILIH ===',
+    leaderCoverageInstruction(),
+    '',
+    'BLOK WAJIB DI OUTPUT SETELAH DEK:',
+    '<div class="coverage"><div class="blk-k">Basis coverage</div><ul><li><b>Coverage utama:</b> [pilih satu dari coverage leader]</li><li><b>Coverage sekunder:</b> [pilih satu, atau tulis "tidak dominan"]</li><li><b>Basis pemilihan:</b> [sinyal konkret dari materi riset: angka, kebijakan, peristiwa, atau keputusan]</li><li><b>Keputusan leader yang terdampak:</b> [jenis keputusan, owner, dan horizon]</li><li><b>Kenapa bukan coverage lain:</b> [alasan singkat mengapa coverage lain tidak menjadi lead hari ini]</li></ul></div>',
     '',
     '=== MEMORI 10 EDISI TERAKHIR, UNTUK MENGHINDARI MONOTON ===',
     recentEditionMemory(10),

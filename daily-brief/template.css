@@ -146,6 +146,11 @@ td b,td strong{color:var(--fg);font-weight:600}
 .seconds li{padding:7px 0;border-top:1px solid var(--line);font-size:15px;line-height:1.5}
 .seconds li:first-child{border-top:none}
 .seconds .act{margin:0;font-size:15px}
+.coverage{border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:8px;padding:16px 18px;margin:0 0 24px;background:var(--card)}
+.coverage ul{list-style:none;padding:0;margin:0}
+.coverage li{padding:7px 0;border-top:1px solid var(--line);font-size:14.5px;line-height:1.55;color:var(--muted)}
+.coverage li:first-of-type{border-top:none}
+.coverage b{color:var(--fg)}
 .boardq{border-left:3px solid var(--accent);padding:2px 0 2px 18px;margin:0 0 24px}
 .boardq p{font-family:var(--serif);font-size:20px;line-height:1.4;font-weight:500;margin:0}
 .skip{margin:0 0 24px}

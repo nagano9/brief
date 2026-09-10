@@ -65,6 +65,10 @@ export function auditLeaderBrief(html) {
     failures.push('action ladder incomplete: include Owner, Horizon, and Escalation trigger');
   }
 
+  if (!/Basis coverage/i.test(text) || !/Coverage utama\s*:/i.test(text) || !/Coverage sekunder\s*:/i.test(text) || !/Basis pemilihan\s*:/i.test(text)) {
+    failures.push('coverage basis incomplete: include Basis coverage, Coverage utama, Coverage sekunder, and Basis pemilihan');
+  }
+
   if (failures.length > 0) {
     throw new AuditError('LeaderBrief audit failed: ' + failures.join('; '));
   }
@@ -77,6 +81,7 @@ export function auditInstruction() {
     '- Jabatan seperti CEO, menteri, dirut, chairman, gubernur, ketua, atau kepala lembaga hanya boleh ditulis bila materi riset eksplisit menyebutkannya.',
     '- Purbaya Yudhi Sadewa adalah Menteri Keuangan. Jangan sebut sebagai CEO Danantara, Kepala Danantara, Kepala BP BUMN, atau pimpinan Danantara.',
     '- Setiap Action harus punya Owner, Horizon, Outcome, dan Escalation trigger.',
+    '- Setiap edisi wajib punya blok Basis coverage: Coverage utama, Coverage sekunder, Basis pemilihan, Keputusan leader yang terdampak, dan Kenapa bukan coverage lain.',
     '- Jangan memakai pembuka generik seperti di tengah dinamika, dalam lanskap, di era, seiring dengan perkembangan, implikasinya jelas, atau ke depan.',
     '- Buka paragraf penting dengan fakta konkret: nama entitas, angka, tanggal, keputusan, atau perubahan yang bisa diverifikasi.',
     '- Hindari rekomendasi kosong seperti perlu diperhatikan, perlu diantisipasi, terus dipantau, atau stakeholder perlu bersinergi.'

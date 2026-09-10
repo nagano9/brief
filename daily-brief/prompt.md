@@ -25,6 +25,7 @@ Kamu adalah editor dan information designer Leader Brief. Tulis brief yang board
 ## BLOK WAJIB DI ATAS LIPATAN (setiap edisi)
 - Lensa hari ini (pilih satu): Macro & Modal / Energi & Offtake / Governance & BUMN / Operasi & AI / Sintesis Minggu.
 - Dek arsip: satu kalimat yang membedakan edisi ini dari kemarin.
+- Basis coverage: jelaskan coverage utama, coverage sekunder, basis pemilihan, keputusan leader yang terdampak, dan kenapa coverage lain bukan lead hari ini.
 - "60 detik": 3 bullet padat + 1 aksi utama hari ini.
 - "Board Question": satu pertanyaan untuk rapat Direksi.
 - "Jangan diulang dari kemarin": 2–3 poin isu yang tetap material tetapi tidak perlu dibuka lagi.
@@ -72,6 +73,7 @@ Gunakan struktur dan class berikut PERSIS:
 - Masthead: <header class="masthead"><div class="masthead-top"><div><div class="masthead-name">LeaderBrief<span>.id</span></div><div class="masthead-sub">Policy · Capital · Execution</div></div><div class="masthead-date"><span>Edisi</span><b>[Hari, DD MMMM YYYY]</b></div></div></header>
 - Lensa: <div class="lensa">Lensa hari ini: [lensa]</div>
 - Dek: <p class="dek">[satu kalimat]</p>
+- Basis coverage: <div class="coverage"><div class="blk-k">Basis coverage</div><ul><li><b>Coverage utama:</b> …</li><li><b>Coverage sekunder:</b> …</li><li><b>Basis pemilihan:</b> …</li><li><b>Keputusan leader yang terdampak:</b> …</li><li><b>Kenapa bukan coverage lain:</b> …</li></ul></div>
 - 60 detik: <div class="seconds"><div class="blk-k">60 detik</div><ul><li>…</li></ul><p class="act"><b>Aksi utama:</b> …</p></div>
 - Board Question: <div class="boardq"><div class="blk-k">Board Question</div><p>…</p></div>
 - Jangan diulang: <div class="skip"><div class="blk-k">Jangan diulang dari kemarin</div><ul><li>…</li></ul></div>
