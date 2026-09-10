@@ -2,7 +2,7 @@ import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import Parser from 'rss-parser';
-import { auditInstruction, auditLeaderBrief } from '../src/audit.js';
+import { AuditError, auditInstruction, auditLeaderBrief } from '../src/audit.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const REPO = resolve(__dirname, '..');
@@ -552,11 +552,28 @@ async function main() {
   console.log('gathering...');
   const items = await gather();
   const news = material(items);
-  console.log('calling deepseek...');
-  let html = await callDeepSeek(promptText, news);
-  const meta = extractMeta(html);
-  html = addChrome(injectTemplate(html, meta));
-  auditLeaderBrief(html);
+  let html = '';
+  let meta = {};
+  let lastAudit = '';
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    console.log('calling deepseek... attempt ' + attempt);
+    const repairNote = lastAudit
+      ? '\n\n=== HASIL AUDIT DRAFT SEBELUMNYA ===\n' + lastAudit + '\nTulis ulang dari awal. Jangan ulangi frasa atau struktur yang ditolak audit. Buka setiap bagian dengan fakta, entitas, keputusan, angka, atau tanggal yang spesifik.'
+      : '';
+    const draft = await callDeepSeek(promptText + repairNote, news);
+    const draftMeta = extractMeta(draft);
+    const dressed = addChrome(injectTemplate(draft, draftMeta));
+    try {
+      auditLeaderBrief(dressed);
+      html = dressed;
+      meta = extractMeta(html);
+      break;
+    } catch (e) {
+      if (!(e instanceof AuditError) || attempt === 3) throw e;
+      lastAudit = e.message;
+      console.error('audit rejected attempt ' + attempt + ': ' + e.message);
+    }
+  }
   if (!html || html.length < 500) throw new Error('HTML output kosong/terlalu pendek');
   const file = dateStr + '.html';
   writeFileSync(join(BRIEFS, file), html + '\n', 'utf8');

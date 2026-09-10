@@ -77,6 +77,8 @@ export function auditInstruction() {
     '- Jabatan seperti CEO, menteri, dirut, chairman, gubernur, ketua, atau kepala lembaga hanya boleh ditulis bila materi riset eksplisit menyebutkannya.',
     '- Purbaya Yudhi Sadewa adalah Menteri Keuangan. Jangan sebut sebagai CEO Danantara, Kepala Danantara, Kepala BP BUMN, atau pimpinan Danantara.',
     '- Setiap Action harus punya Owner, Horizon, Outcome, dan Escalation trigger.',
+    '- Jangan memakai pembuka generik seperti di tengah dinamika, dalam lanskap, di era, seiring dengan perkembangan, implikasinya jelas, atau ke depan.',
+    '- Buka paragraf penting dengan fakta konkret: nama entitas, angka, tanggal, keputusan, atau perubahan yang bisa diverifikasi.',
     '- Hindari rekomendasi kosong seperti perlu diperhatikan, perlu diantisipasi, terus dipantau, atau stakeholder perlu bersinergi.'
   ].join('\n');
 }
