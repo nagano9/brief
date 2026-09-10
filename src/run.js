@@ -82,7 +82,7 @@ async function callDeepSeek(cfg, key, messages, temperature) {
   const baseUrl = (cfg.deepseek && cfg.deepseek.baseUrl) || 'https://api.deepseek.com';
   const model = (cfg.deepseek && cfg.deepseek.model) || 'deepseek-v4-flash';
   const timeoutMs = (cfg.deepseek && cfg.deepseek.timeoutMs) || 120000;
-  const maxTokens = (cfg.deepseek && cfg.deepseek.maxTokens) || 2500;
+  const maxTokens = (cfg.deepseek && cfg.deepseek.maxTokens) || 6000;
   const res = await fetch(baseUrl + '/chat/completions', {
     method: 'POST',
     headers: {

@@ -23,7 +23,7 @@ const DEEPSEEK = process.env.DEEPSEEK_API_KEY || '';
 const TAVILY = process.env.TAVILY_API_KEY || '';
 const SERPER = process.env.SERPER_API_KEY || '';
 const BRIEF_MODEL = process.env.BRIEF_MODEL || 'deepseek-v4-flash';
-const BRIEF_MAX_TOKENS = Number(process.env.BRIEF_MAX_TOKENS || 6500);
+const BRIEF_MAX_TOKENS = Number(process.env.BRIEF_MAX_TOKENS || 12000);
 
 if (!DEEPSEEK) { console.error('DEEPSEEK_API_KEY belum diset.'); process.exit(1); }
 
