@@ -80,15 +80,16 @@ function nextOccurrence(cron, after, tz) {
 
 async function callDeepSeek(cfg, key, messages, temperature) {
   const baseUrl = (cfg.deepseek && cfg.deepseek.baseUrl) || 'https://api.deepseek.com';
-  const model = (cfg.deepseek && cfg.deepseek.model) || 'deepseek-chat';
+  const model = (cfg.deepseek && cfg.deepseek.model) || 'deepseek-v4-flash';
   const timeoutMs = (cfg.deepseek && cfg.deepseek.timeoutMs) || 120000;
+  const maxTokens = (cfg.deepseek && cfg.deepseek.maxTokens) || 2500;
   const res = await fetch(baseUrl + '/chat/completions', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + key
     },
-    body: JSON.stringify({ model, messages, temperature: temperature ?? 0.7, stream: false }),
+    body: JSON.stringify({ model, messages, temperature: temperature ?? 0.7, max_tokens: maxTokens, stream: false }),
     signal: AbortSignal.timeout(timeoutMs)
   });
   if (!res.ok) {
@@ -113,7 +114,7 @@ async function generateTemplate(tpl, id, cfg, key, now, dryRun) {
     { role: 'user', content: tpl.prompt }
   ];
   if (dryRun) {
-    const model = (cfg.deepseek && cfg.deepseek.model) || 'deepseek-chat';
+    const model = (cfg.deepseek && cfg.deepseek.model) || 'deepseek-v4-flash';
     console.log('[dry-run] ' + id + ' -> model "' + model + '"');
     console.log('[dry-run] prompt:\n---\n' + tpl.prompt + '\n---');
     return null;
@@ -121,7 +122,7 @@ async function generateTemplate(tpl, id, cfg, key, now, dryRun) {
   const content = await callDeepSeek(cfg, key, messages, tpl.temperature);
   const outPath = buildOutputPath(tpl, cfg, now, id);
   mkdirSync(dirname(outPath), { recursive: true });
-  const model = (cfg.deepseek && cfg.deepseek.model) || 'deepseek-chat';
+  const model = (cfg.deepseek && cfg.deepseek.model) || 'deepseek-v4-flash';
   const header = '# ' + (tpl.title || id) + '\n\n> Template: ' + id + ' · Dibuat: ' + now.toISOString() + ' · Model: ' + model + '\n\n';
   writeFileSync(outPath, header + content + '\n', 'utf8');
   console.log('[ok] ' + id + ' -> ' + outPath);

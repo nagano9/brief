@@ -22,6 +22,8 @@ const GOOGLE_SITE_VERIFICATION = '<meta name="google-site-verification" content=
 const DEEPSEEK = process.env.DEEPSEEK_API_KEY || '';
 const TAVILY = process.env.TAVILY_API_KEY || '';
 const SERPER = process.env.SERPER_API_KEY || '';
+const BRIEF_MODEL = process.env.BRIEF_MODEL || 'deepseek-v4-flash';
+const BRIEF_MAX_TOKENS = Number(process.env.BRIEF_MAX_TOKENS || 6500);
 
 if (!DEEPSEEK) { console.error('DEEPSEEK_API_KEY belum diset.'); process.exit(1); }
 
@@ -295,7 +297,8 @@ async function callDeepSeek(promptText, news) {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + DEEPSEEK },
     body: JSON.stringify({
-      model: process.env.BRIEF_MODEL || 'deepseek-chat',
+      model: BRIEF_MODEL,
+      max_tokens: BRIEF_MAX_TOKENS,
       messages: [
         { role: 'system', content: 'Anda analis executive intelligence kelas dewan untuk pemimpin Indonesia. Anda menulis Daily Executive Intelligence & Board Leadership Brief dalam Bahasa Indonesia.' },
         { role: 'user', content: promptText + '\n\n' + editorialBriefing() + '\n\n' + auditInstruction() + '\n\n=== TANGGAL ===\n' + pretty + ' (' + dateStr + ')\n\n=== MATERI RISET (dari search/RSS, perlu verifikasi bila dikutip) ===\n' + news + '\n\nTulis HTML lengkap sekarang. Kembalikan HANYA HTML (tanpa fence markdown, tanpa komentar).' }

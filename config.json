@@ -3,9 +3,10 @@
   "outputDir": "output",
   "deepseek": {
     "baseUrl": "https://api.deepseek.com",
-    "model": "deepseek-chat",
+    "model": "deepseek-v4-flash",
     "apiKey": "env:DEEPSEEK_API_KEY",
-    "timeoutMs": 120000
+    "timeoutMs": 120000,
+    "maxTokens": 2500
   },
   "templates": [
     {
@@ -21,7 +22,7 @@
     {
       "id": "brief-artikel-blog",
       "enabled": true,
-      "cron": "0 8 * * 3",
+      "cron": "0 6 * * 3",
       "title": "Brief Artikel Blog Energi Terbarukan",
       "systemPrompt": "Anda adalah penulis editorial untuk media korporat energi terbarukan. Gaya informatif, data-driven, dan SEO-friendly.",
       "prompt": "Buatkan brief artikel blog seputar energi terbarukan di Indonesia. Sertakan: (1) judul SEO-friendly, (2) target pembaca, (3) outline 5-7 subjudul, (4) 3 poin data/statistik untuk diriset, (5) sudut pandang unik, (6) meta description. Bahasa Indonesia, format markdown.",
