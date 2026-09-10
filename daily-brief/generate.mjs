@@ -140,6 +140,92 @@ function material(items) {
   }).join('\n\n');
 }
 
+function weekdayDeliverable() {
+  const wd = now.toLocaleDateString('id-ID', { weekday: 'long', timeZone: 'Asia/Jakarta' }).toLowerCase();
+  const map = {
+    senin: {
+      lens: 'Macro & Modal',
+      product: 'Capital allocation memo',
+      module: 'Cost of Capital Box',
+      force: 'Tulis hurdle-rate implication, debt/refinancing exposure, kurs, hedging trigger, dan keputusan modal yang harus disiapkan.'
+    },
+    selasa: {
+      lens: 'Energi & Offtake',
+      product: 'Offtake and project bankability memo',
+      module: 'Energy/Offtake Box',
+      force: 'Tulis dampak ke PPA, captured price, curtailment, tender, grid readiness, financial close, dan risiko offtaker.'
+    },
+    rabu: {
+      lens: 'Governance & BUMN',
+      product: 'Governance and decision-rights memo',
+      module: 'Governance Box',
+      force: 'Tulis perubahan mandat, decision rights, konflik principal-agent, governance gate, dan implikasi untuk BUMN atau regulator.'
+    },
+    kamis: {
+      lens: 'Operasi & AI',
+      product: 'Execution and operating-model memo',
+      module: 'Execution/AI Box',
+      force: 'Tulis perubahan operating model, AI workflow, capability gap, vendor dependency, dan kontrol eksekusi 30-90 hari.'
+    },
+    jumat: {
+      lens: 'Sintesis Minggu',
+      product: 'Board integrated synthesis',
+      module: 'Board Integrated Synthesis + What Not To Do + Watchlist 7-30 hari',
+      force: 'Sintesis minggu harus menyatukan 3-5 tema, bukan mengulang berita harian. Tulis what not to do dan watchlist 7-30 hari.'
+    }
+  };
+  return map[wd] || map.senin;
+}
+
+function recentEditionMemory(limit = 10) {
+  const manifest = loadManifest();
+  const dates = Object.keys(manifest).sort().reverse().filter(function (d) { return d !== dateStr; }).slice(0, limit);
+  if (!dates.length) return '(belum ada edisi sebelumnya)';
+  return dates.map(function (d) {
+    const entry = manifest[d] || {};
+    const file = entry.file || (d + '.html');
+    const path = join(BRIEFS, file);
+    let headings = [];
+    let lens = '';
+    if (existsSync(path)) {
+      const html = readFileSync(path, 'utf8');
+      const lensM = html.match(/<div class="lensa">([\s\S]*?)<\/div>/i);
+      lens = lensM ? stripTags(lensM[1]).slice(0, 120) : '';
+      headings = [...html.matchAll(/<h3>([\s\S]*?)<\/h3>/gi)]
+        .map(function (m) { return stripTags(m[1]).replace(/\s+/g, ' ').trim(); })
+        .filter(Boolean)
+        .slice(0, 4);
+    }
+    return [
+      '- ' + d + ': ' + stripTags(entry.title || entry.headline || ''),
+      entry.dek ? '  Dek: ' + stripTags(entry.dek).slice(0, 220) : '',
+      lens ? '  Lensa: ' + lens : '',
+      headings.length ? '  Topik: ' + headings.join(' | ') : ''
+    ].filter(Boolean).join('\n');
+  }).join('\n');
+}
+
+function editorialBriefing() {
+  const d = weekdayDeliverable();
+  return [
+    '=== KONTRAK DELIVERABLE HARI INI ===',
+    'Lensa wajib: ' + d.lens,
+    'Produk editorial: ' + d.product,
+    'Modul rotasi wajib: ' + d.module,
+    d.force,
+    '',
+    '=== MEMORI 10 EDISI TERAKHIR, UNTUK MENGHINDARI MONOTON ===',
+    recentEditionMemory(10),
+    '',
+    'ATURAN ANTI-MONOTON WAJIB:',
+    '- Jangan membuka dengan isu, angle, atau sequence yang sama dengan edisi 10 hari terakhir kecuali ada delta baru yang eksplisit.',
+    '- Bila isu lama masih muncul, tulis hanya sebagai Delta vs edisi sebelumnya, maksimal 6 baris, lalu alihkan ruang ke deliverable hari ini.',
+    '- Minimal dua dari tiga Perkembangan Kunci harus berasal dari angle atau konsekuensi keputusan yang tidak menjadi lead dalam memori di atas.',
+    '- Heat Map harus mengubah Signal atau Impact dari hari sebelumnya. Jangan memakai baris generik yang sama.',
+    '- Aksi utama harus berupa owner, horizon, outcome, dan escalation trigger yang sesuai deliverable hari ini.'
+  ].join('\n');
+}
+
 async function callDeepSeek(promptText, news) {
   const res = await fetch('https://api.deepseek.com/chat/completions', {
     method: 'POST',
@@ -148,7 +234,7 @@ async function callDeepSeek(promptText, news) {
       model: process.env.BRIEF_MODEL || 'deepseek-chat',
       messages: [
         { role: 'system', content: 'Anda analis executive intelligence kelas dewan untuk pemimpin Indonesia. Anda menulis Daily Executive Intelligence & Board Leadership Brief dalam Bahasa Indonesia.' },
-        { role: 'user', content: promptText + '\n\n' + auditInstruction() + '\n\n=== TANGGAL ===\n' + pretty + ' (' + dateStr + ')\n\n=== MATERI RISET (dari search/RSS, perlu verifikasi bila dikutip) ===\n' + news + '\n\nTulis HTML lengkap sekarang. Kembalikan HANYA HTML (tanpa fence markdown, tanpa komentar).' }
+        { role: 'user', content: promptText + '\n\n' + editorialBriefing() + '\n\n' + auditInstruction() + '\n\n=== TANGGAL ===\n' + pretty + ' (' + dateStr + ')\n\n=== MATERI RISET (dari search/RSS, perlu verifikasi bila dikutip) ===\n' + news + '\n\nTulis HTML lengkap sekarang. Kembalikan HANYA HTML (tanpa fence markdown, tanpa komentar).' }
       ],
       temperature: 0.4,
       stream: false
