@@ -7,6 +7,8 @@ import { AuditError, auditInstruction, auditLeaderBrief } from '../src/audit.js'
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const REPO = resolve(__dirname, '..');
 const BRIEFS = join(REPO, 'briefs');
+const ASSETS = join(REPO, 'assets');
+const VISUALS = join(ASSETS, 'visuals');
 const parser = new Parser({ timeout: 30000 });
 const SITE_URL = 'https://leaderbrief.id';
 const FAVICON_LINK = [
@@ -24,6 +26,10 @@ const TAVILY = process.env.TAVILY_API_KEY || '';
 const SERPER = process.env.SERPER_API_KEY || '';
 const BRIEF_MODEL = process.env.BRIEF_MODEL || 'deepseek-v4-flash';
 const BRIEF_MAX_TOKENS = Number(process.env.BRIEF_MAX_TOKENS || 12000);
+const OPENAI = process.env.OPENAI_API_KEY || '';
+const OPENAI_IMAGE_MODEL = process.env.OPENAI_IMAGE_MODEL || 'gpt-image-1';
+const OPENAI_IMAGE_SIZE = process.env.OPENAI_IMAGE_SIZE || '1536x1024';
+const OPENAI_IMAGE_QUALITY = process.env.OPENAI_IMAGE_QUALITY || 'high';
 
 if (!DEEPSEEK) { console.error('DEEPSEEK_API_KEY belum diset.'); process.exit(1); }
 
@@ -315,7 +321,140 @@ async function callDeepSeek(promptText, news) {
   return html;
 }
 
-function stripTags(s) { return s.replace(/<[^>]+>/g, '').trim(); }
+function stripTags(s) { return String(s || '').replace(/<[^>]+>/g, '').trim(); }
+
+function compactText(s, max) {
+  return stripHtml(String(s || '')).replace(/\s+/g, ' ').trim().slice(0, max);
+}
+
+function extractBlock(html, className) {
+  const source = String(html || '');
+  const special = {
+    coverage: /<div class="coverage">([\s\S]*?<\/ul>)\s*<\/div>/i,
+    seconds: /<div class="seconds">([\s\S]*?<\/p>)\s*<\/div>/i,
+    boardq: /<div class="boardq">([\s\S]*?<\/p>)\s*<\/div>/i,
+    'table-wrap': /<div class="table-wrap">([\s\S]*?<\/table>)\s*<\/div>/i
+  }[className];
+  if (special) {
+    const hit = source.match(special);
+    if (hit) return compactText(hit[1], 900);
+  }
+  const re = new RegExp('<(?:div|section|article)[^>]*class=["\'][^"\']*' + className + '[^"\']*["\'][^>]*>([\\s\\S]*?)<\\/(?:div|section|article)>', 'i');
+  const m = source.match(re);
+  return m ? compactText(m[1], 900) : '';
+}
+
+function visualSource(html, meta) {
+  const title = meta && (meta.lens || meta.dek) ? (meta.lens || meta.dek) : pretty;
+  const coverage = extractBlock(html, 'coverage');
+  const seconds = extractBlock(html, 'seconds');
+  const boardq = extractBlock(html, 'boardq');
+  const heatMap = extractBlock(html, 'table-wrap');
+  return [
+    'Tanggal: ' + pretty,
+    'Lensa: ' + compactText(title, 180),
+    'Dek: ' + compactText(meta && meta.dek, 240),
+    'Basis coverage: ' + coverage,
+    '60 detik: ' + seconds,
+    'Board question: ' + boardq,
+    'Heat map: ' + heatMap
+  ].filter(function (line) { return line.replace(/^[^:]+:\s*/, '').trim(); }).join('\n');
+}
+
+function decisionMapPrompt(html, meta) {
+  return [
+    'Create a premium executive decision map for LeaderBrief.id, 16:10 landscape.',
+    'Style: clean white background, master-level strategy whiteboard, precise black marker handwriting, subtle blue and green accents, controlled red only for escalation or risk.',
+    'Content must feel like a board memo visual, not a startup infographic, not a dashboard, not a stock illustration.',
+    'Use sparse Indonesian labels. Include these zones: keputusan inti, owner, horizon 7/30/90 hari, trade-off, risiko utama, trigger eskalasi, langkah minggu ini.',
+    'Make the visual readable, restrained, professional, and consistent across daily editions. Avoid icons that look decorative. Avoid gradients, 3D, clip art, fake UI cards, and generic AI imagery.',
+    'Base the map on this edition context:',
+    visualSource(html, meta)
+  ].join('\n\n');
+}
+
+function renderDecisionMapSvg(html, meta) {
+  const lens = compactText(meta && (meta.lens || meta.dek), 72) || 'Executive Decision Map';
+  const dek = compactText(meta && meta.dek, 130) || 'Peta keputusan eksekutif untuk edisi hari ini.';
+  const coverage = extractBlock(html, 'coverage');
+  const decision = compactText((coverage.match(/Keputusan leader yang terdampak:\s*([^\.]+[\.]?)/i) || [])[1] || dek, 110);
+  const basis = compactText((coverage.match(/Basis pemilihan:\s*([^\.]+[\.]?)/i) || [])[1] || coverage, 120);
+  const svg = '<svg xmlns="http://www.w3.org/2000/svg" width="1536" height="1024" viewBox="0 0 1536 1024" role="img" aria-labelledby="t d">' +
+    '<title id="t">Executive Decision Map LeaderBrief.id</title><desc id="d">Peta keputusan eksekutif untuk edisi LeaderBrief.</desc>' +
+    '<rect width="1536" height="1024" fill="#fffdfa"/><path d="M120 164h1296M120 820h1296" stroke="#d8d1c5" stroke-width="3"/>' +
+    '<text x="120" y="120" font-family="Georgia,serif" font-size="56" font-weight="700" fill="#151515">Executive Decision Map</text>' +
+    '<text x="120" y="206" font-family="Arial,sans-serif" font-size="27" fill="#315f9c">' + escapeHtml(lens) + '</text>' +
+    '<text x="120" y="258" font-family="Arial,sans-serif" font-size="30" fill="#232323">' + escapeHtml(dek) + '</text>' +
+    '<g font-family="Arial,sans-serif"><text x="148" y="366" font-size="24" font-weight="700" fill="#315f9c">Keputusan inti</text>' +
+    '<text x="148" y="418" font-size="28" fill="#171717">' + escapeHtml(decision) + '</text>' +
+    '<text x="148" y="516" font-size="22" font-weight="700" fill="#167246">Langkah minggu ini</text>' +
+    '<text x="148" y="562" font-size="25" fill="#171717">Tetapkan owner, horizon, dan trigger eskalasi sebelum isu masuk rapat berikutnya.</text>' +
+    '<text x="148" y="660" font-size="22" font-weight="700" fill="#b53a35">Red flag</text>' +
+    '<text x="148" y="706" font-size="25" fill="#171717">Keputusan ditunda tanpa asumsi, angka, atau batas waktu yang bisa diuji.</text>' +
+    '<text x="900" y="366" font-size="24" font-weight="700" fill="#315f9c">Basis point</text>' +
+    '<text x="900" y="418" font-size="25" fill="#171717">' + escapeHtml(basis) + '</text>' +
+    '<text x="900" y="516" font-size="22" font-weight="700" fill="#167246">Horizon</text>' +
+    '<text x="900" y="562" font-size="28" fill="#171717">7 hari: arahkan perhatian. 30 hari: uji asumsi. 90 hari: koreksi alokasi.</text>' +
+    '<text x="900" y="706" font-size="23" fill="#777">LeaderBrief.id</text></g></svg>';
+  return svg;
+}
+
+async function writeExecutiveDecisionMap(html, meta) {
+  mkdirSync(VISUALS, { recursive: true });
+  const basename = dateStr;
+  if (OPENAI) {
+    try {
+      const res = await fetch('https://api.openai.com/v1/images/generations', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + OPENAI },
+        body: JSON.stringify({
+          model: OPENAI_IMAGE_MODEL,
+          prompt: decisionMapPrompt(html, meta),
+          size: OPENAI_IMAGE_SIZE,
+          quality: OPENAI_IMAGE_QUALITY,
+          n: 1
+        }),
+        signal: AbortSignal.timeout(300000)
+      });
+      if (!res.ok) throw new Error('OpenAI image HTTP ' + res.status + ': ' + (await res.text()).slice(0, 240));
+      const data = await res.json();
+      const b64 = data && data.data && data.data[0] && data.data[0].b64_json;
+      if (!b64) throw new Error('OpenAI image response tidak berisi b64_json');
+      writeFileSync(join(VISUALS, basename + '.png'), Buffer.from(b64, 'base64'));
+      return '/assets/visuals/' + basename + '.png';
+    } catch (e) {
+      console.error('visual OpenAI fallback: ' + e.message);
+    }
+  }
+  writeFileSync(join(VISUALS, basename + '.svg'), renderDecisionMapSvg(html, meta), 'utf8');
+  return '/assets/visuals/' + basename + '.svg';
+}
+
+function injectExecutiveDecisionMap(html, visualPath) {
+  if (!visualPath || /class=["']decision-map["']/i.test(html)) return html;
+  const figure = '<figure class="decision-map"><img src="' + visualPath + '" alt="Executive Decision Map LeaderBrief ' + pretty + '" loading="eager" decoding="async"><figcaption>Executive Decision Map. Ringkasan visual untuk keputusan, owner, horizon, trade-off, risiko, dan trigger eskalasi edisi ini.</figcaption></figure>';
+  if (/<p class="dek">[\s\S]*?<\/p>/i.test(html)) {
+    return html.replace(/(<p class="dek">[\s\S]*?<\/p>)/i, '$1\n' + figure);
+  }
+  return html.replace(/(<body[^>]*>\s*(?:<div class="wrap">)?)/i, '$1\n' + figure);
+}
+
+function injectVisualSeo(html, visualPath) {
+  if (!visualPath) return html;
+  const imageUrl = absUrl(visualPath);
+  const tags = [
+    '<meta property="og:image" content="' + imageUrl + '">',
+    '<meta property="og:image:alt" content="Executive Decision Map LeaderBrief.id">',
+    '<meta name="twitter:card" content="summary_large_image">',
+    '<meta name="twitter:image" content="' + imageUrl + '">'
+  ].join('\n');
+  html = html
+    .replace(/<meta\s+property=["']og:image["'][^>]*>\s*/gi, '')
+    .replace(/<meta\s+property=["']og:image:alt["'][^>]*>\s*/gi, '')
+    .replace(/<meta\s+name=["']twitter:card["'][^>]*>\s*/gi, '')
+    .replace(/<meta\s+name=["']twitter:image["'][^>]*>\s*/gi, '');
+  return html.replace(/<\/head>/i, tags + '\n</head>');
+}
 
 function extractMeta(html) {
   const dekM = html.match(/<p class="dek">([\s\S]*?)<\/p>/);
@@ -728,7 +867,8 @@ async function main() {
     const dressed = normalizeAuditLanguage(addChrome(injectTemplate(draft, draftMeta)));
     try {
       auditLeaderBrief(dressed);
-      html = dressed;
+      const visualPath = await writeExecutiveDecisionMap(dressed, draftMeta);
+      html = injectVisualSeo(injectExecutiveDecisionMap(dressed, visualPath), visualPath);
       meta = extractMeta(html);
       break;
     } catch (e) {

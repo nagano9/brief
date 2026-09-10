@@ -140,6 +140,9 @@ td b,td strong{color:var(--fg);font-weight:600}
 .edition-switch span{color:var(--faint)}
 .lensa{font-size:12.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
 .dek{font-family:var(--serif);font-size:22px;line-height:1.4;font-weight:500;margin:0 0 26px;color:var(--fg)}
+.decision-map{margin:0 0 28px;padding:0}
+.decision-map img{display:block;width:100%;border:1px solid var(--line);background:#fff;border-radius:4px}
+.decision-map figcaption{font-family:var(--mono);font-size:11px;letter-spacing:.04em;line-height:1.45;color:var(--faint);margin:8px 0 0}
 .blk-k{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin:0 0 10px}
 .seconds{border:1px solid var(--line);border-radius:8px;padding:18px 20px;margin:0 0 24px}
 .seconds ul{list-style:none;padding:0;margin:0 0 12px}

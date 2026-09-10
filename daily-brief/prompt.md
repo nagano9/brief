@@ -3,6 +3,7 @@
 - Anda menerima TANGGAL hari ini dan MATERI RISET (agregasi headline + ringkasan) yang disediakan runner.
 - Tidak ada tool WebSearch / web_fetch / Artifact / bash. Gunakan materi yang disediakan.
 - Tulis brief sebagai SATU dokumen HTML mandiri. JANGAN menulis blok <style>, JANGAN inline style, JANGAN link font. Desain di-inject runner.
+- Jangan membuat diagram, gambar, placeholder visual, atau instruksi visual di HTML. Runner akan menyisipkan Executive Decision Map otomatis setelah dek.
 - Sertakan 3 elemen metadata WAJIB berikut (dipakai untuk halaman arsip dan homepage):
   - Di dalam <head>: <meta name="teaser" content="SATU KALIMAT KEPUTUSAN">
   - Sebelum pulse: <div class="lensa">Lensa hari ini: [Macro &amp; Modal | Energi &amp; Offtake | Governance &amp; BUMN | Operasi &amp; AI | Sintesis Minggu]</div>
