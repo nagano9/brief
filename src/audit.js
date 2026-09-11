@@ -47,7 +47,21 @@ export function stripTagsForAudit(html) {
 
 export function auditLeaderBrief(html) {
   const text = stripTagsForAudit(html);
+  const source = String(html || '').trim();
   const failures = [];
+
+  if (!/<\/body>\s*<\/html>\s*$/i.test(source)) {
+    failures.push('incomplete HTML: missing closing body/html');
+  }
+  if (/<\s*$/.test(source) || /<[^>]{0,80}$/.test(source)) {
+    failures.push('incomplete HTML: ends inside an HTML tag');
+  }
+  if ((source.match(/<article\b/gi) || []).length !== (source.match(/<\/article>/gi) || []).length) {
+    failures.push('incomplete HTML: unbalanced article tags');
+  }
+  if ((source.match(/<div\b/gi) || []).length !== (source.match(/<\/div>/gi) || []).length) {
+    failures.push('incomplete HTML: unbalanced div tags');
+  }
 
   for (const rule of STYLE_RULES) {
     if (rule.pattern.test(text)) {

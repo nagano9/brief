@@ -25,7 +25,7 @@ const DEEPSEEK = process.env.DEEPSEEK_API_KEY || '';
 const TAVILY = process.env.TAVILY_API_KEY || '';
 const SERPER = process.env.SERPER_API_KEY || '';
 const BRIEF_MODEL = process.env.BRIEF_MODEL || 'deepseek-v4-flash';
-const BRIEF_MAX_TOKENS = Number(process.env.BRIEF_MAX_TOKENS || 12000);
+const BRIEF_MAX_TOKENS = Number(process.env.BRIEF_MAX_TOKENS || 24000);
 const OPENAI = process.env.OPENAI_API_KEY || '';
 const OPENAI_IMAGE_MODEL = process.env.OPENAI_IMAGE_MODEL || 'gpt-image-1';
 const OPENAI_IMAGE_SIZE = process.env.OPENAI_IMAGE_SIZE || '1536x1024';
@@ -316,12 +316,27 @@ async function callDeepSeek(promptText, news) {
   });
   if (!res.ok) { const b = await res.text(); throw new Error('DeepSeek HTTP ' + res.status + ': ' + b.slice(0, 400)); }
   const data = await res.json();
-  let html = (data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content) || '';
+  const choice = data.choices && data.choices[0];
+  if (choice && choice.finish_reason && !['stop', 'end_turn'].includes(choice.finish_reason)) {
+    throw new Error('DeepSeek output incomplete: finish_reason=' + choice.finish_reason + '. Increase BRIEF_MAX_TOKENS or reduce prompt size.');
+  }
+  let html = (choice && choice.message && choice.message.content) || '';
   html = html.replace(/^\s*\x60\x60\x60[a-zA-Z]*\s*\n?/, '').replace(/\n?\x60\x60\x60\s*$/, '').trim();
   return html;
 }
 
 function stripTags(s) { return String(s || '').replace(/<[^>]+>/g, '').trim(); }
+
+function assertCompleteHtml(html, stage) {
+  const source = String(html || '').trim();
+  const failures = [];
+  if (source.length < 2000) failures.push('too short');
+  if (!/<\/body>\s*<\/html>\s*$/i.test(source)) failures.push('missing closing body/html');
+  if (/<\s*$/.test(source) || /<[^>]{0,80}$/.test(source)) failures.push('ends inside an HTML tag');
+  if ((source.match(/<article\b/gi) || []).length !== (source.match(/<\/article>/gi) || []).length) failures.push('unbalanced article tags');
+  if ((source.match(/<div\b/gi) || []).length !== (source.match(/<\/div>/gi) || []).length) failures.push('unbalanced div tags');
+  if (failures.length) throw new Error(stage + ' incomplete HTML: ' + failures.join(', '));
+}
 
 function compactText(s, max) {
   return stripHtml(String(s || '')).replace(/\s+/g, ' ').trim().slice(0, max);
@@ -914,8 +929,10 @@ async function main() {
       ? '\n\n=== HASIL AUDIT DRAFT SEBELUMNYA ===\n' + lastAudit + '\nTulis ulang dari awal. Jangan ulangi frasa atau struktur yang ditolak audit. Buka setiap bagian dengan fakta, entitas, keputusan, angka, atau tanggal yang spesifik.'
       : '';
     const draft = await callDeepSeek(promptText + repairNote, news);
+    assertCompleteHtml(draft, 'raw LeaderBrief draft');
     const draftMeta = extractMeta(draft);
     const dressed = normalizeAuditLanguage(addChrome(injectTemplate(draft, draftMeta)));
+    assertCompleteHtml(dressed, 'rendered LeaderBrief draft');
     try {
       auditLeaderBrief(dressed);
       const visualPath = await writeExecutiveDecisionMap(dressed, draftMeta);

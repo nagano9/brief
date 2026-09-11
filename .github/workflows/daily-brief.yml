@@ -40,7 +40,7 @@ jobs:
           SERPER_API_KEY: ${{ secrets.SERPER_API_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           BRIEF_MODEL: ${{ vars.BRIEF_MODEL || 'deepseek-v4-flash' }}
-          BRIEF_MAX_TOKENS: ${{ vars.BRIEF_MAX_TOKENS || '12000' }}
+          BRIEF_MAX_TOKENS: ${{ vars.BRIEF_MAX_TOKENS || '24000' }}
           OPENAI_IMAGE_MODEL: ${{ vars.OPENAI_IMAGE_MODEL || 'gpt-image-1' }}
           OPENAI_IMAGE_SIZE: ${{ vars.OPENAI_IMAGE_SIZE || '1536x1024' }}
           OPENAI_IMAGE_QUALITY: ${{ vars.OPENAI_IMAGE_QUALITY || 'high' }}
@@ -55,7 +55,7 @@ jobs:
           test -f "index.html"
           test -f "sitemap.xml"
           test -f "robots.txt"
-          TODAY="$today" node -e "const fs=require('fs'); const d=process.env.TODAY; const m=JSON.parse(fs.readFileSync('briefs/manifest.json','utf8')); if (!m[d] || m[d].file !== d + '.html') throw new Error('manifest missing today: ' + d); const home=fs.readFileSync('index.html','utf8'); if (!home.includes('./briefs/' + d + '.html')) throw new Error('homepage latest link is stale: ' + d); if (!home.includes('rel=\"canonical\" href=\"https://leaderbrief.id/\"')) throw new Error('homepage canonical missing'); const sitemap=fs.readFileSync('sitemap.xml','utf8'); if (!sitemap.includes('https://leaderbrief.id/briefs/' + d + '.html')) throw new Error('sitemap missing today: ' + d); const robots=fs.readFileSync('robots.txt','utf8'); if (!robots.includes('Sitemap: https://leaderbrief.id/sitemap.xml')) throw new Error('robots missing sitemap'); const article=fs.readFileSync('briefs/' + d + '.html','utf8'); if (!article.includes('rel=\"canonical\" href=\"https://leaderbrief.id/briefs/' + d + '.html\"')) throw new Error('article canonical missing: ' + d);"
+          TODAY="$today" node -e "const fs=require('fs'); const d=process.env.TODAY; const m=JSON.parse(fs.readFileSync('briefs/manifest.json','utf8')); if (!m[d] || m[d].file !== d + '.html') throw new Error('manifest missing today: ' + d); const home=fs.readFileSync('index.html','utf8'); if (!home.includes('./briefs/' + d + '.html')) throw new Error('homepage latest link is stale: ' + d); if (!home.includes('rel=\"canonical\" href=\"https://leaderbrief.id/\"')) throw new Error('homepage canonical missing'); const sitemap=fs.readFileSync('sitemap.xml','utf8'); if (!sitemap.includes('https://leaderbrief.id/briefs/' + d + '.html')) throw new Error('sitemap missing today: ' + d); const robots=fs.readFileSync('robots.txt','utf8'); if (!robots.includes('Sitemap: https://leaderbrief.id/sitemap.xml')) throw new Error('robots missing sitemap'); const article=fs.readFileSync('briefs/' + d + '.html','utf8'); if (!article.includes('rel=\"canonical\" href=\"https://leaderbrief.id/briefs/' + d + '.html\"')) throw new Error('article canonical missing: ' + d); if (!/<\\/body>\\s*<\\/html>\\s*$/i.test(article)) throw new Error('article incomplete: missing closing body/html'); if (/<\\s*$/.test(article) || /<[^>]{0,80}$/.test(article)) throw new Error('article incomplete: ends inside tag'); if ((article.match(/<article\\b/gi)||[]).length !== (article.match(/<\\/article>/gi)||[]).length) throw new Error('article incomplete: unbalanced article tags'); if ((article.match(/<div\\b/gi)||[]).length !== (article.match(/<\\/div>/gi)||[]).length) throw new Error('article incomplete: unbalanced div tags');"
 
       - name: Commit & push
         run: |

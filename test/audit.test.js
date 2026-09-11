@@ -43,3 +43,10 @@ test('audit rejects missing coverage basis', () => {
     /coverage basis incomplete/
   );
 });
+
+test('audit rejects truncated html', () => {
+  assert.throws(
+    () => auditLeaderBrief(valid.replace('</article>\n</body></html>', '<div class="<')),
+    /incomplete HTML/
+  );
+});
