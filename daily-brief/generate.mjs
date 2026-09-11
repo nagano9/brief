@@ -528,6 +528,7 @@ function writeSeoFiles() {
   const urls = [
     { loc: absUrl('/'), lastmod: latest },
     { loc: absUrl('/briefs/'), lastmod: latest },
+    { loc: absUrl('/workspace.html'), lastmod: latest },
     { loc: absUrl('/premium.html'), lastmod: latest },
     { loc: absUrl('/methodology.html'), lastmod: latest }
   ];
@@ -664,7 +665,7 @@ function writeHomePage() {
     '</style>',
     '</head>',
     '<body>',
-    '<header><div class="wrap"><div class="mast"><div><div class="brand">LeaderBrief<span>.id</span></div><div class="brand-sub">Policy · Capital · Execution</div></div><div class="status"><span>Latest brief</span><b id="status-date">' + (latest ? prettyDate(latest) : 'Menunggu edisi') + '</b><small>Board-ready daily intelligence</small></div></div><nav><div class="nav-main"><a href="./briefs/">Arsip</a><a href="./methodology.html">Metodologi</a><a href="./">Beranda</a></div><a class="premium" href="./premium.html">Premium</a></nav></div></header>',
+    '<header><div class="wrap"><div class="mast"><div><div class="brand">LeaderBrief<span>.id</span></div><div class="brand-sub">Policy · Capital · Execution</div></div><div class="status"><span>Latest brief</span><b id="status-date">' + (latest ? prettyDate(latest) : 'Menunggu edisi') + '</b><small>Board-ready daily intelligence</small></div></div><nav><div class="nav-main"><a href="./briefs/">Arsip</a><a href="./workspace.html">Workspace</a><a href="./methodology.html">Metodologi</a><a href="./">Beranda</a></div><a class="premium" href="./premium.html">Premium</a></nav></div></header>',
     '<main class="wrap">',
     '<section class="hero">',
     '<div>',
@@ -709,6 +710,57 @@ function writeHomePage() {
   writeFileSync(join(REPO, 'index.html'), html + '\n', 'utf8');
 }
 
+function writeWorkspacePage() {
+  const m = loadManifest();
+  const dates = Object.keys(m).sort().reverse();
+  const latest = dates[0] || '';
+  const latestEntry = latest ? m[latest] : null;
+  const latestHref = latestEntry ? './briefs/' + latestEntry.file : './briefs/';
+  const recent = dates.slice(0, 6).map(function (d) {
+    const e = m[d] || {};
+    if (!e.file) return '';
+    const title = stripHtml(e.title || e.headline || prettyDate(d)).replace(/^\S+,\s+\d+\s+\S+\s+\d+\s+[—-]\s+/, '');
+    return '<article class="row"><div><span>' + escapeHtml(prettyDate(d)) + '</span><h3><a href="./briefs/' + escapeHtml(e.file) + '">' + escapeHtml(title) + '</a></h3></div><p>' + escapeHtml(stripHtml(e.dek || '').slice(0, 180)) + '</p></article>';
+  }).join('\n');
+  const coverage = leaderCoverageMap().map(function (c) {
+    return '<tr><td><b>' + escapeHtml(c.name) + '</b><span>' + escapeHtml(c.owner) + '</span></td><td>' + escapeHtml(c.basis) + '</td><td>' + escapeHtml(c.decision) + '</td></tr>';
+  }).join('\n');
+  const html = [
+    '<!doctype html>',
+    '<html lang="id">',
+    '<head>',
+    '<meta charset="utf-8">',
+    '<meta name="viewport" content="width=device-width, initial-scale=1">',
+    '<title>Executive Decision Workspace | LeaderBrief.id</title>',
+    '<meta name="description" content="Workspace LeaderBrief.id untuk mengubah brief harian menjadi coverage map, board question, decision log, dan watchlist eksekutif.">',
+    GOOGLE_SITE_VERIFICATION,
+    '<link rel="canonical" href="' + absUrl('/workspace.html') + '">',
+    FAVICON_LINK,
+    '<style>',
+    ':root{--bg:#ffffff;--fg:#191919;--muted:#626866;--faint:#7f8783;--accent:#0f5c4d;--risk:#a33b2f;--line:#e0e5e2;--line2:#b9c3bf;--soft:#f8faf8;--serif:Newsreader,Georgia,serif;--sans:Inter,system-ui,sans-serif;--mono:ui-monospace,Consolas,monospace}',
+    '*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);line-height:1.7}.wrap{max-width:1080px;margin:0 auto;padding:32px 24px 80px}.brand{font-family:var(--serif);font-size:25px;font-weight:600;text-decoration:none;color:var(--fg)}header{border-bottom:1px solid var(--line2);padding-bottom:18px;margin-bottom:48px;display:flex;justify-content:space-between;gap:18px;align-items:baseline;flex-wrap:wrap}nav a{color:var(--muted);text-decoration:none;font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.1em;margin-left:18px}nav a:hover{color:var(--accent)}h1{font-family:var(--serif);font-size:52px;line-height:1.06;font-weight:600;letter-spacing:-.02em;margin:0 0 18px;max-width:780px}.dek{font-family:var(--serif);font-size:22px;line-height:1.48;color:var(--muted);max-width:760px;margin:0 0 30px}.btn{display:inline-block;background:var(--accent);color:#fff;text-decoration:none;padding:11px 17px;font-weight:600}.link{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--line2);margin-left:14px}.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;margin:42px 0}.cell{border-top:1px solid var(--line2);padding-top:15px}.cell h2{font-size:15px;margin:0 0 8px}.cell p{color:var(--muted);font-size:14px;margin:0}.k{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--faint);margin:44px 0 12px}table{width:100%;border-collapse:collapse;margin-bottom:34px}th{text-align:left;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);border-bottom:1px solid var(--line2);padding:10px 8px}td{border-bottom:1px solid var(--line);padding:14px 8px;vertical-align:top;font-size:14px}td span{display:block;color:var(--muted);margin-top:3px}.row{display:grid;grid-template-columns:minmax(230px,.45fr) minmax(0,1fr);gap:24px;border-top:1px solid var(--line);padding:16px 0}.row span{font-family:var(--mono);font-size:11px;color:var(--faint);text-transform:uppercase;letter-spacing:.08em}.row h3{font-family:var(--serif);font-size:21px;line-height:1.2;margin:4px 0}.row a{color:var(--fg);text-decoration:none}.row p{color:var(--muted);margin:0}.template{border-top:1px solid var(--line2);border-bottom:1px solid var(--line2);padding:18px 0;margin:0 0 34px}.template dl{display:grid;grid-template-columns:180px 1fr;gap:0;margin:0}.template dt,.template dd{border-top:1px solid var(--line);padding:10px 0;margin:0}.template dt{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--faint)}.risk{color:var(--risk)}@media(max-width:820px){.grid{grid-template-columns:1fr 1fr}.row{grid-template-columns:1fr}h1{font-size:38px}}@media(max-width:560px){.wrap{padding:24px 18px 64px}nav a{margin:0 14px 0 0}.grid{grid-template-columns:1fr}.template dl{grid-template-columns:1fr}h1{font-size:32px}.dek{font-size:19px}}',
+    '</style>',
+    '</head>',
+    '<body><div class="wrap">',
+    '<header><a class="brand" href="./">LeaderBrief.id</a><nav><a href="./briefs/">Arsip</a><a href="./methodology.html">Metodologi</a><a href="./premium.html">Premium</a></nav></header>',
+    '<main>',
+    '<h1>Executive Decision Workspace.</h1>',
+    '<p class="dek">Halaman ini mengubah brief harian menjadi alat kerja untuk CEO, CFO, COO, CRO, CIO, CHRO, board, dan pemilik mandat strategis. Gunakan untuk melihat coverage, menyiapkan pertanyaan dewan, dan merapikan keputusan yang perlu dibuat.</p>',
+    '<p><a class="btn" href="' + latestHref + '">Baca brief terbaru</a><a class="link" href="./briefs/">Lihat arsip</a></p>',
+    '<section class="grid"><div class="cell"><h2>Coverage Map</h2><p>Memaksa setiap isu punya basis pemilihan: finance, operations, risk, strategy, governance, people, policy, atau market.</p></div><div class="cell"><h2>Board Question Bank</h2><p>Mengubah sinyal menjadi pertanyaan keputusan yang layak masuk agenda Direksi atau komite.</p></div><div class="cell"><h2>Decision Log</h2><p>Merapikan owner, horizon, outcome, trade-off, dan trigger eskalasi agar brief tidak berhenti sebagai bacaan.</p></div><div class="cell"><h2>90-Day Watchlist</h2><p>Membaca isu dalam rentang 7, 30, dan 90 hari untuk memisahkan noise dari sinyal struktural.</p></div></section>',
+    '<div class="k">Coverage leader</div>',
+    '<table><thead><tr><th>Area</th><th>Basis point</th><th>Keputusan</th></tr></thead><tbody>' + coverage + '</tbody></table>',
+    '<div class="k">Decision log template</div>',
+    '<section class="template"><dl><dt>Issue</dt><dd>Sinyal paling material dari brief terbaru.</dd><dt>Decision Required</dt><dd>Apa yang harus diputuskan, bukan sekadar dipantau.</dd><dt>Owner</dt><dd>CEO, CFO, COO, CRO, CIO, CHRO, board, atau komite terkait.</dd><dt>Horizon</dt><dd>7 hari, 30 hari, atau 90 hari.</dd><dt>Outcome</dt><dd>Output yang diharapkan: memo, gate, approval, reprioritisasi, atau escalation note.</dd><dt class="risk">Escalation Trigger</dt><dd>Angka, tanggal, event, atau perubahan kebijakan yang membuat isu harus naik level.</dd></dl></section>',
+    '<div class="k">Edisi untuk dibaca ulang</div>',
+    recent,
+    '</main>',
+    '</div></body></html>',
+    ''
+  ].join('\n');
+  writeFileSync(join(REPO, 'workspace.html'), html, 'utf8');
+}
+
 function writePremiumPage() {
   const html = [
     '<!doctype html>',
@@ -731,7 +783,7 @@ function writePremiumPage() {
     '</style>',
     '</head>',
     '<body><div class="wrap">',
-    '<header><a class="brand" href="./">LeaderBrief.id</a><nav><a href="./briefs/">Arsip</a><a href="./methodology.html">Metodologi</a><a href="./">Beranda</a></nav></header>',
+    '<header><a class="brand" href="./">LeaderBrief.id</a><nav><a href="./briefs/">Arsip</a><a href="./workspace.html">Workspace</a><a href="./methodology.html">Metodologi</a><a href="./">Beranda</a></nav></header>',
     '<main>',
     '<h1>Board intelligence untuk keputusan yang tidak bisa menunggu.</h1>',
     '<p class="dek">LeaderBrief.id publik membangun kebiasaan baca harian. Paket premium mengubahnya menjadi memo eksekutif, sesi briefing, dan sponsor placement untuk audiens pemimpin Indonesia.</p>',
@@ -772,7 +824,7 @@ function writeMethodologyPage() {
     '</style>',
     '</head>',
     '<body><div class="wrap">',
-    '<header><a class="brand" href="./">LeaderBrief.id</a><nav><a href="./briefs/">Arsip</a><a href="./premium.html">Premium</a><a href="./">Beranda</a></nav></header>',
+    '<header><a class="brand" href="./">LeaderBrief.id</a><nav><a href="./briefs/">Arsip</a><a href="./workspace.html">Workspace</a><a href="./premium.html">Premium</a><a href="./">Beranda</a></nav></header>',
     '<main>',
     '<h1>Metodologi dan penggunaan AI.</h1>',
     '<p class="dek">LeaderBrief.id memakai AI sebagai alat kerja editorial, bukan sebagai otoritas final. Nilai produk berada pada pemilihan sumber, struktur keputusan, dan audit sebelum publikasi.</p>',
@@ -882,6 +934,7 @@ async function main() {
   updateManifest(dateStr, meta, file);
   writeIndex();
   writeHomePage();
+  writeWorkspacePage();
   writePremiumPage();
   writeMethodologyPage();
   writeSeoFiles();
