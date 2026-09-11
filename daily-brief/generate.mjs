@@ -423,11 +423,10 @@ async function writeExecutiveDecisionMap(html, meta) {
       writeFileSync(join(VISUALS, basename + '.png'), Buffer.from(b64, 'base64'));
       return '/assets/visuals/' + basename + '.png';
     } catch (e) {
-      console.error('visual OpenAI fallback: ' + e.message);
+      console.error('visual OpenAI failed; publishing without visual: ' + e.message);
     }
   }
-  writeFileSync(join(VISUALS, basename + '.svg'), renderDecisionMapSvg(html, meta), 'utf8');
-  return '/assets/visuals/' + basename + '.svg';
+  return '';
 }
 
 function injectExecutiveDecisionMap(html, visualPath) {
