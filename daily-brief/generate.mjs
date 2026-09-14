@@ -25,7 +25,7 @@ const DEEPSEEK = process.env.DEEPSEEK_API_KEY || '';
 const TAVILY = process.env.TAVILY_API_KEY || '';
 const SERPER = process.env.SERPER_API_KEY || '';
 const BRIEF_MODEL = process.env.BRIEF_MODEL || 'deepseek-v4-flash';
-const BRIEF_MAX_TOKENS = Number(process.env.BRIEF_MAX_TOKENS || 24000);
+const BRIEF_MAX_TOKENS = Number(process.env.BRIEF_MAX_TOKENS || 48000);
 const OPENAI = process.env.OPENAI_API_KEY || '';
 const OPENAI_IMAGE_MODEL = process.env.OPENAI_IMAGE_MODEL || 'gpt-image-1';
 const OPENAI_IMAGE_SIZE = process.env.OPENAI_IMAGE_SIZE || '1536x1024';
@@ -928,21 +928,21 @@ async function main() {
     const repairNote = lastAudit
       ? '\n\n=== HASIL AUDIT DRAFT SEBELUMNYA ===\n' + lastAudit + '\nTulis ulang dari awal. Jangan ulangi frasa atau struktur yang ditolak audit. Buka setiap bagian dengan fakta, entitas, keputusan, angka, atau tanggal yang spesifik.'
       : '';
-    const draft = await callDeepSeek(promptText + repairNote, news);
-    assertCompleteHtml(draft, 'raw LeaderBrief draft');
-    const draftMeta = extractMeta(draft);
-    const dressed = normalizeAuditLanguage(addChrome(injectTemplate(draft, draftMeta)));
-    assertCompleteHtml(dressed, 'rendered LeaderBrief draft');
     try {
+      const draft = await callDeepSeek(promptText + repairNote, news);
+      assertCompleteHtml(draft, 'raw LeaderBrief draft');
+      const draftMeta = extractMeta(draft);
+      const dressed = normalizeAuditLanguage(addChrome(injectTemplate(draft, draftMeta)));
+      assertCompleteHtml(dressed, 'rendered LeaderBrief draft');
       auditLeaderBrief(dressed);
       const visualPath = await writeExecutiveDecisionMap(dressed, draftMeta);
       html = injectVisualSeo(injectExecutiveDecisionMap(dressed, visualPath), visualPath);
       meta = extractMeta(html);
       break;
     } catch (e) {
-      if (!(e instanceof AuditError) || attempt === 3) throw e;
-      lastAudit = e.message;
-      console.error('audit rejected attempt ' + attempt + ': ' + e.message);
+      if (attempt === 3) throw e;
+      lastAudit = e instanceof Error ? e.message : String(e);
+      console.error('draft rejected attempt ' + attempt + ': ' + lastAudit);
     }
   }
   if (!html || html.length < 500) throw new Error('HTML output kosong/terlalu pendek');
