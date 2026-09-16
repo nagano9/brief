@@ -99,5 +99,13 @@
     "teaser": "Kunci bankability proyek surya bergeser dari besaran kapasitas tender ke struktur PPA, khususnya siapa yang menanggung curtailment dan risiko offtaker serta pada captured price berapa financial close masih rasional.",
     "headline": "Edisi ini menurunkan tender surya dari pertanyaan kapasitas menjadi pertanyaan bankability, dengan fokus pada alokasi risiko curtailment, kualitas kredit offtaker, dan captured price yang menentukan apakah financial close masih layak dikejar.",
     "file": "2026-09-15.html"
+  },
+  "2026-09-17": {
+    "date": "2026-09-17",
+    "title": "Kamis, 17 September 2026 - Operasi &amp; AI",
+    "dek": "Edisi ini memindahkan pertanyaan AI dari kemampuan model ke arsitektur kendali, sebab yang menentukan hasil operasi kuartal IV bukan kualitas keluaran model melainkan siapa yang berwenang memberi izin, mengaudit jejak, dan menghentikan agent pada titik proses yang kritikal.",
+    "teaser": "Kendali atas identitas, izin, dan jejak audit AI agent harus naik ke forum risiko sebelum gelombang deployment kuartal IV dimulai.",
+    "headline": "Edisi ini memindahkan pertanyaan AI dari kemampuan model ke arsitektur kendali, sebab yang menentukan hasil operasi kuartal IV bukan kualitas keluaran model melainkan siapa yang berwenang memberi izin, mengaudit jejak, dan menghentikan agent pada titik proses yang kritikal.",
+    "file": "2026-09-17.html"
   }
 }
