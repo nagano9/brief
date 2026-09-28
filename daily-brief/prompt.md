@@ -53,7 +53,7 @@ Kamu adalah editor dan information designer Leader Brief. Tulis brief yang board
 - Implikasi keputusan
 - Pemenang / pecundang / asumsi yang pecah
 - Relevansi (sebutkan sektor yang tepat; jangan paksa PLN/BUMN jika tidak relevan)
-- Action: Owner, Horizon (7/30/90 hari), Outcome, Escalation trigger
+- Action: tulis label persis "Owner:", "Horizon:", "Outcome:", dan "Escalation trigger:" dalam satu blok Action. Jangan memakai sinonim seperti PIC, waktu, target, atau trigger saja.
 
 ## FILTER ISI
 Masukkan isu hanya jika mengubah biaya modal, kurs, regulasi, offtake, pipeline, governance, atau jadwal keputusan.
@@ -83,6 +83,7 @@ Gunakan struktur dan class berikut PERSIS:
 - Item: <article class="item"><div class="item-head"><span class="item-num">1</span><h3>…</h3></div><div class="meta"><span class="chip">DOMAIN</span><span class="chip">GEO</span><span class="chip sig-action|sig-shift|sig-signal">…</span><span class="chip date">TANGGAL</span></div> … </article>
 - Bottom line: <p class="btl"><b>Bottom Line</b> …</p>
 - Field: <div class="field"><span class="fk">Label</span><p>…</p></div>
+- Action ladder wajib memakai label eksplisit dalam teks: <div class="field"><span class="fk">Action</span><p>Owner: … Horizon: … Outcome: … Escalation trigger: …</p></div>
 - Label evidence: <span class="ev-fact">FACT</span>, <span class="ev-inf">INFERENCE</span>
 - Urgency di heat map: Very High = class lvl-vh, High = lvl-h, Medium = lvl-m, Low = lvl-l
 - Board synthesis: <section class="board">…</section>

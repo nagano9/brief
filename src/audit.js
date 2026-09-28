@@ -75,7 +75,10 @@ export function auditLeaderBrief(html) {
     }
   }
 
-  if (!/\bOwner\s*:/i.test(text) || !/\bHorizon\s*:/i.test(text) || !/\bEscalation trigger\s*:/i.test(text)) {
+  const hasOwner = /\bOwner\s*:/i.test(text) || /<span[^>]*>\s*Owner\s*<\/span>/i.test(source) || /<dt[^>]*>\s*Owner\s*<\/dt>/i.test(source);
+  const hasHorizon = /\bHorizon\s*:/i.test(text) || /<span[^>]*>\s*Horizon\s*<\/span>/i.test(source) || /<dt[^>]*>\s*Horizon\s*<\/dt>/i.test(source);
+  const hasEscalation = /\bEscalation trigger\s*:/i.test(text) || /<span[^>]*>\s*Escalation trigger\s*<\/span>/i.test(source) || /<dt[^>]*>\s*Escalation trigger\s*<\/dt>/i.test(source);
+  if (!hasOwner || !hasHorizon || !hasEscalation) {
     failures.push('action ladder incomplete: include Owner, Horizon, and Escalation trigger');
   }
 
@@ -94,7 +97,7 @@ export function auditInstruction() {
     '- Jangan menebak jabatan dari konteks topik. Orang yang membahas Danantara tidak otomatis pejabat Danantara.',
     '- Jabatan seperti CEO, menteri, dirut, chairman, gubernur, ketua, atau kepala lembaga hanya boleh ditulis bila materi riset eksplisit menyebutkannya.',
     '- Purbaya Yudhi Sadewa adalah Menteri Keuangan. Jangan sebut sebagai CEO Danantara, Kepala Danantara, Kepala BP BUMN, atau pimpinan Danantara.',
-    '- Setiap Action harus punya Owner, Horizon, Outcome, dan Escalation trigger.',
+    '- Setiap Action harus punya label eksplisit: Owner:, Horizon:, Outcome:, dan Escalation trigger:. Jangan ganti label ini dengan sinonim.',
     '- Setiap edisi wajib punya blok Basis coverage: Coverage utama, Coverage sekunder, Basis pemilihan, Keputusan leader yang terdampak, dan Kenapa bukan coverage lain.',
     '- Jangan memakai pembuka generik seperti di tengah dinamika, dalam lanskap, di era, seiring dengan perkembangan, implikasinya jelas, atau ke depan.',
     '- Buka paragraf penting dengan fakta konkret: nama entitas, angka, tanggal, keputusan, atau perubahan yang bisa diverifikasi.',
