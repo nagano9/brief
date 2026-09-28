@@ -4,7 +4,12 @@ on:
   schedule:
     # 22:30 UTC hari Minggu-Kamis = 05:30 WIB hari Senin-Jumat
     - cron: '30 22 * * 0-4'
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      brief_date:
+        description: 'Opsional: tanggal backfill YYYY-MM-DD. Kosongkan untuk tanggal hari ini.'
+        required: false
+        type: string
 
 permissions:
   contents: write
@@ -44,12 +49,18 @@ jobs:
           OPENAI_IMAGE_MODEL: ${{ vars.OPENAI_IMAGE_MODEL || 'gpt-image-1' }}
           OPENAI_IMAGE_SIZE: ${{ vars.OPENAI_IMAGE_SIZE || '1536x1024' }}
           OPENAI_IMAGE_QUALITY: ${{ vars.OPENAI_IMAGE_QUALITY || 'high' }}
+          BRIEF_DATE: ${{ inputs.brief_date || '' }}
         run: cd daily-brief && node generate.mjs
 
       - name: Validate published files
+        env:
+          BACKFILL_DATE: ${{ inputs.brief_date || '' }}
         run: |
           set -euo pipefail
-          today="$(TZ=Asia/Jakarta date +%F)"
+          today="${BACKFILL_DATE:-}"
+          if [ -z "$today" ]; then
+            today="$(TZ=Asia/Jakarta date +%F)"
+          fi
           test -f "briefs/${today}.html"
           test -f "briefs/manifest.json"
           test -f "index.html"

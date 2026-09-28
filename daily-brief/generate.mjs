@@ -35,8 +35,13 @@ if (!DEEPSEEK) { console.error('DEEPSEEK_API_KEY belum diset.'); process.exit(1)
 
 function wibNow() { return new Date(Date.now() + 7 * 3600 * 1000); }
 const now = wibNow();
-const dateStr = now.toISOString().slice(0, 10);
-const pretty = now.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Asia/Jakarta' });
+const forcedDate = process.env.BRIEF_DATE || '';
+if (forcedDate && !/^\d{4}-\d{2}-\d{2}$/.test(forcedDate)) {
+  throw new Error('BRIEF_DATE harus berformat YYYY-MM-DD');
+}
+const dateStr = forcedDate || now.toISOString().slice(0, 10);
+const prettyBase = forcedDate ? new Date(forcedDate + 'T05:30:00+07:00') : now;
+const pretty = prettyBase.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Asia/Jakarta' });
 
 function escapeHtml(s) {
   return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
