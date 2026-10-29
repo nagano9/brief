@@ -1,0 +1,324 @@
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="teaser" content="Tetapkan matriks hak akses runtime untuk setiap AI agent di produksi dalam 30 hari, karena model frontier kini tercatat dipakai menembus sistem perusahaan nyata.">
+<title>Operasi &amp;amp; AI | LeaderBrief.id</title>
+<meta name="description" content="Edisi ini berhenti mengukur kecepatan rilis model dan mulai menetapkan siapa yang memegang hak akses runtime, sebab catatan riset keamanan siber sudah mendokume">
+<meta name="google-site-verification" content="D_rAihSMsnXvLIIEMHCEGqosuxUua9czU0NmXbOWrp8">
+<link rel="canonical" href="https://leaderbrief.id/briefs/2026-10-29.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Operasi &amp;amp; AI | LeaderBrief.id">
+<meta property="og:description" content="Edisi ini berhenti mengukur kecepatan rilis model dan mulai menetapkan siapa yang memegang hak akses runtime, sebab catatan riset keamanan siber sudah mendokume">
+<meta property="og:url" content="https://leaderbrief.id/briefs/2026-10-29.html">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-48x48.png" type="image/png" sizes="48x48">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#101510">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600;6..72,700&family=Inter:wght@400;500;600;700&display=swap');
+
+:root{
+  --bg:#ffffff;
+  --fg:#191919;
+  --muted:#6b6b6b;
+  --faint:#9a9a9a;
+  --accent:#1a8917;
+  --accent-soft:rgba(26,137,23,.07);
+  --line:#e8e8e8;
+  --line-strong:#d6d6d6;
+  --serif:"Newsreader",Georgia,"Times New Roman",serif;
+  --sans:"Inter",system-ui,-apple-system,sans-serif;
+  --mono:"SFMono-Regular",ui-monospace,"JetBrains Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#121212; --fg:#e6e6e6; --muted:#9a9a9a; --faint:#7a7a7a;
+    --accent:#3ddc3d; --accent-soft:rgba(61,220,61,.08);
+    --line:#2a2a2a; --line-strong:#3a3a3a;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#121212; --fg:#e6e6e6; --muted:#9a9a9a; --faint:#7a7a7a;
+  --accent:#3ddc3d; --accent-soft:rgba(61,220,61,.08);
+  --line:#2a2a2a; --line-strong:#3a3a3a;
+}
+
+*{box-sizing:border-box}
+img{max-width:100%;height:auto}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:16.5px;line-height:1.75;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding:40px 24px 96px}
+
+.masthead{border-bottom:1px solid var(--line-strong);padding-bottom:20px;margin-bottom:34px}
+.masthead-top{display:flex;align-items:flex-end;justify-content:space-between;gap:24px}
+.masthead-name{font-family:var(--serif);font-size:29px;font-weight:600;letter-spacing:-.01em;line-height:1.1}
+.masthead-name span{color:var(--accent)}
+.masthead-sub{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:7px}
+.masthead-date{text-align:right;font-size:13px;color:var(--muted)}
+.masthead-date b{display:block;color:var(--fg);font-size:14px;font-weight:600}
+
+.sec-kicker{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:46px 0 14px}
+
+h3{font-family:var(--serif);font-size:22px;font-weight:600;margin:28px 0 10px;line-height:1.3}
+
+.headline{margin:0 0 22px}
+.headline p{font-family:var(--serif);font-size:27px;line-height:1.32;font-weight:600;margin:0;color:var(--fg)}
+
+.lede{font-family:var(--serif);font-size:19px;line-height:1.68;color:var(--fg);margin:0 0 18px}
+
+.changes{list-style:none;padding:0;margin:0 0 14px}
+.changes li{padding:11px 0;border-top:1px solid var(--line)}
+.changes li:first-child{border-top:none}
+.changes b{color:var(--fg)}
+
+.table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:12px 0 20px}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th,td{padding:9px 12px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+th{font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+td{color:var(--fg)}
+td b,td strong{color:var(--fg);font-weight:600}
+
+.item{padding:34px 0;border-top:1px solid var(--line-strong)}
+.item:first-of-type{border-top:none;padding-top:6px}
+.item-head{display:flex;align-items:baseline;gap:14px}
+.item-num{font-family:var(--mono);font-size:15px;font-weight:600;color:var(--accent);flex:none}
+.item-head h3{font-size:23px;margin:0;font-weight:600;line-height:1.25}
+.meta{margin:10px 0 2px;font-size:13px;color:var(--faint);line-height:1.6}
+.chip{color:inherit}
+.chip.sig-action{color:var(--accent);font-weight:600}
+.chip.sig-shift{color:var(--muted);font-weight:600}
+.chip.sig-signal{color:var(--faint);font-weight:600}
+
+.btl{margin:16px 0 18px;font-size:16.5px;line-height:1.7;color:var(--fg)}
+.btl b{display:block;color:var(--accent);font-size:11.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;margin-bottom:4px}
+
+.field{margin:0 0 14px}
+.fk{display:block;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+.field p{margin:0;color:var(--fg)}
+.field p b,.field p strong{color:var(--fg);font-weight:600}
+
+.ev-fact{color:var(--accent);font-weight:600}
+.ev-inf{color:var(--muted);font-style:italic}
+.ev-unc{color:var(--muted)}
+.ev-rec{font-weight:600}
+
+.board{margin-top:4px}
+.board .sec-kicker{margin-top:26px}
+.board h3{font-size:19px}
+
+.foot{border-top:1px solid var(--line-strong);margin-top:52px;padding-top:18px}
+.foot .fk{color:var(--accent)}
+.foot p{font-size:13px;color:var(--muted);line-height:1.7}
+
+@media(max-width:640px){
+  .wrap{padding:20px 16px 56px}
+  .masthead-name{font-size:21px}
+  .masthead-date{font-size:13px}
+  .masthead-top{display:block}
+  .masthead-date{text-align:left;margin-top:12px}
+  .headline p{font-size:20px;line-height:1.35}
+  .lede{font-size:17px;line-height:1.6}
+  h3{font-size:19px}
+  .item-head{flex-wrap:wrap;row-gap:6px}
+  .item-head h3{font-size:19px}
+  .btl{font-size:15.5px}
+  .field p{font-size:15.5px}
+  table{font-size:12.5px}
+  th,td{padding:7px 8px}
+}
+/* --- layout 3 kolom: toc + konten + aside --- */
+.layout{display:grid;grid-template-columns:240px minmax(0,1fr) 260px;gap:40px;max-width:1400px;margin:0 auto;padding:0 28px;align-items:start}
+.toc{position:sticky;top:32px;padding-top:40px;max-height:calc(100vh - 64px);overflow-y:auto}
+.toc .k{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:12px}
+.toc a{display:block;font-size:13.5px;color:var(--muted);text-decoration:none;padding:5px 0;line-height:1.4}
+.toc a:hover{color:var(--accent)}
+.toc a.indent{padding-left:16px;font-size:12.5px;color:var(--faint);border-left:1px solid var(--line);margin-left:5px;padding-top:4px;padding-bottom:4px}
+.aside{position:sticky;top:32px;padding-top:40px}
+.aside .box{border-top:1px solid var(--line);padding-top:14px;margin-bottom:24px}
+.aside .k{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:8px}
+.aside p{font-size:13.5px;color:var(--muted);margin:0 0 8px;line-height:1.6}
+.aside a{color:var(--accent);text-decoration:none}
+.aside strong{color:var(--fg);font-weight:600}
+.aside ul{list-style:none;margin:0;padding:0}
+.aside li{font-size:13.5px;color:var(--muted);line-height:1.55;padding:7px 0;border-top:1px solid var(--line)}
+.aside li:first-child{border-top:0}
+.toc-mobile{display:none;border:1px solid var(--line);border-radius:8px;margin:0 0 24px;overflow:hidden}
+.toc-mobile summary{padding:14px 16px;font-size:14px;font-weight:600;color:var(--accent);cursor:pointer;list-style:none;user-select:none}
+.toc-mobile summary::-webkit-details-marker{display:none}
+.toc-mobile[open] summary{border-bottom:1px solid var(--line)}
+.toc-mobile a{display:block;padding:9px 16px;font-size:14px;color:var(--muted);text-decoration:none;border-bottom:1px solid var(--line)}
+.toc-mobile a:last-child{border-bottom:none}
+.toc-mobile a.indent{padding-left:28px;font-size:13px;color:var(--faint)}
+@media(max-width:1120px){.layout{grid-template-columns:1fr;padding:0}.toc,.aside{display:none}.toc-mobile{display:block}}
+.edition-switch{display:flex;align-items:center;gap:10px;flex-wrap:wrap;border-top:1px solid var(--line-strong);border-bottom:1px solid var(--line);padding:12px 0;margin:28px 0 10px;font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.08em}
+.edition-switch b{color:var(--fg);font-weight:600;margin-right:2px}
+.edition-switch a{color:var(--accent);text-decoration:none;border-bottom:1px solid transparent}
+.edition-switch a:hover,.edition-switch a:focus-visible{border-bottom-color:var(--accent)}
+.edition-switch span{color:var(--faint)}
+.lensa{font-size:12.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+.dek{font-family:var(--serif);font-size:22px;line-height:1.4;font-weight:500;margin:0 0 26px;color:var(--fg)}
+.decision-map{margin:0 0 28px;padding:0}
+.decision-map img{display:block;width:100%;border:1px solid var(--line);background:#fff;border-radius:4px}
+.decision-map figcaption{font-family:var(--mono);font-size:11px;letter-spacing:.04em;line-height:1.45;color:var(--faint);margin:8px 0 0}
+.blk-k{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin:0 0 10px}
+.seconds{border:1px solid var(--line);border-radius:8px;padding:18px 20px;margin:0 0 24px}
+.seconds ul{list-style:none;padding:0;margin:0 0 12px}
+.seconds li{padding:7px 0;border-top:1px solid var(--line);font-size:15px;line-height:1.5}
+.seconds li:first-child{border-top:none}
+.seconds .act{margin:0;font-size:15px}
+.coverage{border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:8px;padding:16px 18px;margin:0 0 24px;background:var(--card)}
+.coverage ul{list-style:none;padding:0;margin:0}
+.coverage li{padding:7px 0;border-top:1px solid var(--line);font-size:14.5px;line-height:1.55;color:var(--muted)}
+.coverage li:first-of-type{border-top:none}
+.coverage b{color:var(--fg)}
+.boardq{border-left:3px solid var(--accent);padding:2px 0 2px 18px;margin:0 0 24px}
+.boardq p{font-family:var(--serif);font-size:20px;line-height:1.4;font-weight:500;margin:0}
+.skip{margin:0 0 24px}
+.skip ul{list-style:none;padding:0;margin:0}
+.skip li{padding:5px 0;font-size:14.5px;color:var(--muted)}
+
+</style>
+</head>
+<body>
+<div class="layout">
+<aside class="toc"><div class="k">On this page</div><a href="#sec-1">Executive Pulse</a><a href="#sec-2">Three Things That Changed</a><a href="#sec-3">Watchlist</a><a href="#sec-4">Execution/AI Box</a></aside><details class="toc-mobile"><summary>Daftar isi</summary><a href="#sec-1">Executive Pulse</a><a href="#sec-2">Three Things That Changed</a><a href="#sec-3">Watchlist</a><a href="#sec-4">Execution/AI Box</a></details>
+<div class="wrap">
+<header class="masthead">
+<div class="masthead-top">
+<div>
+<div class="masthead-name">LeaderBrief<span>.id</span></div>
+<div class="masthead-sub">Policy · Capital · Execution</div>
+</div>
+<div class="masthead-date"><span>Edisi</span><b>Kamis, 29 Oktober 2026</b></div>
+</div>
+</header>
+
+<div class="lensa">Lensa hari ini: Operasi &amp; AI</div>
+
+<p class="dek">Edisi ini berhenti mengukur kecepatan rilis model dan mulai menetapkan siapa yang memegang hak akses runtime, sebab catatan riset keamanan siber sudah mendokumentasikan model frontier dipakai menembus sistem perusahaan nyata, sementara empat tapak PLTS yang disebut siap tender menuntut operating model O&amp;M ditutup sebelum tender dibuka.</p>
+
+<div class="coverage">
+<div class="blk-k">Basis coverage</div>
+<ul>
+<li><b>Coverage utama:</b> Operations &amp; Execution, dengan pemilik CEO, COO, CTO/CIO, dan transformation office.</li>
+<li><b>Coverage sekunder:</b> Risk &amp; Resilience, khusus pada kontrol runtime dan vendor dependency.</li>
+<li><b>Basis pemilihan:</b> papan peringkat model menempatkan GPT-6.1 Terra, yang dirilis 26 Oktober 2026, langsung di posisi kesepuluh; pada periode yang sama catatan riset Cloud Security Alliance mendokumentasikan model Muse Spark 1.1 dipakai menembus sistem perusahaan nyata. Dari sisi energi, Kementerian ESDM menyebut empat tapak siap tender dengan kapasitas yang sudah terinci, yaitu Cirata 1.250 MWp, Jatigede 636 MWp, Madura 605 MWp, dan Gilimanuk 300 MWp.</li>
+<li><b>Keputusan leader yang terdampak:</b> penetapan lapisan routing model, matriks hak akses runtime, dan kill switch oleh CTO/CIO dan COO dalam horizon 30 sampai 90 hari, serta gate komisioning aset yang harus selesai sebelum kontrak O&amp;M diteken.</li>
+<li><b>Kenapa bukan coverage lain:</b> angka suku bunga acuan di materi riset masih bertentangan, yaitu 5,25 persen pada siaran pers kenaikan 50 bps dan 5,75 persen pada kutipan pasar per 21 Oktober, sehingga belum layak menjadi lead sebelum rilis resmi dibaca. Energi dan governance sudah menjadi lead dalam sepekan terakhir, jadi keduanya hadir hari ini hanya sebagai konsekuensi eksekusi.</li>
+</ul>
+</div>
+
+<div class="seconds">
+<div class="blk-k">60 detik</div>
+<ul>
+<li>GPT-6.1 Terra masuk sepuluh besar peringkat model pada 26 Oktober 2026, tiga hari sebelum edisi ini, dan jeda itu lebih pendek daripada siklus persetujuan vendor di sebagian besar perusahaan.</li>
+<li>Catatan riset Cloud Security Alliance menyebut model Muse Spark 1.1 dipakai menyerang sistem perusahaan nyata, sehingga risiko berpindah dari mutu jawaban ke izin yang dipegang agent saat memanggil tools dan basis data.</li>
+<li>Tapak PLTS yang disebut siap tender berada di waduk dan pesisir, sehingga operating model O&amp;M, integrasi SCADA, dan gate komisioning harus diputuskan sebelum dokumen tender keluar, bukan sesudah COD.</li>
+</ul>
+<p class="act"><b>Aksi utama:</b> CTO/CIO menerbitkan register agent produksi dengan klasifikasi hak baca dan hak tulis dalam 30 hari, disertai satu prosedur penghentian agent yang diuji, bukan hanya ditulis.</p>
+</div>
+
+<div class="boardq">
+<div class="blk-k">Board Question</div>
+<p>Siapa di perusahaan ini yang berwenang menghentikan satu agent yang sedang berjalan di lingkungan produksi, dan apakah kewenangan itu sudah tercatat dalam delegasi kewenangan hari ini?</p>
+</div>
+
+<div class="skip">
+<div class="blk-k">Jangan diulang dari kemarin</div>
+<ul>
+<li>Angka suku bunga acuan masih berselisih antar sumber di materi riset, sehingga tidak ada asumsi hurdle rate atau biaya dana yang boleh diperbarui sebelum rilis resmi dibaca.</li>
+<li>Perpres sebagai gate tender PLTS sudah dibahas pada 27 Oktober dan belum berubah; hari ini yang dibuka hanya konsekuensi kapasitas eksekusinya.</li>
+<li>Tidak ada pergeseran material pada mandat dan kewenangan Danantara, karena tidak ada dokumen kewenangan baru yang terbit sejak 28 Oktober.</li>
+</ul>
+</div>
+
+<h2 class="sec-kicker" id="sec-1">Executive Pulse<span class="spacer"></span></h2>
+<p>Pada 26 Oktober 2026 papan peringkat model menempatkan GPT-6.1 Terra di posisi kesepuluh, tiga hari sebelum edisi ini. Yang berubah bukan mutu jawaban, melainkan jumlah permukaan yang harus dijaga: catatan riset Cloud Security Alliance mendokumentasikan model Muse Spark 1.1, yang dirilis 9 Juli 2026 melalui jalur berbayar Meta Superintelligence Labs, dipakai menembus sistem perusahaan nyata. Bagi korporasi Indonesia, konsekuensinya bukan larangan memakai model frontier, tetapi pemisahan tegas antara hak membaca dan hak mengeksekusi di dalam workflow. Pada waktu yang hampir sama, empat tapak PLTS yang disebut siap tender berada di waduk dan pesisir, sehingga integrasi kontrol dan operating model O&amp;M menjadi penentu jadwal komisioning. Dua urusan ini bertemu pada satu dokumen yang sama, yaitu matriks kewenangan operasional yang belum diperbarui sejak agent masuk ke proses kerja sehari-hari.</p>
+
+<h2 class="sec-kicker" id="sec-2">Three Things That Changed<span class="spacer"></span></h2>
+
+<article class="item" id="item-1">
+<div class="item-head"><span class="item-num">1</span><h3>Model frontier sudah tercatat dipakai menembus sistem produksi, sehingga kontrol berpindah ke hak akses</h3></div>
+<div class="meta"><span class="chip">OPERASI &amp; AI</span><span class="chip">GLOBAL</span><span class="chip sig-action">ACTION REQUIRED</span><span class="chip date">OKT 2026</span></div>
+<p class="btl"><b>Bottom Line</b> Catatan riset yang mendokumentasikan model frontier dipakai menyerang sistem perusahaan nyata memindahkan persoalan AI dari tata kelola model ke tata kelola izin, dan itu keputusan operating model yang harus diambil minggu ini, bukan keputusan pengadaan.</p>
+<div class="field"><span class="fk">Delta hari ini</span><p>Sejak 22 Oktober, sumbu pembicaraan bergeser dari kecepatan rilis ke bukti insiden. Catatan riset Cloud Security Alliance menyebut model Muse Spark 1.1 dari Meta Superintelligence Labs, yang dirilis 9 Juli 2026 sebagai model pertama lab tersebut melalui jalur berbayar, dipakai dalam insiden terhadap sistem perusahaan nyata, dan Meta mengonfirmasi rilis model tersebut.</p></div>
+<div class="field"><span class="fk">Fakta</span><p><span class="ev-fact">FACT</span> Materi riset mencatat dua keterangan yang saling menguatkan: tanggal rilis Muse Spark 1.1 pada 9 Juli 2026 dan catatan Cloud Security Alliance mengenai insiden terhadap sistem perusahaan. Keduanya belum memberi daftar korban maupun vektor serangan, sehingga tingkat pasti eksposur di Indonesia masih terbuka.</p></div>
+<div class="field"><span class="fk">Inferensi</span><p><span class="ev-inf">INFERENCE</span> Titik lemah bukan keluaran model, melainkan kredensial yang dipegang agent ketika memanggil tools, menyentuh basis data, atau menjalankan skrip. Perusahaan yang memberi satu kredensial layanan bertipe tulis kepada agent pilot akan menemukan bahwa batas antara pilot dan produksi sudah hilang tanpa pernah diputuskan secara formal.</p></div>
+<div class="field"><span class="fk">Implikasi keputusan</span><p>Pemisahan kewenangan baca dan tulis perlu ditetapkan sebagai kebijakan, bukan sebagai preferensi tim teknis. Setiap pemanggilan tools yang mengubah data menuntut persetujuan manusia dan jejak audit yang bisa direkonstruksi, sementara akses baca bebas diberikan dalam koridor yang tercatat.</p></div>
+<div class="field"><span class="fk">Pemenang, pecundang, asumsi yang pecah</span><p>Yang diuntungkan adalah penyedia identity, observability, dan tim security operation yang sejak awal menuntut log per agent. Yang tertekan adalah integrasi agent yang bergantung pada satu kredensial layanan super karena seluruh proses harus dipecah ulang. Asumsi yang pecah adalah keyakinan bahwa pilot internal aman karena tidak terekspos internet, sebab agent yang memanggil API eksternal sudah keluar dari kotak itu.</p></div>
+<div class="field"><span class="fk">Relevansi</span><p>Jasa keuangan, telekomunikasi, energi, dan BUMN dengan basis data pelanggan besar adalah sektor paling terpapar karena kombinasinya antara volume data dan kewajiban pelaporan insiden. Perusahaan dagang dan manufaktur menengah menghadapi risiko berbeda, yaitu integrasi agent ke ERP tanpa pemisahan hak akses per entitas legal.</p></div>
+<div class="field"><span class="fk">Action</span><p>Owner: CTO/CIO bersama CRO. Horizon: 30 hari untuk matriks hak akses, 90 hari untuk audit penuh seluruh agent produksi. Outcome: satu register agent dengan klasifikasi baca dan tulis, satu prosedur penghentian yang diuji di lingkungan non-produksi, dan satu laporan ke Risk Committee. Escalation trigger: setiap temuan agent dengan kredensial tulis tanpa persetujuan manusia naik ke Risk Committee dalam 72 jam, dan penghentian sementara dilakukan sebelum rapat berlangsung.</p></div>
+</article>
+
+<article class="item" id="item-2">
+<div class="item-head"><span class="item-num">2</span><h3>Rilis 26 Oktober memindahkan keputusan dari pemilihan model ke lapisan routing</h3></div>
+<div class="meta"><span class="chip">OPERASI &amp; AI</span><span class="chip">GLOBAL</span><span class="chip sig-shift">MATERIAL SHIFT</span><span class="chip date">26 OKT 2026</span></div>
+<p class="btl"><b>Bottom Line</b> Papan peringkat yang berubah dalam hitungan minggu membuat kontrak model jangka panjang dengan harga tetap menjadi posisi yang merupakan perusahaan, sehingga yang layak dibangun adalah lapisan routing dan evaluasi, bukan ketergantungan pada satu SDK.</p>
+<div class="field"><span class="fk">Delta hari ini</span><p>GPT-6.1 Terra dirilis 26 Oktober 2026 dan langsung masuk sepuluh besar peringkat model. Jeda antara rilis dan perubahan posisi itu jauh lebih pendek daripada siklus evaluasi vendor tahunan yang lazim dipakai perusahaan, sehingga daftar model yang dipakai pada kuartal ini berpotensi usang sebelum kontraknya diperbarui.</p></div>
+<div class="field"><span class="fk">Fakta</span><p><span class="ev-fact">FACT</span> Peringkat model menempatkan GPT-6.1 Terra, rilis 26 Oktober 2026, di posisi kesepuluh, sementara Muse Spark 1.1 menjadi model pertama Meta Superintelligence Labs yang ditawarkan lewat jalur berbayar sejak 9 Juli 2026. Peringkat bergerak cepat dan berasal dari pengukuran pihak ketiga, sehingga tetap perlu verifikasi terhadap tolok ukur internal.</p></div>
+<div class="field"><span class="fk">Inferensi</span><p><span class="ev-inf">INFERENCE</span> Biaya inferensi per unit tugas akan turun pada setiap generasi, sehingga harga per token yang dikunci untuk dua belas bulan dalam 7-30 hari cenderung di atas pasar pada paruh kedua kontrak. Perusahaan yang menaruh seluruh workflow pada satu vendor kehilangan optionality justru ketika optionality menjadi murah.</p></div>
+<div class="field"><span class="fk">Implikasi keputusan</span><p>Kontrak perlu memuat klausul portabilitas prompt, hak evaluasi berkala, dan mekanisme exit tanpa kehilangan riwayat. Anggaran evaluasi menjadi pos tetap, bukan biaya proyek sekali jalan, dan pemiliknya duduk di fungsi platform, bukan di tim inovasi.</p></div>
+<div class="field"><span class="fk">Pemenang, pecundang, asumsi yang pecah</span><p>Yang diuntungkan adalah tim yang membangun abstraksi model internal, karena bisa memindahkan beban antar penyedia tanpa menulis ulang produk. Yang dirugikan adalah integrasi yang menempel langsung pada satu SDK. Asumsi yang pecah adalah keyakinan bahwa satu model cukup untuk dua belas bulan dan bahwa harga per token akan monoton turun untuk semua penyedia.</p></div>
+<div class="field"><span class="fk">Relevansi</span><p>Relevan untuk perusahaan dengan workflow AI yang sudah menyentuh produksi, terutama layanan pelanggan, dokumen kredit, dan pemeliharaan aset. Untuk perusahaan yang masih pada tahap eksperimen internal, urutan prioritasnya berbeda, yaitu menyelesaikan register vendor sebelum menambah jumlah penyedia.</p></div>
+<div class="field"><span class="fk">Action</span><p>Owner: CTO/CIO bersama Head of Procurement dan Legal. Horizon: 45 hari. Outcome: kontrak yang memuat klausul portabilitas, jadwal evaluasi kuartalan, dan batas konsentrasi volume per penyedia. Escalation trigger: setiap perubahan harga atau penghentian model yang menyumbang lebih dari 20 persen volume inferensi naik ke Investment Committee sebagai revisi anggaran, bukan sebagai catatan teknis.</p></div>
+</article>
+
+<article class="item" id="item-3">
+<div class="item-head"><span class="item-num">3</span><h3>Tapak waduk memindahkan beban dari tender ke operating model O&amp;M</h3></div>
+<div class="meta"><span class="chip">OPERASI &amp; EKSEKUSI</span><span class="chip">INDONESIA</span><span class="chip sig-signal">EMERGING SIGNAL</span><span class="chip date">OKT 2026</span></div>
+<p class="btl"><b>Bottom Line</b> Empat tapak yang disebut siap tender punya kapasitas terinci dan sebagian berada di waduk, sehingga penentu jadwal bukan lagi tanggal tender, melainkan kesiapan operating model O&amp;M dan integrasi sistem kendali.</p>
+<div class="field"><span class="fk">Delta vs edisi sebelumnya</span><p>Perpres sebagai gate tender sudah dibahas pada 27 Oktober dan belum berubah. Yang baru hari ini adalah kapasitas per tapak yang bisa dipakai untuk menghitung beban komisioning, yaitu Cirata 1.250 MWp, Jatigede 636 MWp, Madura 605 MWp, dan Gilimanuk 300 MWp dalam daftar siap tender yang totalnya disebut 2,79 GWp.</p></div>
+<div class="field"><span class="fk">Fakta</span><p><span class="ev-fact">FACT</span> Kementerian ESDM menyebut daftar proyek PLTS siap tender mencakup Gilimanuk 300 MWp, Madura 605 MWp, Jatigede 636 MWp, dan Cirata 1.250 MWp, dan tender menunggu Perpres. Kementerian yang sama mencatat 22 proyek energi terbarukan beroperasi dengan total 435,57 MW dari 75 proyek, sebuah angka yang menunjukkan lebar jurang antara pipeline dan kapasitas komisioning.</p></div>
+<div class="field"><span class="fk">Inferensi</span><p><span class="ev-inf">INFERENCE</span> PLTS terapung menambah variabel yang tidak ada pada PLTS darat, yaitu muka air, pola operasi waduk, dan akses pemeliharaan. Kapasitas komisioning nasional yang baru ratusan megawatt tidak akan sanggup menyerap gelombang ribuan megawatt dalam satu siklus, sehingga penundaan berpindah dari perizinan ke eksekusi.</p></div>
+<div class="field"><span class="fk">Implikasi keputusan</span><p>Kontrak O&amp;M dan desain integrasi SCADA serta EMS harus ditetapkan sebelum financial close, bukan sesudah COD. Gate komisioning menjadi syarat pembayaran, dan kurva pembelajaran O&amp;M terapung perlu dibangun dari satu tapak percontohan sebelum diulang ke tapak berikutnya.</p></div>
+<div class="field"><span class="fk">Pemenang, pecundang, asumsi yang pecah</span><p>Yang diuntungkan adalah EPC dengan rekam jejak pembangkit terapung dan penyedia sistem kendali yang biasa bekerja di lingkungan waduk. Yang tertekan adalah penawaran yang memakai template PLTS darat. Asumsi yang pecah adalah keyakinan bahwa jadwal komisioning akan mengikuti jadwal tender secara otomatis.</p></div>
+<div class="field"><span class="fk">Relevansi</span><p>Relevan untuk IPP, PLN sebagai offtaker, EPC, penyedia sistem kendali, dan pemasok modul. Untuk sektor di luar kelistrikan, pelajarannya adalah bahwa kapasitas eksekusi, bukan kapasitas anggaran, yang menentukan tanggal operasi.</p></div>
+<div class="field"><span class="fk">Action</span><p>Owner: COO bersama Direktur Operasi Aset. Horizon: 60 hari sebelum dokumen tender keluar. Outcome: template O&amp;M terapung, daftar gate komisioning, dan satu perkiraan kebutuhan tenaga ahli per 500 MWp. Escalation trigger: bila tender dibuka sebelum template O&amp;M disetujui, persoalan naik ke Board sebagai keputusan urutan, bukan sebagai catatan teknis.</p></div>
+</article>
+
+<h2 class="sec-kicker" id="sec-3">Watchlist<span class="spacer"></span></h2>
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th>Pemicu</th><th>Yang dipantau</th><th>Tenggat</th><th>Kenapa penting</th></tr>
+</thead>
+<tbody>
+<tr><td>Rilis resmi BI-Rate</td><td>Konfirmasi angka 5,25 persen atau 5,75 persen beserta bauran giro wajib minimum</td><td>7 hari</td><td>Menahan seluruh asumsi biaya dana dan hurdle rate sampai angkanya tunggal</td></tr>
+<tr><td>Perpres PLTS</td><td>Tanggal terbit dan syarat kelayakan peserta</td><td>30 hari</td><td>Menentukan apakah beban berpindah ke komisioning tahun depan</td></tr>
+<tr><td>Uji kill switch agent</td><td>Hasil penghentian agent di lingkungan non-produksi</td><td>30 hari</td><td>Membuktikan bahwa kewenangan penghentian benar-benar ada, bukan hanya tertulis</td></tr>
+<tr><td>Kapasitas komisioning energi terbarukan</td><td>Realisasi dari 435,57 MW menuju pipeline ribuan megawatt</td><td>90 hari</td><td>Menjadi batas nyata pertumbuhan, terlepas dari jumlah kontrak yang diteken</td></tr>
+<tr><td>Klausul audit vendor model</td><td>Kesediaan penyedia memberi log dan hak evaluasi</td><td>45 hari</td><td>Menentukan biaya keluar bila model dihentikan atau harga berubah</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2 class="sec-kicker" id="sec-4">Execution/AI Box<span class="spacer"></span></h2>
+<div class="field"><span class="fk">Operating model shift</span><p>Pemilik workflow AI berpindah dari unit inovasi ke lini operasi pada saat agent mulai memanggil sistem inti, dan perpindahan itu menuntut satu fungsi platform dengan mandat atas routing, observability, serta biaya inferensi. Tanpa fungsi itu, setiap unit akan menegosiasi kontrak modelnya sendiri dan konsentrasi vendor terbentuk tanpa keputusan.</p></div>
+<div class="field"><span class="fk">AI workflow</span><p>Workflow yang hanya menyusun draf, workflow yang menyodorkan rekomendasi untuk diputuskan manusia, dan workflow yang menjalankan aksi pada sistem pencatatan memerlukan kontrol berbeda. Hanya kategori terakhir yang menuntut persetujuan ganda, pemisahan kredensial, dan jejak audit yang bisa direkonstruksi saat diperiksa auditor.</p></div>
+<div class="field"><span class="fk">Capability gap</span><p>Kemampuan mengevaluasi model dan kemampuan mengamankan agent jarang berada pada orang yang sama, sementara pasar tenaga kerja domestik belum memasok kombinasi itu dalam jumlah memadai. Kesenjangan paling mahal bukan pada penulisan prompt, melainkan pada perancangan batas kewenangan dan pengujian kegagalan.</p></div>
+<div class="field"><span class="fk">Vendor dependency</span><p>Konsentrasi pada satu penyedia frontier masih wajar untuk eksperimen, tetapi menjadi risiko struktur biaya ketika volume produksi membesar. Klausul portabilitas, hak audit, dan jadwal evaluasi kuartalan adalah tiga syarat minimum yang membuat posisi tawar tetap terjaga.</p></div>
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th>Fase</th><th>Kontrol</th><th>Owner</th><th>Bukti selesai</th></tr>
+</thead>
+<tbody>
+<tr><td>Hari 1 sampai 30</td><td>Register agent produksi dengan klasifikasi hak baca dan hak tulis, plus uji penghentian</td><td>CTO/CIO</td><td>Daftar agent dan catatan hasil uji penghentian</td></tr>
+<tr><td>Hari 31 sampai 60</td><td>Addendum kontrak model untuk portabilitas, audit log, dan evaluasi routing</td><td>Procurement dan Legal</td><td>Addendum diteken dan skor evaluasi pertama terbit</td></tr>
+<tr><td>Hari 61 sampai 90</td><td>Template O&amp;M terapung dan gate komisioning pada tapak PLTS prioritas</td><td>COO</td><td>Template disetujui dan gate tercantum dalam dokumen tender</td></tr>
+</tbody>
+</table>
+</div>
+
+<footer class="foot">
+<p>LeaderBrief.id, edisi Kamis 29 Oktober 2026. Disusun dari materi riset yang tersedia untuk runner. Angka yang berselisih antar sumber ditandai dan tidak dipakai sebagai dasar asumsi, termasuk suku bunga acuan dan besaran program energi.</p>
+</footer>
+</div>
+<aside class="aside"><div class="box"><div class="k">Edisi</div><p><strong>Kamis, 29 Oktober 2026</strong></p><p>Terbit setiap hari kerja pukul 05:30 WIB.</p></div><div class="box"><div class="k">Boardroom rail</div><ul><li><strong>Pertanyaan dewan:</strong> keputusan apa yang harus dipercepat, ditunda, atau diuji ulang?</li><li><strong>Aksi minggu ini:</strong> minta owner, horizon, dan trigger eskalasi untuk sinyal utama.</li><li><strong>Jendela risiko:</strong> pantau dampak 7-30 hari terhadap modal, izin, offtake, dan reputasi.</li></ul></div><div class="box"><div class="k">Audit</div><p>AI-assisted, source-verified, editorially accountable.</p><p>Setiap edisi melewati quality review internal sebelum publikasi.</p></div><div class="box"><div class="k">Navigasi</div><p><a href="../briefs/">Lihat arsip edisi</a></p><p><a href="../premium.html">Paket premium</a></p><p><a href="../methodology.html">Metodologi</a></p><p><a href="../">Beranda LeaderBrief.id</a></p></div></aside>
+</div>
+</body>
+</html>
