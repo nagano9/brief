@@ -363,5 +363,13 @@
     "teaser": "Menetapkan pemegang biaya menjalankan agent dan syarat keluar dari platform vendor, bukan memilih model dengan skor tertinggi.",
     "headline": "Edisi ini berhenti membandingkan peringkat model dan mulai menetapkan siapa yang memegang biaya menjalankan agent serta syarat keluar dari platform vendor, karena lapisan orkestrasi kini berpindah ke pihak ketiga tepat ketika kurs berada di Rp 18.140 per dolar AS.",
     "file": "2026-11-05.html"
+  },
+  "2026-11-06": {
+    "date": "2026-11-06",
+    "title": "Jumat, 6 November 2026 - Sintesis Minggu",
+    "dek": "Edisi ini berhenti menghitung pipeline dan mulai menghitung spread, karena lantai deposito 5,00 persen, defisit 2,85 persen PDB, dan inflasi 3,28 persen September membuat biaya dana menjadi variabel yang menentukan proyek mana yang layak dibiayai lebih dulu.",
+    "teaser": "Tetapkan hurdle rate dua lapis dan urutan financial close sebelum pipeline baru masuk, karena lantai deposito 5,00 persen dan defisit 2,85 persen PDB menutup jalur penyertaan.",
+    "headline": "Edisi ini berhenti menghitung pipeline dan mulai menghitung spread, karena lantai deposito 5,00 persen, defisit 2,85 persen PDB, dan inflasi 3,28 persen September membuat biaya dana menjadi variabel yang menentukan proyek mana yang layak dibiayai lebih dulu.",
+    "file": "2026-11-06.html"
   }
 }
