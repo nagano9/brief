@@ -483,5 +483,13 @@
     "teaser": "Tetapkan pemilik evaluasi dan ambang otorisasi agent sebelum 31 Desember 2026, karena rilis frontier bulanan membuat hak substitusi model lebih menentukan daripada kualitas model itu sendiri.",
     "headline": "Edisi ini berhenti menilai kecanggihan model dan menetapkan siapa yang memegang hak mengganti model di dalam workflow produksi, karena rilis frontier yang datang hampir setiap bulan membuat kontrak, evaluasi, dan ambang otorisasi agent menjadi persoalan operating model, bukan persoalan teknologi.",
     "file": "2026-11-26.html"
+  },
+  "2026-11-27": {
+    "date": "2026-11-27",
+    "title": "Jumat, 27 November 2026 - Sintesis Minggu",
+    "dek": "Edisi ini berhenti memakai pipeline sebagai angka dasar dan memakai penyebut yang sudah diaudit, yaitu arus kas operasi Rp563,1 triliun dari laporan konsolidasian perdana Danantara, lalu menguji klaim yang harus ditanggungnya pada tahun yang sama: dividen Rp160 triliun dan 41 proyek dalam RKAP 2027.",
+    "teaser": "Putuskan alokasi modal 2027 dengan penyebut yang sudah diaudit: arus kas operasi Rp563,1 triliun harus menanggung dividen Rp160 triliun sekaligus 41 proyek pada tahun yang sama.",
+    "headline": "Edisi ini berhenti memakai pipeline sebagai angka dasar dan memakai penyebut yang sudah diaudit, yaitu arus kas operasi Rp563,1 triliun dari laporan konsolidasian perdana Danantara, lalu menguji klaim yang harus ditanggungnya pada tahun yang sama: dividen Rp160 triliun dan 41 proyek dalam RKAP 2027.",
+    "file": "2026-11-27.html"
   }
 }
